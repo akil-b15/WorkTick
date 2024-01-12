@@ -155,6 +155,15 @@ class DashboardController extends Controller
             ->orderByRaw('DAYOFYEAR(birth_date)')
             ->limit(3)
             ->get();
+
+            //upcoming work aniversary
+            $aniversaries = Employee::where('deleted_at', '=', null)
+            ->whereYear('joining_date','<', now())
+            ->whereDay('joining_date', '>', now())
+            ->whereMonth('joining_date', '=', now())
+            ->orderByRaw('DAYOFYEAR(joining_date)')
+            ->limit(3)
+            ->get();
           
             return view('dashboard.dashboard', ([
                 'project_status' => $project_status,
@@ -177,6 +186,7 @@ class DashboardController extends Controller
                 'days' => $days,
 
                 'birthday' => $birthday,
+                'aniversaries' => $aniversaries
             ]));
 
         }

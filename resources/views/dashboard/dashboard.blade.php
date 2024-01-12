@@ -83,14 +83,30 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Upcoming Events</div>
-                <div>
-                    @if (count($birthday) > 0)
-                    Birthday: <br>                        
-                        @foreach($birthday as $upcoming)
-                                {{$upcoming->firstname}} {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
-                                <br>
-                        @endforeach
-                    @endif
+                <div class="row">
+                    
+                    <div class="col-lg-4">
+                        @if (count($birthday) > 0)
+                        Birthday: <br>                        
+                            @foreach($birthday as $upcoming)
+                                    {{$upcoming->firstname}} {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
+                                    <br>
+                            @endforeach
+                        @endif
+                    </div>
+
+                    <div class="col-lg-4">
+                        @if (count($aniversaries) > 0)
+                        Work Aniversary: <br>                        
+                            @foreach($aniversaries as $aniversary)
+                                    {{$aniversary->firstname}} {{ \Carbon\Carbon::parse($aniversary->joining_date)->format('jS M')}}
+                                    <br>
+                            @endforeach
+                        @endif
+                    </div>
+
+                    <div class="col-lg-4">calender widget</div>
+
                 </div>
             </div>
         </div>
