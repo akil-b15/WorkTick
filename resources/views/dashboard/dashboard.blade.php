@@ -65,6 +65,50 @@
 </div>
 
 <div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Quick Overview</div>
+                <div>Total number of employees {{ $count_employee }}</div>
+                <div>Number of open positions {{ $count_employee }}</div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="col-lg-8 col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Upcoming Events</div>
+                <div>
+                    Birthday: <br>                        
+                            @foreach($birthday as $upcoming)
+                                 {{$upcoming->firstname}} {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
+                                 <br>
+                            @endforeach
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="card-title">Announcements</div>
+                <div id="nai1"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="row">
     <div class="col-lg-8 col-md-12">
         <div class="card mb-4">
             <div class="card-body">

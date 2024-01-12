@@ -41,6 +41,8 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+             
+
             //echart Employee count by department
 
             $employees_data = Employee::where('employees.deleted_at', '=', null)
@@ -144,7 +146,14 @@ class DashboardController extends Controller
                 DB::raw("count(*) As count"),
             ])
             ->pluck('count', 'status_task');
-
+            
+            //upcoming birthday
+            $birthday = Employee::whereYear('birth_date','<', now())
+            ->whereDay('birth_date', '>', now())
+            ->whereMonth('birth_date', '=', now())
+            ->orderByRaw('DAYOFYEAR(birth_date)')
+            ->limit(3)
+            ->get();
           
             return view('dashboard.dashboard', ([
                 'project_status' => $project_status,
@@ -165,6 +174,8 @@ class DashboardController extends Controller
                 'deposits_data' => $deposits_data,
                 'expenses_data' => $expenses_data,
                 'days' => $days,
+
+                'birthday' => $birthday,
             ]));
 
         }
