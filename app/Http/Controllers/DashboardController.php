@@ -16,6 +16,7 @@ use App\Models\Award;
 use App\Models\Announcement;
 use App\Models\EmployeeProject;
 use App\Models\EmployeeTask;
+use App\Models\Policy;
 use Carbon\Carbon;
 use DB;
 
@@ -164,6 +165,20 @@ class DashboardController extends Controller
             ->orderByRaw('DAYOFYEAR(joining_date)')
             ->limit(3)
             ->get();
+                
+            //Announcements
+            $announcedate = \Carbon\Carbon::today()->subDays(7);
+
+            $announcements = Announcement::where('deleted_at', '=', null)
+            ->where('created_at','>=',$announcedate)
+            ->orderBy('created_at')
+            ->get();
+
+            //Policies
+            $policies = Policy::where('deleted_at', '=', null)
+            ->where('created_at','>=',$announcedate)
+            ->orderBy('created_at')
+            ->get();
           
             return view('dashboard.dashboard', ([
                 'project_status' => $project_status,
@@ -186,7 +201,9 @@ class DashboardController extends Controller
                 'days' => $days,
 
                 'birthday' => $birthday,
-                'aniversaries' => $aniversaries
+                'aniversaries' => $aniversaries,
+                'announcements' => $announcements,
+                'policies' => $policies,
             ]));
 
         }

@@ -69,8 +69,8 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Quick Overview</div>
-                <div>Total number of employees {{ $count_employee }}</div>
-                <div>Number of open positions {{ $count_employee }}</div>
+                <div>Total number of employees: {{ $count_employee }}</div>
+                <div>Number of open positions: nai</div>
 
             </div>
         </div>
@@ -84,25 +84,43 @@
             <div class="card-body">
                 <div class="card-title">Upcoming Events</div>
                 <div class="row">
-                    
+
                     <div class="col-lg-4">
-                        @if (count($birthday) > 0)
-                        Birthday: <br>                        
-                            @foreach($birthday as $upcoming)
-                                    {{$upcoming->firstname}} {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
-                                    <br>
-                            @endforeach
-                        @endif
+                        <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
+                            <div class="card-body text-center">
+                                
+                                <div class="content" style="margin-left: 10px">
+                                    @if (count($birthday) > 0)
+                                    <h4>Birthday: </h4> 
+                                        @foreach($birthday as $upcoming)
+                                        <p class="text-muted text-16 mt-2 mb-0">{{$upcoming->firstname}}</p>
+                                        <p class="text-primary text-24 line-height-1 mb-0">
+                                            {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
+                                        </p>
+                                        @endforeach
+                                    @endif                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-lg-4">
-                        @if (count($aniversaries) > 0)
-                        Work Aniversary: <br>                        
-                            @foreach($aniversaries as $aniversary)
-                                    {{$aniversary->firstname}} {{ \Carbon\Carbon::parse($aniversary->joining_date)->format('jS M')}}
-                                    <br>
-                            @endforeach
-                        @endif
+                        <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
+                            <div class="card-body text-center">
+                                
+                                <div class="content" style="margin-left: 10px; max-width:100%">
+                                    @if (count($aniversaries) > 0)
+                                    <h4>Work Aniversary: </h4> 
+                                        @foreach($aniversaries as $aniversary)
+                                        <p class="text-muted text-16 mt-2 mb-0">{{$aniversary->firstname}}</p>
+                                        <p class="text-primary text-24 line-height-1 mb-0">
+                                            {{ \Carbon\Carbon::parse($aniversary->joining_date)->format('jS M')}}
+                                        </p>
+                                        @endforeach
+                                    @endif                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-lg-4">calender widget</div>
@@ -116,7 +134,25 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Announcements</div>
-                <div id="nai1"></div>
+                <div>
+                    @if (count($announcements) > 0)
+                        <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
+                        @foreach($announcements as $announcement)
+                        <p class="text-primary text-16 line-height-1 mb-2">{{$announcement->title}}</p>
+                                
+                        @endforeach
+                    @endif
+                    
+                </div>
+                <div>
+                    @if (count($policies) > 0)
+                        <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
+                        @foreach($policies as $policy)
+                        <p class="text-primary text-16 line-height-1 mb-2">{{$policy->title}}</p>
+                                
+                        @endforeach
+                    @endif
+                </div>
             </div>
         </div>
     </div>
