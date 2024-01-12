@@ -84,12 +84,13 @@
             <div class="card-body">
                 <div class="card-title">Upcoming Events</div>
                 <div>
+                    @if (count($birthday) > 0)
                     Birthday: <br>                        
-                            @foreach($birthday as $upcoming)
-                                 {{$upcoming->firstname}} {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
-                                 <br>
-                            @endforeach
-                    
+                        @foreach($birthday as $upcoming)
+                                {{$upcoming->firstname}} {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
+                                <br>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

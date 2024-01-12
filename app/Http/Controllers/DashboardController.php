@@ -148,7 +148,8 @@ class DashboardController extends Controller
             ->pluck('count', 'status_task');
             
             //upcoming birthday
-            $birthday = Employee::whereYear('birth_date','<', now())
+            $birthday = Employee::where('deleted_at', '=', null)
+            ->whereYear('birth_date','<', now())
             ->whereDay('birth_date', '>', now())
             ->whereMonth('birth_date', '=', now())
             ->orderByRaw('DAYOFYEAR(birth_date)')
