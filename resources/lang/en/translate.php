@@ -531,5 +531,7 @@ return [
     'The_module_must_be_uploaded_as_zip_file'=> 'The module must be uploaded as zip file',
     'Time_Zone' => 'Time Zone',
     'Home' => 'Home',
-    'Leave_Request_And_Attendance' => 'Leave Request And Attendance',
+    'Leave_Request_And_Attendance' => 'Leave Request & Attendance',
+    'Training_and_development' => 'Training & Development',
+    'Reports_and_analytics' => 'Reports & Analytics',
 ];
