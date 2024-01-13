@@ -29,6 +29,7 @@ use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
+use PDO;
 
 class EmployeesController extends Controller
 {
@@ -45,42 +46,35 @@ class EmployeesController extends Controller
 
             $search = $request['search'] ?? "";
             $sort = $request['sort'];
+            $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+            ->where('deleted_at', '=', null)
+            ->where('leaving_date' , NULL);
 
             if ($search != ""){
-                
-                $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-                ->where('deleted_at', '=', null)
-                ->where('leaving_date' , NULL)
-                ->where('firstname' , 'LIKE', "%$search%")->orWhere('lastname' , 'LIKE', "%$search%")
-                ->get();
+                $employees
+                ->where(function($query) use ($search){
+                    $query
+                    ->orWhere('firstname' , 'LIKE', "%$search%")
+                    ->orWhere('lastname' , 'LIKE', "%$search%")
+                    ->orWhereHas('department' , fn($query) => $query->where('department', $search));
+                });
+            }
+            
+            if ($sort == 'department'){
+                $employees
+                ->orderBy('department_id', 'ASC');
+            }elseif(($sort == 'jobtitle')){
+                $employees
+                ->orderBy('designation_id', 'ASC');
+            }elseif(($sort == 'location')){
+                $employees
+                ->orderBy('country', 'ASC');
             }else{
-                if ($sort == 'department'){
-                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-                    ->where('deleted_at', '=', null)
-                    ->where('leaving_date' , NULL)
-                    ->orderBy('department_id', 'ASC')
-                    ->get();
-                }elseif(($sort == 'jobtitle')){
-                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-                    ->where('deleted_at', '=', null)
-                    ->where('leaving_date' , NULL)
-                    ->orderBy('designation_id', 'ASC')
-                    ->get();
-                }elseif(($sort == 'location')){
-                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-                    ->where('deleted_at', '=', null)
-                    ->where('leaving_date' , NULL)
-                    ->orderBy('country', 'ASC')
-                    ->get();
-                }else{
-                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-                    ->where('deleted_at', '=', null)
-                    ->where('leaving_date' , NULL)
-                    ->get();
-                }
-                
+                $employees;
             }
 
+            $employees = $employees->get();
+            // dd($employees->toSql());
             
             return view('employee.employee_list_card', compact('employees', 'search'));
         }
