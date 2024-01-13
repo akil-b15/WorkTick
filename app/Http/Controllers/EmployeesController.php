@@ -37,17 +37,29 @@ class EmployeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         $user_auth = auth()->user();
 		if ($user_auth->can('employee_view')){
 
-            $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-            ->where('deleted_at', '=', null)
-            ->where('leaving_date' , NULL)
-            ->get();
-            return view('employee.employee_list_card', compact('employees'));
+            $search = $request['search'] ?? "";
+
+            if ($search != ""){
+                $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+                ->where('deleted_at', '=', null)
+                ->where('leaving_date' , NULL)
+                ->where('firstname' , 'LIKE', "%$search%")->orWhere('lastname' , 'LIKE', "%$search%")
+                ->get();
+            }else{
+                $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+                ->where('deleted_at', '=', null)
+                ->where('leaving_date' , NULL)
+                ->get();
+            }
+
+            
+            return view('employee.employee_list_card', compact('employees', 'search'));
         }
         return abort('403', __('You are not authorized'));
 

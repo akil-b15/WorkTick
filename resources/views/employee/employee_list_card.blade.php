@@ -24,10 +24,11 @@
                 <div class="col-lg-6 text-left">
                     <form action="">
                         <div class="form-group">
-                          <label for="">Search</label>
-                          <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                          <small id="helpId" class="text-muted">Help text</small>
+                          
+                          <input type="text" name="search" id="" class="form-control" placeholder="search by name or department" aria-describedby="helpId" value="{{$search}}">
+                          
                         </div>
+                        <button class="btn btn-primary">Search</button>
                     </form>
                 </div>
                 <div class="col-lg-6 text-right">
