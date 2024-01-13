@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Announcement extends Model
 {
@@ -29,5 +30,10 @@ class Announcement extends Model
     public function department()
     {
         return $this->belongsTo('App\Models\Department');
+    }
+
+    public function noticeStatus(): MorphMany
+    {
+        return $this->morphMany(EmployeeNoticeStatus::class, 'noticeable');
     }
 }

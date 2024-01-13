@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\Company;
 use App\Models\Policy;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 
 class PoliciesController extends Controller
 {
@@ -172,4 +173,14 @@ class PoliciesController extends Controller
           }
           return abort('403', __('You are not authorized'));
        }
+
+    public function mark_seen(Policy $policy) : RedirectResponse {
+        $policy->noticeStatus()->updateOrCreate([
+            'user_id' => auth()->id(),
+        ],[
+            'status' => 1
+        ]);
+
+        return back();
+    }
 }

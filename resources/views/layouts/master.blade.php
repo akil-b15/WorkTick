@@ -23,6 +23,7 @@
     @endif
     <link id="worktick-theme" rel="stylesheet" href="{{ asset('assets\fonts\iconsmind\iconsmind.css') }}">
     <link id="worktick-theme" rel="stylesheet" href="{{ asset('assets/styles/css/themes/lite-purple.min.css') }}">
+    <link id="worktick-theme" rel="stylesheet" href="{{ asset('assets/styles/css/themes/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/styles/vendor/perfect-scrollbar.css') }}">
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/toastr.css')}}">
     <link rel="stylesheet" href="{{asset('assets/styles/vendor/vue-select.css')}}">

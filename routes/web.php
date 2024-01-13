@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\PoliciesController;
+use App\Http\Controllers\AnnouncementsController;
 
 
 /*
@@ -128,12 +130,14 @@ if (1) {
                 //------------------------------- policies --------------------------\\
                 //--------------------------------------------------------------------\\
                 Route::resource('policies', 'PoliciesController');
+                Route::get("policies/{policy}/seen", [PoliciesController::class, 'mark_seen'])->name('policies.seen');
                 Route::post("policies/delete/by_selection", "PoliciesController@delete_by_selection");
 
 
                 //------------------------------- announcements ---------------------\\
                 //--------------------------------------------------------------------\\
                 Route::resource('announcements', 'AnnouncementsController');
+                Route::get("announcements/{announcement}/seen", [AnnouncementsController::class, 'mark_seen'])->name('announcements.seen');
                 Route::post("announcements/delete/by_selection", "AnnouncementsController@delete_by_selection");
 
             });

@@ -9,6 +9,7 @@ use App\Models\Department;
 use App\Models\Employee;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Http\RedirectResponse;
 
 class AnnouncementsController extends Controller
 {
@@ -214,4 +215,14 @@ class AnnouncementsController extends Controller
          }
          return abort('403', __('You are not authorized'));
       }
+
+    public function mark_seen(Announcement $announcement) : RedirectResponse {
+        $announcement->noticeStatus()->updateOrCreate([
+            'user_id' => auth()->id(),
+        ],[
+            'status' => 1
+        ]);
+
+        return back();
+    }
 }

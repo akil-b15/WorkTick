@@ -85,46 +85,46 @@
                 <div class="card-title">Upcoming Events</div>
                 <div class="row">
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-6 col-12">
                         <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
-                            <div class="card-body text-center">
-                                
-                                <div class="content" style="margin-left: 10px">
-                                    @if (count($birthday) > 0)
-                                    <h4>Birthday: </h4> 
+                            <div class="card-body text-center">                                
+                                @if (count($birthday) > 0)
+                                    <div class="content" style="margin-left: 10px">
+                                        <h4>Birthday: </h4> 
                                         @foreach($birthday as $upcoming)
                                         <p class="text-muted text-16 mt-2 mb-0">{{$upcoming->firstname}}</p>
                                         <p class="text-primary text-24 line-height-1 mb-0">
                                             {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
                                         </p>
                                         @endforeach
-                                    @endif                                    
-                                </div>
+                                    </div>
+                                @else
+                                    <h4>No upcoming brithdays</h4> 
+                                @endif                                    
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-6 col-12">
                         <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
                             <div class="card-body text-center">
                                 
-                                <div class="content" style="margin-left: 10px; max-width:100%">
-                                    @if (count($aniversaries) > 0)
-                                    <h4>Work Aniversary: </h4> 
+                                @if (count($aniversaries) > 0)
+                                    <div class="content" style="margin-left: 10px; max-width:100%">
+                                        <h4>Work Aniversary: </h4> 
                                         @foreach($aniversaries as $aniversary)
                                         <p class="text-muted text-16 mt-2 mb-0">{{$aniversary->firstname}}</p>
                                         <p class="text-primary text-24 line-height-1 mb-0">
                                             {{ \Carbon\Carbon::parse($aniversary->joining_date)->format('jS M')}}
                                         </p>
                                         @endforeach
-                                    @endif                                    
-                                </div>
+                                    </div>
+                                @else
+                                    <h4>No upcoming aniversaries</h4> 
+                                @endif                                    
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-lg-4">calender widget</div>
-
                 </div>
             </div>
         </div>
@@ -134,25 +134,34 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Announcements</div>
-                <div>
-                    @if (count($announcements) > 0)
-                        <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
-                        @foreach($announcements as $announcement)
-                        <p class="text-primary text-16 line-height-1 mb-2">{{$announcement->title}}</p>
-                                
-                        @endforeach
-                    @endif
-                    
-                </div>
-                <div>
-                    @if (count($policies) > 0)
-                        <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
-                        @foreach($policies as $policy)
-                        <p class="text-primary text-16 line-height-1 mb-2">{{$policy->title}}</p>
-                                
-                        @endforeach
-                    @endif
-                </div>
+                @if (count($announcements) == 0 AND count($policies) == 0)
+                    <p class="text-muted text-24 mt-0 mb-2">No new announcements</p>
+                @else
+                    <div>
+                        @if (count($announcements) > 0)
+                            <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
+                            @foreach($announcements as $announcement)
+                                <div class="d-flex align-items-center mb-1">
+                                    <p class="m-0 me-1 text-primary text-16 line-height-1">{{$announcement->title}}</p>
+                                    <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('announcements.seen', $announcement->id) }}">Mark as seen</a>
+                                </div>
+                                    
+                            @endforeach
+                        @endif
+                        
+                    </div>
+                    <div>
+                        @if (count($policies) > 0)
+                            <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
+                            @foreach($policies as $policy)
+                                <div class="d-flex align-items-center mb-1">
+                                    <p class="m-0 me-1 text-primary text-16 line-height-1">{{$policy->title}}</p>
+                                    <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('policies.seen', $policy->id) }}">Mark as seen</a>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
     </div>

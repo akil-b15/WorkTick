@@ -143,7 +143,7 @@ class DashboardController extends Controller
             $task_status =  Task::where('deleted_at', '=', null)
             ->groupBy('status')
             ->get([
-                DB::raw(DB::raw("status As status_task")),
+                DB::raw("status As status_task"),
                 DB::raw("count(*) As count"),
             ])
             ->pluck('count', 'status_task');
@@ -170,12 +170,18 @@ class DashboardController extends Controller
             $announcedate = \Carbon\Carbon::today()->subDays(7);
 
             $announcements = Announcement::where('deleted_at', '=', null)
+            ->whereDoesntHave('noticeStatus', function($query){
+                $query->where('user_id', auth()->id());
+            })
             ->where('created_at','>=',$announcedate)
             ->orderBy('created_at')
             ->get();
 
             //Policies
             $policies = Policy::where('deleted_at', '=', null)
+            ->whereDoesntHave('noticeStatus', function($query){
+                $query->where('user_id', auth()->id());
+            })
             ->where('created_at','>=',$announcedate)
             ->orderBy('created_at')
             ->get();
