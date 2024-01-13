@@ -44,18 +44,41 @@ class EmployeesController extends Controller
 		if ($user_auth->can('employee_view')){
 
             $search = $request['search'] ?? "";
+            $sort = $request['sort'];
 
             if ($search != ""){
+                
                 $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
                 ->where('deleted_at', '=', null)
                 ->where('leaving_date' , NULL)
                 ->where('firstname' , 'LIKE', "%$search%")->orWhere('lastname' , 'LIKE', "%$search%")
                 ->get();
             }else{
-                $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
-                ->where('deleted_at', '=', null)
-                ->where('leaving_date' , NULL)
-                ->get();
+                if ($sort == 'department'){
+                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+                    ->where('deleted_at', '=', null)
+                    ->where('leaving_date' , NULL)
+                    ->orderBy('department_id', 'ASC')
+                    ->get();
+                }elseif(($sort == 'jobtitle')){
+                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+                    ->where('deleted_at', '=', null)
+                    ->where('leaving_date' , NULL)
+                    ->orderBy('designation_id', 'ASC')
+                    ->get();
+                }elseif(($sort == 'location')){
+                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+                    ->where('deleted_at', '=', null)
+                    ->where('leaving_date' , NULL)
+                    ->orderBy('country', 'ASC')
+                    ->get();
+                }else{
+                    $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+                    ->where('deleted_at', '=', null)
+                    ->where('leaving_date' , NULL)
+                    ->get();
+                }
+                
             }
 
             

@@ -18,27 +18,38 @@
 
 <div class="row" id="section_Employee_list">
     <div class="col-md-12">
-        <div class="card text-left">
+        <div class="card">
             
             <div class="row card-header bg-transparent">
-                <div class="col-lg-6 text-left">
-                    <form action="">
-                        <div class="form-group">
-                          
-                          <input type="text" name="search" id="" class="form-control" placeholder="search by name or department" aria-describedby="helpId" value="{{$search}}">
-                          
+                <div class="row col-lg-8 text-left inline">
+                    <div class="ml-4 mr-2">
+                        <form class="form-inline" action="">
+
+                            <div class="text-right form-group">                         
+                                <input type="text" name="search" id="" class="form-control" placeholder="search by name or department" aria-describedby="helpId" value="{{$search}}">
+                                <button class="btn btn-primary">Search</button>
+                            </div>
+                                
+                        </form>
+                    </div>
+                    {{-- Sort  --}}
+                    <div>
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By:
+                        </a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{{ URL::current()."?sort="}}">None</a>
+                        <a class="dropdown-item" href="{{ URL::current()."?sort=department"}}">Department</a>
+                        <a class="dropdown-item" href="{{ URL::current()."?sort=jobtitle"}}">Job title</a>
+                        <a class="dropdown-item" href="{{ URL::current()."?sort=location"}}">Location</a>
                         </div>
-                        <button class="btn btn-primary">Search</button>
-                    </form>
+                    </div>
                 </div>
-                <div class="col-lg-6 text-right">
+                {{-- Creata  --}}
+                <div class="col-lg-4 text-right">
                     @can('employee_add')
                     <a class="btn btn-primary btn-md m-1" href="{{route('employees.create')}}"><i
                             class="i-Add-User text-white mr-2"></i> {{ __('translate.Create') }}</a>
-                    @endcan
-                    @can('employee_delete')
-                    <a v-if="selectedIds.length > 0" class="btn btn-danger btn-md m-1" @click="delete_selected()"><i
-                            class="i-Close-Window text-white mr-2"></i> {{ __('translate.Delete') }}</a>
                     @endcan
                 </div>
             </div>
@@ -58,11 +69,12 @@
                             <div class="card-body">
                                 <div class="">
                                     <p class="text-primary text-24 mt-2 mb-0">{{$employee->firstname}} {{$employee->lastname}}</p>
-                                    <p class="text-muted line-height-1 mb-2">{{$employee->designation->designation}}</p>
-                                    <p class="text-muted line-height-1 mb-2">{{$employee->department->department}}</p>
-                                    <p class="text-muted line-height-1 mb-2">{{$employee->phone}}</p>
-                                    <p class="text-muted line-height-1 mb-2">{{$employee->email}}</p>
-                                    <p class="text-muted line-height-1 mb-2">{{$employee->joining_date}}</p>
+                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Job Title: </b>{{$employee->designation->designation}}</p>
+                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Department: </b> {{$employee->department->department}}</p>
+                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Joining Date: </b> {{$employee->joining_date}}</p>
+                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Phone: </b> {{$employee->phone}}</p>
+                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Email: </b> {{$employee->email}}</p>
+                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Country: </b> {{$employee->country}}</p>
                                 </div>
                             </div>
                         </div>
@@ -79,158 +91,3 @@
 
 @endsection
 
-@section('page-js')
-
-<script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
-<script src="{{asset('assets/js/datatables.script.js')}}"></script>
-
-
-<script>
-    var app = new Vue({
-        el: '#section_Employee_list',
-        data: {
-            SubmitProcessing:false,
-            selectedIds:[],
-        },
-       
-        methods: {
-
-            //---- Event selected_row
-            selected_row(id) {
-                //in here you can check what ever condition  before append to array.
-                if(this.selectedIds.includes(id)){
-                    const index = this.selectedIds.indexOf(id);
-                    this.selectedIds.splice(index, 1);
-                }else{
-                    this.selectedIds.push(id)
-                }
-            },
-
-            //--------------------------------- Remove Employee ---------------------------\\
-            Remove_Employee(id) {
-
-                swal({
-                    title: '{{ __('translate.Are_you_sure') }}',
-                    text: '{{ __('translate.You_wont_be_able_to_revert_this') }}',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#0CC27E',
-                    cancelButtonColor: '#FF586B',
-                    confirmButtonText: '{{ __('translate.Yes_delete_it') }}',
-                    cancelButtonText: '{{ __('translate.No_cancel') }}',
-                    confirmButtonClass: 'btn btn-primary mr-5',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false
-                }).then(function () {
-                        axios
-                            .delete("/employees/" + id)
-                            .then(() => {
-                                window.location.href = '/employees'; 
-                                toastr.success('{{ __('translate.Deleted_in_successfully') }}');
-
-                            })
-                            .catch(() => {
-                                toastr.error('{{ __('translate.There_was_something_wronge') }}');
-                            });
-                    });
-                },
-
-
-                
-            //--------------------------------- delete_selected ---------------------------\\
-            delete_selected() {
-                var self = this;
-                swal({
-                    title: '{{ __('translate.Are_you_sure') }}',
-                    text: '{{ __('translate.You_wont_be_able_to_revert_this') }}',
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#0CC27E',
-                    cancelButtonColor: '#FF586B',
-                    confirmButtonText: '{{ __('translate.Yes_delete_it') }}',
-                    cancelButtonText: '{{ __('translate.No_cancel') }}',
-                    confirmButtonClass: 'btn btn-primary mr-5',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false
-                }).then(function () {
-                        axios
-                        .post("/employees/delete/by_selection", {
-                            selectedIds: self.selectedIds
-                        })
-                            .then(() => {
-                                window.location.href = '/employees'; 
-                                toastr.success('{{ __('translate.Deleted_in_successfully') }}');
-
-                            })
-                            .catch(() => {
-                                toastr.error('{{ __('translate.There_was_something_wronge') }}');
-                            });
-                    });
-            },
-
-
-
-
-
-
-           
-        },
-        //-----------------------------Autoload function-------------------
-        created() {
-        }
-
-    })
-
-</script>
-
-<script type="text/javascript">
-    $(function () {
-      "use strict";
-
-        $('#employee_list_table').DataTable( {
-            "processing": true, // for show progress bar
-            select: {
-                style: 'multi',
-                selector: '.select-checkbox',
-                items: 'row',
-            },
-            responsive: {
-                details: {
-                    type: 'column',
-                    target: 0
-                }
-            },
-            columnDefs: [{
-                targets: 0,
-                    className: 'control'
-                },
-                {
-                    targets: 1,
-                    className: 'select-checkbox'
-                },
-                {
-                    targets: [0, 1],
-                    orderable: false
-                }
-            ],
-        
-            dom: "<'row'<'col-sm-12 col-md-7'lB><'col-sm-12 col-md-5 p-0'f>>rtip",
-            oLanguage:
-                { 
-                sLengthMenu: "_MENU_", 
-                sSearch: '',
-                sSearchPlaceholder: "Search..."
-            },
-            buttons: [
-                {
-                    extend: 'collection',
-                    text: 'EXPORT',
-                    buttons: [
-                        'csv','excel', 'pdf', 'print'
-                    ]
-                }]
-        });
-
-    });
-</script>
-@endsection
