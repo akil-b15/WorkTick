@@ -69,8 +69,6 @@ class EmployeesController extends Controller
             }elseif(($sort == 'location')){
                 $employees
                 ->orderBy('country', 'ASC');
-            }else{
-                $employees;
             }
 
             $employees = $employees->get();
