@@ -80,9 +80,9 @@ class PoliciesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Policy $policy)
     {
-        //
+        return view('core_company.policy.policy', compact('policy'));
     }
 
     /**

@@ -115,9 +115,9 @@ class AnnouncementsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Announcement $announcement)
     {
-        //
+        return view('core_company.announcement.announcement', compact('announcement'));
     }
 
     /**

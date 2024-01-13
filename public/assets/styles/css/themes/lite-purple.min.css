@@ -33472,7 +33472,7 @@ blockquote {
 .sidebar-collapse{
   text-align: left;
   font-size:15px;
-  padding:10px 0 0 0;
+  padding:10px 0 10px 0;
   border : none !important;
 }
 

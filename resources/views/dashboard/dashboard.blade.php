@@ -155,7 +155,7 @@
                             <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
                             @foreach($announcements as $announcement)
                                 <div class="d-flex align-items-center mb-1">
-                                    <p class="m-0 me-1 text-primary text-16 line-height-1">{{$announcement->title}}</p>
+                                    <a href="{{ route('announcements.show', $announcement->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$announcement->title}}</p></a>
                                     <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('announcements.seen', $announcement->id) }}">Mark as seen</a>
                                 </div>
                                     
@@ -168,7 +168,7 @@
                             <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
                             @foreach($policies as $policy)
                                 <div class="d-flex align-items-center mb-1">
-                                    <p class="m-0 me-1 text-primary text-16 line-height-1">{{$policy->title}}</p>
+                                    <a href="{{ route('policies.show', $policy->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$policy->title}}</p></a>
                                     <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('policies.seen', $policy->id) }}">Mark as seen</a>
                                 </div>
                             @endforeach
