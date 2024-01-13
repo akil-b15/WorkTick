@@ -47,7 +47,7 @@ class EmployeesController extends Controller
             ->where('deleted_at', '=', null)
             ->where('leaving_date' , NULL)
             ->get();
-            return view('employee.employee_list', compact('employees'));
+            return view('employee.employee_list_card', compact('employees'));
         }
         return abort('403', __('You are not authorized'));
 
