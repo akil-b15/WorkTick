@@ -20,7 +20,7 @@
         </a>
     </div>
 
-    <div class="col-lg-3 col-md-6 col-sm-6">
+    {{-- <div class="col-lg-3 col-md-6 col-sm-6">
         <a href="/clients">
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center">
@@ -32,9 +32,9 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> --}}
 
-    <div class="col-lg-3 col-md-6 col-sm-6">
+    {{-- <div class="col-lg-3 col-md-6 col-sm-6">
         <a href="/projects">
             <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                 <div class="card-body text-center">
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </a>
-    </div>
+    </div> --}}
 
     <div class="col-lg-3 col-md-6 col-sm-6">
         <a href="/tasks">
@@ -61,22 +61,35 @@
             </div>
         </a>
     </div>
+    
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <a href="$">
+            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                <div class="card-body text-center">
+                    <i class="i-Check"></i>
+                    <div class="content">
+                        <p class="text-muted text-nowrap mb-0">{{ __('translate.Pending_Approvals') }}</p>
+                        <p class="text-primary text-24 line-height-1 mb-2">{{ $count_pending_approvals }}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
 
 </div>
 
-<div class="row">
+{{-- <div class="row">
     <div class="col-lg-12 col-md-12">
         <div class="card mb-4">
             <div class="card-body">
                 <div class="card-title">Quick Overview</div>
-                <div>Total number of employees: {{ $count_employee }}</div>
                 <div>Number of open positions: nai</div>
 
             </div>
         </div>
     </div>
 
-</div>
+</div> --}}
 
 <div class="row">
     <div class="col-lg-8 col-md-12">
@@ -92,10 +105,10 @@
                                     <div class="content" style="margin-left: 10px">
                                         <h4>Birthday: </h4> 
                                         @foreach($birthday as $upcoming)
-                                        <p class="text-muted text-16 mt-2 mb-0">{{$upcoming->firstname}}</p>
-                                        <p class="text-primary text-24 line-height-1 mb-0">
-                                            {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
-                                        </p>
+                                            <p class="text-muted text-16 mt-2 mb-0">{{$upcoming->firstname}}</p>
+                                            <p class="text-primary text-24 line-height-1 mb-0">
+                                                {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
+                                            </p>
                                         @endforeach
                                     </div>
                                 @else
@@ -166,11 +179,16 @@
         </div>
     </div>
 
-
-
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div id='calendar'></div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row">
+<div class="row mt-5">
     <div class="col-lg-8 col-md-12">
         <div class="card mb-4">
             <div class="card-body">
@@ -277,6 +295,18 @@
 <script src="{{ asset('assets/js/vendor/datatables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatables.script.js') }}"></script>
 <script>
+    // Full calender
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          events: {!! json_encode($events) !!},
+          height: 650,
+          aspectRatio: 1,
+        });
+        calendar.render();
+    });
+
     // Chart Employee count by department
     let echartElemBar = document.getElementById('echartBar');
     if (echartElemBar) {

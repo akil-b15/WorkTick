@@ -534,4 +534,5 @@ return [
     'Leave_Request_And_Attendance' => 'Leave Request & Attendance',
     'Training_and_development' => 'Training & Development',
     'Reports_and_analytics' => 'Reports & Analytics',
+    'Pending_Approvals' => 'Pending Approvals',
 ];

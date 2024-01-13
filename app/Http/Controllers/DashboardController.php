@@ -149,21 +149,19 @@ class DashboardController extends Controller
             ->pluck('count', 'status_task');
             
             //upcoming birthday
+            $start_day = now();
+            $end_day = now()->addDays(30);
             $birthday = Employee::where('deleted_at', '=', null)
-            ->whereYear('birth_date','<', now())
-            ->whereDay('birth_date', '>', now())
-            ->whereMonth('birth_date', '=', now())
+            ->whereDate('birth_date', '>=', $start_day)
+            ->whereDate('birth_date','<=', $end_day)
             ->orderByRaw('DAYOFYEAR(birth_date)')
-            ->limit(3)
             ->get();
 
             //upcoming work aniversary
             $aniversaries = Employee::where('deleted_at', '=', null)
-            ->whereYear('joining_date','<', now())
-            ->whereDay('joining_date', '>', now())
-            ->whereMonth('joining_date', '=', now())
+            ->whereDate('joining_date', '>=', $start_day)
+            ->whereDate('joining_date', '<=', $end_day)
             ->orderByRaw('DAYOFYEAR(joining_date)')
-            ->limit(3)
             ->get();
                 
             //Announcements
@@ -185,7 +183,26 @@ class DashboardController extends Controller
             ->where('created_at','>=',$announcedate)
             ->orderBy('created_at')
             ->get();
-          
+
+            $count_pending_approvals = 0;
+
+            $events = [];
+            foreach($birthday as $data){
+                $events[] = [
+                    'title' => 'Birthday ' . $data->username,
+                    'start' => $data->birth_date,
+                    'color' => '#5cf6c4'
+                ];
+            }
+
+            foreach($aniversaries as $aniversary){
+                $events[] = [
+                    'title' => 'Aniversary ' . $aniversary->username,
+                    'start' => $aniversary->joining_date,
+                    'color' => '#5cc4f6',
+                ];
+            }
+
             return view('dashboard.dashboard', ([
                 'project_status' => $project_status,
                 'task_status' => $task_status,
@@ -210,6 +227,8 @@ class DashboardController extends Controller
                 'aniversaries' => $aniversaries,
                 'announcements' => $announcements,
                 'policies' => $policies,
+                'count_pending_approvals' => $count_pending_approvals,
+                'events' => $events,
             ]));
 
         }
