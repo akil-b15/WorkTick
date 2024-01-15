@@ -77,6 +77,10 @@
                                     <p class="text-muted text-16 line-height-1 mb-2"><b>Country: </b> {{$employee->country}}</p>
                                 </div>
                             </div>
+                            <div>
+                                <button class="btn btn-primary">Edit</button>
+                                <button class="btn btn-danger">Delete</button>
+                            </div>
                         </div>
                     
                 </div>                                      
