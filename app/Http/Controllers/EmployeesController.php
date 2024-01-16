@@ -71,7 +71,7 @@ class EmployeesController extends Controller
                 ->orderBy('country', 'ASC');
             }
 
-            $employees = $employees->get();
+            $employees = $employees->simplePaginate(20);
             // dd($employees->toSql());
             
             return view('employee.employee_list_card', compact('employees', 'search'));

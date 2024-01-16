@@ -105,9 +105,12 @@
                     
                 </div>                                      
                 @endforeach
-                    
-            </div>  
-                    
+
+            </div>
+            
+            <div class="card-body">
+                {{ $employees->links() }}
+            </div>           
                 
         </div>
     </div>
