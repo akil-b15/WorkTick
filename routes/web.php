@@ -386,6 +386,17 @@ if (1) {
                 Route::post("delete/by_selection", "FaqController@delete_by_selection");
             });
 
+            //------------------------------- Contact --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('contact')->group(function () {
+                Route::get('show', 'ContactController@index')->name('faqs.contact');
+                Route::POST('create', 'ContactController@store');
+                Route::put('update/{id}', 'ContactController@update');
+                Route::delete('delete/{id}', 'ContactController@destroy');
+                Route::post("delete/by_selection", "ContactController@delete_by_selection");
+            });
+
             //------------------------------- Profile --------------------------\\
             //----------------------------------------------------------------\\
             Route::put('updateProfile/{id}', 'ProfileController@updateProfile');

@@ -1018,8 +1018,8 @@
                                 <ul style="padding:0">
                                     @can('employee_add')
                                         <li class="nav-item sidebar-collapse">
-                                            <a class="{{ Route::currentRouteName() == 'employees.create' ? 'open' : '' }}"
-                                                href="{{ route('employees.create') }}">
+                                            <a class="{{ Route::currentRouteName() == 'faqs.contact' ? 'open' : '' }}"
+                                                href="{{ route('faqs.contact') }}">
                                                 <i class="nav-icon sidebar-icon i-Add-User"></i>
                                                 <span class="item-name">{{ __('translate.Contact') }}</span>
                                             </a>

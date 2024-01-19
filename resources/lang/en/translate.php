@@ -545,5 +545,8 @@ return [
     'Answers' => 'Answers',
     'Answer' => 'Answer',
     'Enter_answer' => 'Enter answer',
+    'Contact_Name' => 'Contact Name',
+    'Contact_Email' => 'Contact Email',
+    'Contact_Phone_No' => 'Contact Phone No',
 
 ];
