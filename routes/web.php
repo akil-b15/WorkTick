@@ -375,6 +375,17 @@ if (1) {
 
             });
 
+            //------------------------------- FAQS --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('faqs')->group(function () {
+                Route::get('all_faqs', 'FaqController@index')->name('faqs.index');
+                Route::POST('create', 'FaqController@store');
+                Route::put('update/{id}', 'FaqController@update');
+                Route::delete('delete/{id}', 'FaqController@destroy');
+                Route::post("delete/by_selection", "FaqController@delete_by_selection");
+            });
+
             //------------------------------- Profile --------------------------\\
             //----------------------------------------------------------------\\
             Route::put('updateProfile/{id}', 'ProfileController@updateProfile');

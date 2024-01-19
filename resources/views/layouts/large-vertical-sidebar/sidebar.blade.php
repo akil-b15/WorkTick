@@ -990,6 +990,58 @@
                     <div class="triangle"></div>
                 </li>
             @endif
+
+            @if (auth()->user()->can('employee_view') ||
+                    auth()->user()->can('employee_add'))
+                <li class="nav-item {{ request()->is('employees') || request()->is('employees/*') ? 'active' : '' }}">
+                    <div class="accordion" id="accordionExample">
+                        <div>
+                            <div id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button style="border:none;background-color:white"
+                                        class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                        data-target="#employees" aria-expanded="false" aria-controls="collapseTwo">
+                                        <a class="nav-item-hold row" href="#">
+                                            <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
+                                            <span class="col-5 nav-text"
+                                                style="font-size:12px;">{{ __('translate.Help_and_Support') }}</span>
+                                            <i class="col-2 dd-arrow i-Arrow-Down"
+                                                style="
+                                            font-size: 15px;"></i>
+                                        </a>
+                                        <div class="triangle"></div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="employees" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <ul style="padding:0">
+                                    @can('employee_add')
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ Route::currentRouteName() == 'employees.create' ? 'open' : '' }}"
+                                                href="{{ route('employees.create') }}">
+                                                <i class="nav-icon sidebar-icon i-Add-User"></i>
+                                                <span class="item-name">{{ __('translate.Contact') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('employee_view')
+                                        <li class="nav-item sidebar-collapse">
+                                            <a href="{{ route('faqs.index') }}"
+                                                class="{{ Route::currentRouteName() == 'faqs.index' ? 'open' : '' }}">
+                                                <i class="nav-icon sidebar-icon i-Business-Mens"></i>
+                                                <span class="item-name">{{ __('translate.FAQ') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="triangle"></div>
+                </li>
+            @endif
         </ul>
     </div>
 

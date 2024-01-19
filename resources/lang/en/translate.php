@@ -441,6 +441,7 @@ return [
     'Request_leave' => 'Request leave',
     'Request_Leave' => 'Request leave',
     'half_day' => 'half day',
+    'Help_and_Support' => 'Help and Support',
     'Company_Adress' => 'Company adress',
     'Create_Permissions' => 'Create permissions',
     'Announcement' => 'Announcement',
@@ -535,4 +536,14 @@ return [
     'Training_and_development' => 'Training & Development',
     'Reports_and_analytics' => 'Reports & Analytics',
     'Pending_Approvals' => 'Pending Approvals',
+    'Contact' => 'Contact',
+    'FAQ' => 'FAQ',
+    'Frequently_Asked_Questions' => 'Frequintly Asked Questions',
+    'Questions' => 'Questions',
+    'Question' => 'Question',
+    'Enter_question' => 'Enter question',
+    'Answers' => 'Answers',
+    'Answer' => 'Answer',
+    'Enter_answer' => 'Enter answer',
+
 ];
