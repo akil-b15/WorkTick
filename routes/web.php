@@ -397,6 +397,16 @@ if (1) {
                 Route::post("delete/by_selection", "ContactController@delete_by_selection");
             });
 
+            //------------------------------- Employee Self-Service --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('self')->group(function () {
+                Route::get('details', 'EmployeeSessionController@personal_details')->name('self.details');
+                Route::get('equity', 'EmployeeSessionController@equity')->name('self.equity');
+                Route::POST('addequity', 'EmployeeSessionController@add_equity');
+                Route::POST('addequitynonss', 'EmployeeSessionController@add_equity_nonss');
+            });
+
             //------------------------------- Profile --------------------------\\
             //----------------------------------------------------------------\\
             Route::put('updateProfile/{id}', 'ProfileController@updateProfile');

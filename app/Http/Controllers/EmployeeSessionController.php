@@ -25,6 +25,8 @@ use App\Models\OfficeShift;
 use App\Models\Leave;
 use App\Models\LeaveType;
 use App\Models\Award;
+use App\Models\EmpNonSouthSudan;
+use App\Models\EmpSouthSudan;
 use App\Models\Travel;
 use App\Models\Project;
 use App\Models\Task;
@@ -149,6 +151,93 @@ class EmployeeSessionController extends Controller
         return view('session_employee.employee_profile', compact('user'));
     }
 
+    public function personal_details()
+    {
+        $user_auth = auth()->user();
+
+        $employee = Employee::findOrFail($user_auth->id)->with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+            ->where('deleted_at', '=', null)
+            ->where('id', '=', $user_auth->id)
+            ->where('leaving_date' , NULL)->first();
+
+        $user['id'] = $employee->id;
+        $user['firstname'] = $employee->firstname;
+        $user['lastname'] = $employee->lastname;
+        $user['username'] = $employee->username;
+        $user['gender'] = $employee->gender;
+        $user['company'] = $employee->company;
+        $user['department'] = $employee->department->department;
+        $user['designation'] = $employee->designation->designation;
+        $user['email'] = $employee->email;
+        $user['phone'] = $employee->phone;
+        $user['country'] = $employee->country;
+        $user['avatar'] = "";
+        $user['password'] = "";
+    
+        return view('session_employee.employee_personal_details', compact('user'));
+    }
+
+    public function equity()
+    {
+        $user_auth = auth()->user();
+        $employee = Employee::findOrFail($user_auth->id);
+
+        $user['id'] = $employee->id;
+        $user['firstname'] = $employee->firstname;
+        $user['lastname'] = $employee->lastname;
+        $user['username'] = $employee->username;
+        $user['email'] = $employee->email;
+        $user['phone'] = $employee->phone;
+        $user['country'] = $employee->country;
+        $user['avatar'] = "";
+        $user['password'] = "";
+    
+        return view('session_employee.equity', compact('user', 'employee'));
+    }
+    
+    public function add_equity(Request $request)
+    {
+        $user_auth = auth()->user();
+        request()->validate([
+            'birthstate'           => 'required|string|max:255',
+            'town'            => 'required|string|max:255',
+            'payam_one'       => 'required',
+            'payam_two'       => 'required',
+            'payam_three'     => 'required',
+            'gender'             => 'required',
+        ]);
+
+        EmpSouthSudan::create([
+            'state'    => $request['birthstate'],
+            'town'           => $request['town'],
+            'payam_one'      => $request['payam_one'],
+            'payam_two'        => $request['payam_two'],
+            'payam_three'       => $request['payam_three'],
+            'gender'             => $request['gender'],
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function add_equity_nonss(Request $request)
+    {
+        $user_auth = auth()->user();
+        request()->validate([
+            'bcountry'           => 'required|string|max:255',
+            'arrival'            => 'required|string|max:255',
+            'language'           => 'required',
+            'gender'             => 'required',
+        ]);
+
+        EmpNonSouthSudan::create([
+            'birth_country'    => $request['bcountry'],
+            'arrival_year'      => $request['arrival'],
+            'language'           => $request['language'],
+            'gender'            => $request['gender'],
+        ]);
+
+        return response()->json(['success' => true]);
+    }
 
     public function Update_employee_profile(Request $request, $id)
     {

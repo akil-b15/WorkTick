@@ -339,7 +339,7 @@
 
         Selected_Gender(value) {
             if (value === null) {
-                this.employee.gender = "";
+                this.user.gender = "";
             }
         },
 
