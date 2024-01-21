@@ -375,6 +375,38 @@ if (1) {
 
             });
 
+            //------------------------------- FAQS --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('faqs')->group(function () {
+                Route::get('all_faqs', 'FaqController@index')->name('faqs.index');
+                Route::POST('create', 'FaqController@store');
+                Route::put('update/{id}', 'FaqController@update');
+                Route::delete('delete/{id}', 'FaqController@destroy');
+                Route::post("delete/by_selection", "FaqController@delete_by_selection");
+            });
+
+            //------------------------------- Contact --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('contact')->group(function () {
+                Route::get('show', 'ContactController@index')->name('faqs.contact');
+                Route::POST('create', 'ContactController@store');
+                Route::put('update/{id}', 'ContactController@update');
+                Route::delete('delete/{id}', 'ContactController@destroy');
+                Route::post("delete/by_selection", "ContactController@delete_by_selection");
+            });
+
+            //------------------------------- Employee Self-Service --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('self')->group(function () {
+                Route::get('details', 'EmployeeSessionController@personal_details')->name('self.details');
+                Route::get('equity', 'EmployeeSessionController@equity')->name('self.equity');
+                Route::POST('addequity', 'EmployeeSessionController@add_equity');
+                Route::POST('addequitynonss', 'EmployeeSessionController@add_equity_nonss');
+            });
+
             //------------------------------- Profile --------------------------\\
             //----------------------------------------------------------------\\
             Route::put('updateProfile/{id}', 'ProfileController@updateProfile');

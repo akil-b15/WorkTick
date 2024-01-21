@@ -441,6 +441,7 @@ return [
     'Request_leave' => 'طلب إجازة',
     'Request_Leave' => 'طلب إجازة',
     'half_day' => 'نصف يوم',
+    'Help_and_Support' => 'مساعدة و دعم',
     'Company_Adress' => 'عنوان الشركة',
     'Create_Permissions' => 'إنشاء أذونات',
     'Announcement' => 'إعلان',
@@ -498,4 +499,9 @@ return [
     'All_Modules_Installed'=> 'جميع الوحدات التي تم تثبيتها',
     'The_module_must_be_uploaded_as_zip_file'=> ' zip يجب تحميل الوحدة كملف مضغوط',
     'Time_Zone' => 'المنطقة الزمنية',
+    'Contact' => 'اتصال',
+    'FAQ' => 'أسئلة مكررة ',
+    'Frequently_Asked_Questions' => 'أسئلة مكررة ',
+    'Questions' => 'سؤال',
+    'Answers' => 'إجابة',
 ];
