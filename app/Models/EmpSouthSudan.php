@@ -18,6 +18,8 @@ class EmpSouthSudan extends Model
         'payam_two',
         'payam_three',
         'gender',
-
+        'employee_id',
+        'disability',
+        'disability_info',
     ];
 }

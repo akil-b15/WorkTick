@@ -564,4 +564,8 @@ return [
     'Enter_South_Sudan_Arrival_Year' => 'Enter your South Sudan arrival year',
     'First_Language' => 'First Language',
     'Enter_First_Language' => 'Enter your language (other than English)',
+    'Disability' => 'Disability',
+    'Any_Disability' => 'Any disability',
+    'Disability_Type' => 'Disability type',
+    'My_Profile' => 'My Profile',
 ];
