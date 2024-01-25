@@ -721,5 +721,45 @@ class EmployeeSessionController extends Controller
 
     }
 
+    public function colleagues(Request $request)
+    {
+
+        // $user_auth = auth()->user();
+		// if ($user_auth->can('employee_view')){
+
+            $search = $request['search'] ?? "";
+            $sort = $request['sort'];
+            $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+            ->where('deleted_at', '=', null)
+            ->where('leaving_date' , NULL)
+            ->where('id', '!=', auth()->id());
+
+            if ($search != ""){
+                $employees
+                ->where(function($query) use ($search){
+                    $query
+                    ->orWhere('firstname' , 'LIKE', "%$search%")
+                    ->orWhere('lastname' , 'LIKE', "%$search%")
+                    ->orWhereHas('department' , fn($query) => $query->where('department', $search));
+                });
+            }
+            
+            if ($sort == 'department'){
+                $employees
+                ->orderBy('department_id', 'ASC');
+            }elseif(($sort == 'jobtitle')){
+                $employees
+                ->orderBy('designation_id', 'ASC');
+            }
+
+            $employees = $employees->simplePaginate(20);
+            // dd($employees->toSql());
+            
+            return view('session_employee.colleagues_list', compact('employees', 'search'));
+        // }
+        // return abort('403', __('You are not authorized'));
+
+    }
+
 
 }

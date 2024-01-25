@@ -568,4 +568,5 @@ return [
     'Any_Disability' => 'Any disability',
     'Disability_Type' => 'Disability type',
     'My_Profile' => 'My Profile',
+    'Colleagues' => 'Colleagues',
 ];

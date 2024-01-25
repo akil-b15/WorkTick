@@ -57,7 +57,7 @@
                                     @if (auth()->user()->role_users_id == 2)
                                     {{-- @can('employee_add') --}}
                                         <li class="nav-item sidebar-collapse">
-                                            <a class="{{ Route::currentRouteName() == 'faqs.contact' ? 'open' : '' }}"
+                                            <a class="{{ Route::currentRouteName() == 'self.details' ? 'open' : '' }}"
                                                 href="{{ route('self.details') }}">
                                                 <i class="nav-icon sidebar-icon i-Add-User"></i>
                                                 <span class="item-name">{{ __('translate.Personal_Details') }}</span>
@@ -69,7 +69,7 @@
                                     {{-- @can('employee_view') --}}
                                         <li class="nav-item sidebar-collapse">
                                             <a href="{{ route('self.equity') }}"
-                                                class="{{ Route::currentRouteName() == 'faqs.index' ? 'open' : '' }}">
+                                                class="{{ Route::currentRouteName() == 'self.equity' ? 'open' : '' }}">
                                                 <i class="nav-icon sidebar-icon i-Business-Mens"></i>
                                                 <span class="item-name">{{ __('translate.Equity_And_Diversity') }}</span>
                                             </a>
@@ -850,6 +850,53 @@
                 </li>
             @endif
 
+            {{------------------------------------- Colleagues Nav ----------------------------------- --}}
+
+            @if (auth()->user()->role_users_id == 2)
+                <li class="nav-item {{ request()->is('employees') || request()->is('employees/*') ? 'active' : '' }}">
+                    <div class="accordion" id="accordionExample">
+                        <div>
+                            <div id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button style="border:none;background-color:white"
+                                        class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                        data-target="#colleagues" aria-expanded="false" aria-controls="collapseTwo">
+                                        <a class="nav-item-hold row" href="#">
+                                            <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
+                                            <span class="col-5 nav-text"
+                                                style="font-size:12px;">{{ __('translate.Employees') }}</span>
+                                            <i class="col-2 dd-arrow i-Arrow-Down"
+                                                style="
+                                            font-size: 15px;"></i>
+                                        </a>
+                                        <div class="triangle"></div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="colleagues" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <ul style="padding:0">
+                                    @if (auth()->user()->role_users_id == 2)
+                                    {{-- @can('employee_add') --}}
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ Route::currentRouteName() == 'employee.colleagues' ? 'open' : '' }}"
+                                                href="{{ route('employee.colleagues') }}">
+                                                <i class="nav-icon sidebar-icon i-Add-User"></i>
+                                                <span class="item-name">{{ __('translate.Colleagues') }}</span>
+                                            </a>
+                                        </li>
+                                    {{-- @endcan --}}
+                                    @endif
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="triangle"></div>
+                </li>
+            @endif
+
+
             @can('user_view')
                 <li class="nav-item {{ request()->is('/users') ? 'active' : '' }}">
                     <a class="nav-item-hold row" href="/users">
@@ -1096,6 +1143,58 @@
                     <div class="triangle"></div>
                 </li>
             @endif
+
+            @if (auth()->user()->role_users_id == 2)
+                <li class="nav-item {{ request()->is('employees') || request()->is('employees/*') ? 'active' : '' }}">
+                    <div class="accordion" id="accordionExample">
+                        <div>
+                            <div id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button style="border:none;background-color:white"
+                                        class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                        data-target="#help" aria-expanded="false" aria-controls="collapseTwo">
+                                        <a class="nav-item-hold row" href="#">
+                                            <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
+                                            <span class="col-5 nav-text"
+                                                style="font-size:12px;">{{ __('translate.Help_and_Support') }}</span>
+                                            <i class="col-2 dd-arrow i-Arrow-Down"
+                                                style="
+                                            font-size: 15px;"></i>
+                                        </a>
+                                        <div class="triangle"></div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="help" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <ul style="padding:0">
+                                    @if (auth()->user()->role_users_id == 2)
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ Route::currentRouteName() == 'help.contact' ? 'open' : '' }}"
+                                                href="{{ route('help.contact') }}">
+                                                <i class="nav-icon sidebar-icon i-Add-User"></i>
+                                                <span class="item-name">{{ __('translate.Contact') }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    @if (auth()->user()->role_users_id == 2)
+                                        <li class="nav-item sidebar-collapse">
+                                            <a href="{{ route('help.faqs') }}"
+                                                class="{{ Route::currentRouteName() == 'help.faqs' ? 'open' : '' }}">
+                                                <i class="nav-icon sidebar-icon i-Business-Mens"></i>
+                                                <span class="item-name">{{ __('translate.FAQ') }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="triangle"></div>
+                </li>
+            @endif
+            
         </ul>
     </div>
 

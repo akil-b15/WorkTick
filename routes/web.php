@@ -407,6 +407,13 @@ if (1) {
                 Route::POST('addequitynonss', 'EmployeeSessionController@add_equity_nonss');
             });
 
+            //--------------------------------- colleagues --------------------------------\\
+
+            Route::get('colleagues', 'EmployeeSessionController@colleagues')->name('employee.colleagues');
+
+            
+
+
             //------------------------------- Profile --------------------------\\
             //----------------------------------------------------------------\\
             Route::put('updateProfile/{id}', 'ProfileController@updateProfile');
