@@ -411,7 +411,25 @@ if (1) {
 
             Route::get('colleagues', 'EmployeeSessionController@colleagues')->name('employee.colleagues');
 
-            
+
+            //------------------------------- Help --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('help')->group(function () {
+                Route::get('contact', 'EmployeeSessionController@contact')->name('help.contact');
+                Route::get('faqs', 'EmployeeSessionController@faqs')->name('help.faqs');
+                
+            });
+
+            //------------------------------- Feedback And Support --------------------------\\
+            //----------------------------------------------------------------\\
+
+            Route::prefix('feedback')->group(function () {
+                Route::get('/', 'FeedbackController@index')->name('feedback.form');
+                Route::post('store', 'FeedbackController@store');
+                // Route::get('faqs', 'EmployeeSessionController@faqs')->name('help.faqs');
+                
+            });
 
 
             //------------------------------- Profile --------------------------\\

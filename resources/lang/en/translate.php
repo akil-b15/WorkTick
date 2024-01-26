@@ -569,4 +569,6 @@ return [
     'Disability_Type' => 'Disability type',
     'My_Profile' => 'My Profile',
     'Colleagues' => 'Colleagues',
+    'Feedback_And_Suggestions' => 'Feedback and Suggestions',
+    'Feedback' => 'Feedback',
 ];

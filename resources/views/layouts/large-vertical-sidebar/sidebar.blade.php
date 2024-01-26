@@ -1145,7 +1145,7 @@
             @endif
 
             @if (auth()->user()->role_users_id == 2)
-                <li class="nav-item {{ request()->is('employees') || request()->is('employees/*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('help') || request()->is('help/*') ? 'active' : '' }}">
                     <div class="accordion" id="accordionExample">
                         <div>
                             <div id="headingTwo">
@@ -1186,6 +1186,50 @@
                                             </a>
                                         </li>
                                     @endif
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="triangle"></div>
+                </li>
+            @endif
+
+            {{--------------------------------------- Feedback & Suggestions ------------------------------------ --}}
+            @if (auth()->user()->role_users_id == 2)
+                <li class="nav-item {{ request()->is('feedback') || request()->is('feedback/*') ? 'active' : '' }}">
+                    <div class="accordion" id="accordionExample">
+                        <div>
+                            <div id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button style="border:none;background-color:white"
+                                        class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                        data-target="#feedback" aria-expanded="false" aria-controls="collapseTwo">
+                                        <a class="nav-item-hold row" href="#">
+                                            <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
+                                            <span class="col-5 nav-text"
+                                                style="font-size:12px;">{{ __('translate.Feedback_And_Suggestions') }}</span>
+                                            <i class="col-2 dd-arrow i-Arrow-Down"
+                                                style="
+                                            font-size: 15px;"></i>
+                                        </a>
+                                        <div class="triangle"></div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="feedback" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <ul style="padding:0">
+                                    @if (auth()->user()->role_users_id == 2)
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ Route::currentRouteName() == 'feedback.form' ? 'open' : '' }}"
+                                                href="{{ route('feedback.form') }}">
+                                                <i class="nav-icon sidebar-icon i-Add-User"></i>
+                                                <span class="item-name">{{ __('translate.Feedback') }}</span>
+                                            </a>
+                                        </li>
+                                    @endif
+                                    
 
                                 </ul>
                             </div>

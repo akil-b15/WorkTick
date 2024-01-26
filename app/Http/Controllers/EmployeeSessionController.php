@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
-use File;
 use DB;
-use App\Models\EmployeeProject;
-use App\Models\EmployeeTask;
-use App\Models\Complaint;
-use App\Models\Employee;
-use App\Models\Attendance;
-use App\Models\Company;
-use App\Models\Designation;
-use App\Models\EmployeeExperience;
-use App\Models\EmployeeDocument;
-use App\Models\EmployeeAccount;
-use App\Models\Department;
-use App\Models\OfficeShift;
-use App\Models\Leave;
-use App\Models\LeaveType;
-use App\Models\Award;
-use App\Models\EmpNonSouthSudan;
-use App\Models\EmpSouthSudan;
-use App\Models\Travel;
-use App\Models\Project;
-use App\Models\Task;
-use App\Models\Training;
-use Carbon\Carbon;
+use File;
 use DateTime;
 use Exception;
+use Carbon\Carbon;
+use App\Models\Faq;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Award;
+use App\Models\Leave;
+use App\Models\Travel;
+use App\Models\Company;
+use App\Models\Contact;
+use App\Models\Project;
+use App\Models\Employee;
+use App\Models\Training;
+use App\Models\Complaint;
+use App\Models\LeaveType;
+use App\Models\Attendance;
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\OfficeShift;
+use App\Models\EmployeeTask;
+use Illuminate\Http\Request;
+use App\Models\EmpSouthSudan;
+use App\Models\EmployeeAccount;
+use App\Models\EmployeeProject;
+use Illuminate\Validation\Rule;
+use App\Models\EmployeeDocument;
+use App\Models\EmpNonSouthSudan;
+use App\Models\EmployeeExperience;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeSessionController extends Controller
 {
@@ -760,6 +762,21 @@ class EmployeeSessionController extends Controller
         // return abort('403', __('You are not authorized'));
 
     }
+
+    public function faqs(){
+
+        // $faqs = Faq::all();
+        $faqs = Faq::where('deleted_at', '=', null)->get();
+        return view('help.faqs', compact('faqs', 'faqs'));
+    }
+
+    public function contact(){
+
+        $contacts = Contact::where('deleted_at', '=', null)->get();
+        return view('help.contact', compact('contacts', 'contacts'));
+    }
+
+    
 
 
 }
