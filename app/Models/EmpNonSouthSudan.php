@@ -15,6 +15,9 @@ class EmpNonSouthSudan extends Model
         'birth_country',
         'arrival_year',
         'language',
+        'employee_id',
         'gender',
+        'disability',
+        'disability_info',
     ];
 }

@@ -2,38 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Auth;
-use File;
 use DB;
-use App\Models\EmployeeProject;
-use App\Models\EmployeeTask;
-use App\Models\Complaint;
-use App\Models\Employee;
-use App\Models\Attendance;
-use App\Models\Company;
-use App\Models\Designation;
-use App\Models\EmployeeExperience;
-use App\Models\EmployeeDocument;
-use App\Models\EmployeeAccount;
-use App\Models\Department;
-use App\Models\OfficeShift;
-use App\Models\Leave;
-use App\Models\LeaveType;
-use App\Models\Award;
-use App\Models\EmpNonSouthSudan;
-use App\Models\EmpSouthSudan;
-use App\Models\Travel;
-use App\Models\Project;
-use App\Models\Task;
-use App\Models\Training;
-use Carbon\Carbon;
+use File;
 use DateTime;
 use Exception;
+use Carbon\Carbon;
+use App\Models\Faq;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Award;
+use App\Models\Leave;
+use App\Models\Travel;
+use App\Models\Company;
+use App\Models\Contact;
+use App\Models\Project;
+use App\Models\Employee;
+use App\Models\Training;
+use App\Models\Complaint;
+use App\Models\LeaveType;
+use App\Models\Attendance;
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\OfficeShift;
+use App\Models\EmployeeTask;
+use Illuminate\Http\Request;
+use App\Models\EmpSouthSudan;
+use App\Models\EmployeeAccount;
+use App\Models\EmployeeProject;
+use Illuminate\Validation\Rule;
+use App\Models\EmployeeDocument;
+use App\Models\EmpNonSouthSudan;
+use App\Models\EmployeeExperience;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeSessionController extends Controller
 {
@@ -160,6 +162,9 @@ class EmployeeSessionController extends Controller
             ->where('id', '=', $user_auth->id)
             ->where('leaving_date' , NULL)->first();
 
+        $equity_ss = EmpSouthSudan::where('employee_id', '=', $user_auth->id)->first();
+        $equity_non_ss = EmpNonSouthSudan::where('employee_id', '=', $user_auth->id)->first();
+
         $user['id'] = $employee->id;
         $user['firstname'] = $employee->firstname;
         $user['lastname'] = $employee->lastname;
@@ -173,14 +178,32 @@ class EmployeeSessionController extends Controller
         $user['country'] = $employee->country;
         $user['avatar'] = "";
         $user['password'] = "";
-    
-        return view('session_employee.employee_personal_details', compact('user'));
+        if($equity_ss || $equity_non_ss){
+            if($employee->country == "South Sudan"){
+            $user['birthstate'] = $equity_ss->state;
+            $user['town'] = $equity_ss->town;
+            $user['payam_one'] = $equity_ss->payam_one;
+            $user['payam_two'] = $equity_ss->payam_two;
+            $user['payam_three'] = $equity_ss->payam_three;
+            $user['disability'] = $equity_ss->disability;
+            $user['disability_type'] = $equity_ss->disability_info;
+            }else{
+                $user['birthcountry'] = $equity_non_ss->birth_country;
+                $user['arrival_year'] = $equity_non_ss->arrival_year;
+                $user['language'] = $equity_non_ss->language;
+                $user['disability'] = $equity_non_ss->disability;
+                $user['disability_type'] = $equity_non_ss->disability_info;
+            }
+        }
+        
+        return view('session_employee.employee_personal_details', compact('user', 'employee', 'equity_ss', 'equity_non_ss'));
     }
 
     public function equity()
     {
         $user_auth = auth()->user();
         $employee = Employee::findOrFail($user_auth->id);
+        // $equity = EmpSouthSudan::findOrFail($user_auth->employee_id);
 
         $user['id'] = $employee->id;
         $user['firstname'] = $employee->firstname;
@@ -191,6 +214,7 @@ class EmployeeSessionController extends Controller
         $user['country'] = $employee->country;
         $user['avatar'] = "";
         $user['password'] = "";
+
     
         return view('session_employee.equity', compact('user', 'employee'));
     }
@@ -199,21 +223,29 @@ class EmployeeSessionController extends Controller
     {
         $user_auth = auth()->user();
         request()->validate([
-            'birthstate'           => 'required|string|max:255',
-            'town'            => 'required|string|max:255',
-            'payam_one'       => 'required',
-            'payam_two'       => 'required',
-            'payam_three'     => 'required',
+            'birthstate'         => 'required|string|max:255',
+            'town'               => 'required|string|max:255',
+            'payam_one'          => 'required',
+            'payam_two'          => 'required',
+            'payam_three'        => 'required',
             'gender'             => 'required',
+            'employee_id'        => 'required',
+            'disability'         => 'required',
         ]);
 
-        EmpSouthSudan::create([
-            'state'    => $request['birthstate'],
-            'town'           => $request['town'],
-            'payam_one'      => $request['payam_one'],
-            'payam_two'        => $request['payam_two'],
-            'payam_three'       => $request['payam_three'],
+        EmpSouthSudan::updateOrCreate([
+            'employee_id'   => Auth::user()->id,
+        ],[
+            
+            'employee_id'        => $request['employee_id'],
+            'state'              => $request['birthstate'],
+            'town'               => $request['town'],
+            'payam_one'          => $request['payam_one'],
+            'payam_two'          => $request['payam_two'],
+            'payam_three'        => $request['payam_three'],
             'gender'             => $request['gender'],
+            'disability'         => $request['disability'],
+            'disability_info'    => $request['disability_type'],
         ]);
 
         return response()->json(['success' => true]);
@@ -227,13 +259,20 @@ class EmployeeSessionController extends Controller
             'arrival'            => 'required|string|max:255',
             'language'           => 'required',
             'gender'             => 'required',
+            'employee_id'        => 'required',
+            'disability'        => 'required',
         ]);
 
-        EmpNonSouthSudan::create([
-            'birth_country'    => $request['bcountry'],
-            'arrival_year'      => $request['arrival'],
+        EmpNonSouthSudan::updateOrCreate([
+            'employee_id'   => Auth::user()->id,
+        ],[
+            'employee_id'        => $request['employee_id'],
+            'birth_country'      => $request['bcountry'],
+            'arrival_year'       => $request['arrival'],
             'language'           => $request['language'],
-            'gender'            => $request['gender'],
+            'gender'             => $request['gender'],
+            'disability'         => $request['disability'],
+            'disability_info'         => $request['disability_type'],
         ]);
 
         return response()->json(['success' => true]);
@@ -683,6 +722,61 @@ class EmployeeSessionController extends Controller
             return response()->json(['success' => true ,'isvalid' => true]);
 
     }
+
+    public function colleagues(Request $request)
+    {
+
+        // $user_auth = auth()->user();
+		// if ($user_auth->can('employee_view')){
+
+            $search = $request['search'] ?? "";
+            $sort = $request['sort'];
+            $employees = Employee::with('company:id,name','office_shift:id,name','department:id,department','designation:id,designation')
+            ->where('deleted_at', '=', null)
+            ->where('leaving_date' , NULL)
+            ->where('id', '!=', auth()->id());
+
+            if ($search != ""){
+                $employees
+                ->where(function($query) use ($search){
+                    $query
+                    ->orWhere('firstname' , 'LIKE', "%$search%")
+                    ->orWhere('lastname' , 'LIKE', "%$search%")
+                    ->orWhereHas('department' , fn($query) => $query->where('department', $search));
+                });
+            }
+            
+            if ($sort == 'department'){
+                $employees
+                ->orderBy('department_id', 'ASC');
+            }elseif(($sort == 'jobtitle')){
+                $employees
+                ->orderBy('designation_id', 'ASC');
+            }
+
+            $employees = $employees->simplePaginate(20);
+            // dd($employees->toSql());
+            
+            return view('session_employee.colleagues_list', compact('employees', 'search'));
+        // }
+        // return abort('403', __('You are not authorized'));
+
+    }
+
+    public function faqs(){
+
+        // $faqs = Faq::all();
+        $faqs = Faq::where('deleted_at', '=', null)->get();
+        return view('help.faqs', compact('faqs', 'faqs'));
+    }
+
+    public function contact(){
+
+        $contacts = Contact::where('deleted_at', '=', null)->get();
+        return view('help.contact', compact('contacts', 'contacts'));
+    }
+
+    
 
 
 }

@@ -20,7 +20,7 @@
         <p class="m-0 text-24">@{{ user.username }}</p>
     </div>
     <div class="card-body">
-        <form @submit.prevent="Update_SouthSudanProfile()">
+        <form @submit.prevent="Update_SouthSudanProfile()" class="pb-5 mb-5">
             <div class="row">
                 <div class="col-md-6">
                     <label for="birthstate" class="ul-form__label">{{ __('translate.BirthState') }} <span
@@ -84,6 +84,45 @@
                         @{{ errors.gender[0] }}
                     </span>
                 </div>
+                <div class="col-md-6 mb-3" id="disability" >
+                    <label class="ul-form__label">{{ __('translate.Disability') }} <span
+                            class="field_required">*</span></label>
+                    <v-select @input="If_Disability" placeholder="{{ __('translate.Any_Disability') }}"
+                        v-model="user.disability" :reduce="(option) => option.value" :options="
+                            [
+                                {label: 'Yes', value: 'yes'},
+                                {label: 'No', value: 'no'},
+                            ]">
+                    </v-select>
+
+                    <span class="error" v-if="errors && errors.disability">
+                        @{{ errors.disability[0] }}
+                    </span>
+                </div>
+
+                <template  v-if="user.disability == 'yes'">
+                    <div class="col-md-6" id="disability_type">
+                        <label class="ul-form__label">{{ __('translate.Disability_Type') }} <span
+                                class="field_required"></span></label>
+                        <v-select @input="Disability_Type" placeholder="{{ __('translate.Disability_Type') }}"
+                            v-model="user.disability_type" :reduce="(option) => option.value" :options="
+                                [
+                                    {label: 'Auditory', value: 'auditory'},
+                                    {label: 'Cognitive', value: 'cognitive'},
+                                    {label: 'Visual disabilities', value: 'visual disabilities'},
+                                    {label: 'Hearing impairments', value: 'hearing impairments'},
+                                    {label: 'Speech', value: 'speech'},
+                                    {label: 'Mobility impairments', value: 'mobility impairments'},
+                                    {label: 'Physical', value: 'physical'},
+                                    {label: 'Mental', value: 'mental'},
+                                ]">
+                        </v-select>
+
+                        <span class="error" v-if="errors && errors.disability_type">
+                            @{{ errors.disability_type[0] }}
+                        </span>
+                    </div>
+                </template>
 
 
             </div>
@@ -91,7 +130,7 @@
             <div class="row mt-3">
 
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary" :disabled="SubmitProcessing">
+                    <button type="submit" class="btn btn-primary mb-5" :disabled="SubmitProcessing">
                         {{ __('translate.Submit') }}
                     </button>
                     <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -113,7 +152,7 @@
         <p class="m-0 text-24">@{{ user.username }}</p>
     </div>
     <div class="card-body">
-        <form @submit.prevent="Update_nonSouthSudanProfile()">
+        <form @submit.prevent="Update_nonSouthSudanProfile()" class="pb-5 mb-5">
             <div class="row">
                 <div class="col-md-6">
                     <label for="bcountry" class="ul-form__label">{{ __('translate.Country_Of_Birth') }} <span
@@ -161,13 +200,52 @@
                     </span>
                 </div>
 
+                <div class="col-md-6 mb-3" id="disability" >
+                    <label class="ul-form__label">{{ __('translate.Disability') }} <span
+                            class="field_required">*</span></label>
+                    <v-select @input="If_Disability" placeholder="{{ __('translate.Any_Disability') }}"
+                        v-model="user.disability" :reduce="(option) => option.value" :options="
+                            [
+                                {label: 'Yes', value: 'yes'},
+                                {label: 'No', value: 'no'},
+                            ]">
+                    </v-select>
+
+                    <span class="error" v-if="errors && errors.disability">
+                        @{{ errors.disability[0] }}
+                    </span>
+                </div>
+
+                <template  v-if="user.disability == 'yes'">
+                    <div class="col-md-6" id="disability_type">
+                        <label class="ul-form__label">{{ __('translate.Disability_Type') }} <span
+                                class="field_required"></span></label>
+                        <v-select @input="Disability_Type" placeholder="{{ __('translate.Disability_Type') }}"
+                            v-model="user.disability_type" :reduce="(option) => option.value" :options="
+                                [
+                                    {label: 'Auditory', value: 'auditory'},
+                                    {label: 'Cognitive', value: 'cognitive'},
+                                    {label: 'Visual disabilities', value: 'visual disabilities'},
+                                    {label: 'Hearing impairments', value: 'hearing impairments'},
+                                    {label: 'Speech', value: 'speech'},
+                                    {label: 'Mobility impairments', value: 'mobility impairments'},
+                                    {label: 'Physical', value: 'physical'},
+                                    {label: 'Mental', value: 'mental'},
+                                ]">
+                        </v-select>
+
+                        <span class="error" v-if="errors && errors.disability_type">
+                            @{{ errors.disability_type[0] }}
+                        </span>
+                    </div>
+                </template>
 
             </div>
 
             <div class="row mt-3">
 
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary" :disabled="SubmitProcessing">
+                    <button type="submit" class="btn btn-primary mb-5" :disabled="SubmitProcessing">
                         {{ __('translate.Submit') }}
                     </button>
                     <div v-once class="typo__p" v-if="SubmitProcessing">
@@ -209,7 +287,17 @@
 
             Selected_Gender(value) {
                 if (value === null) {
-                    this.employee.gender = "";
+                    this.user.gender = "";
+                }
+            },
+            If_Disability(value) {
+                if (value === null) {
+                    this.user.disability = "";
+                }
+            },
+            Disability_Type(value) {
+                if (value === null) {
+                    this.user.disability_type = "";
                 }
             },
            //----------------------- Update Profile for South Sudan Employee---------------------------\\
@@ -224,7 +312,9 @@
                     payam_two: self.user.payam_two,
                     payam_three: self.user.payam_three,
                     gender: self.user.gender,
-                    
+                    employee_id: self.user.id,
+                    disability: this.user.disability,
+                    disability_type: this.user.disability_type,
 
                 }).then(response => {
                         self.SubmitProcessing = false;
@@ -251,6 +341,9 @@
                     arrival: self.user.arrival,
                     language: self.user.language,
                     gender: self.user.gender,
+                    employee_id: self.user.id,                
+                    disability: this.user.disability,
+                    disability_type: this.user.disability_type,
 
                 }).then(response => {
                         self.SubmitProcessing = false;
