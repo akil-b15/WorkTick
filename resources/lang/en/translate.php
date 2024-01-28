@@ -327,6 +327,7 @@ return [
     'Project_Title' => 'Project title',
     'Project_details' => 'Project details',
     'Projects' => 'Projects',
+    'Project_Management' => 'Project Management',
     'Projects_by_Status' => 'Projects by status',
     'Punch_In' => 'Punch In',
     'Punch_Out' => 'Punch Out',
@@ -363,7 +364,7 @@ return [
     'Sunday_Out' => 'Sunday Out',
     'Symbol' => 'Symbol',
     'System_Settings' => 'System settings',
-    'Task' => 'Task',
+    'Task_Management' => 'Task Management',
     'Task_Details' => 'Task details',
     'Task_List' => 'Task list',
     'Task_Name' => 'Task name',
@@ -571,4 +572,6 @@ return [
     'Colleagues' => 'Colleagues',
     'Feedback_And_Suggestions' => 'Feedback and Suggestions',
     'Feedback' => 'Feedback',
+    'Recruitment' => 'Recruitment',
+    'Performance' => 'Performance',
 ];

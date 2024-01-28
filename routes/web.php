@@ -427,7 +427,6 @@ if (1) {
             Route::prefix('feedback')->group(function () {
                 Route::get('/', 'FeedbackController@index')->name('feedback.form');
                 Route::post('store', 'FeedbackController@store');
-                // Route::get('faqs', 'EmployeeSessionController@faqs')->name('help.faqs');
                 
             });
 

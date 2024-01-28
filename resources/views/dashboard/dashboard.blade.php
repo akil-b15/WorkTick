@@ -6,77 +6,247 @@
 
 <div class="row" id="section_Dashboard">
     <!-- ICON BG -->
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <a href="/employees">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <i class="i-Engineering"></i>
-                    <div class="content">
-                        <p class="text-muted mt-2 mb-0">{{ __('translate.Employees') }}</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">{{ $count_employee }}</p>
+    <div class="row col-lg-8">
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <a href="/employees">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Engineering"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">{{ __('translate.Employees') }}</p>
+                            <p class="text-primary text-24 line-height-1 mb-2">{{ $count_employee }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
 
-    {{-- <div class="col-lg-3 col-md-6 col-sm-6">
-        <a href="/clients">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <i class="i-Boy"></i>
-                    <div class="content">
-                        <p class="text-muted mt-2 mb-0">{{ __('translate.Clients') }}</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">{{ $count_clients }}</p>
+        {{-- <div class="col-lg-3 col-md-6 col-sm-6">
+            <a href="/clients">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Boy"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">{{ __('translate.Clients') }}</p>
+                            <p class="text-primary text-24 line-height-1 mb-2">{{ $count_clients }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </div> --}}
+            </a>
+        </div> --}}
 
-    {{-- <div class="col-lg-3 col-md-6 col-sm-6">
-        <a href="/projects">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <i class="i-Dropbox"></i>
-                    <div class="content">
-                        <p class="text-muted mt-2 mb-0">{{ __('translate.Projects') }}</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">{{ $count_project }}</p>
+        {{-- <div class="col-lg-3 col-md-6 col-sm-6">
+            <a href="/projects">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Dropbox"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">{{ __('translate.Projects') }}</p>
+                            <p class="text-primary text-24 line-height-1 mb-2">{{ $count_project }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </div> --}}
+            </a>
+        </div> --}}
 
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <a href="/tasks">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <i class="i-Check"></i>
-                    <div class="content">
-                        <p class="text-muted mt-2 mb-0">{{ __('translate.Tasks') }}</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">{{ $count_task }}</p>
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <a href="/tasks">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Check"></i>
+                        <div class="content">
+                            <p class="text-muted mt-2 mb-0">{{ __('translate.Tasks') }}</p>
+                            <p class="text-primary text-24 line-height-1 mb-2">{{ $count_task }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-    </div>
+            </a>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 col-sm-6">
+            <a href="$">
+                <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                    <div class="card-body text-center">
+                        <i class="i-Check"></i>
+                        <div class="content">
+                            <p class="text-muted text-nowrap mb-0">{{ __('translate.Pending_Approvals') }}</p>
+                            <p class="text-primary text-24 line-height-1 mb-2">{{ $count_pending_approvals }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        {{---------------------------------------------- Upcoming Events --------------------------------------- --}}
+        <div class="col-lg-12 col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Upcoming Events</div>
+                    <div class="row">
     
-    <div class="col-lg-3 col-md-6 col-sm-6">
-        <a href="$">
-            <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                <div class="card-body text-center">
-                    <i class="i-Check"></i>
-                    <div class="content">
-                        <p class="text-muted text-nowrap mb-0">{{ __('translate.Pending_Approvals') }}</p>
-                        <p class="text-primary text-24 line-height-1 mb-2">{{ $count_pending_approvals }}</p>
+                        <div class="col-lg-6 col-12">
+                            <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
+                                <div class="card-body text-center">                                
+                                    @if (count($birthday) > 0)
+                                        <div class="content" style="margin-left: 10px">
+                                            <h4>Birthday: </h4> 
+                                            @foreach($birthday as $upcoming)
+                                                <p class="text-muted text-16 mt-2 mb-0">{{$upcoming->firstname}}</p>
+                                                <p class="text-primary text-24 line-height-1 mb-0">
+                                                    {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
+                                                </p>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <h4>No upcoming brithdays</h4> 
+                                    @endif                                    
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="col-lg-6 col-12">
+                            <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
+                                <div class="card-body text-center">
+                                    
+                                    @if (count($aniversaries) > 0)
+                                        <div class="content" style="margin-left: 10px; max-width:100%">
+                                            <h4>Work Aniversary: </h4> 
+                                            @foreach($aniversaries as $aniversary)
+                                            <p class="text-muted text-16 mt-2 mb-0">{{$aniversary->firstname}}</p>
+                                            <p class="text-primary text-24 line-height-1 mb-0">
+                                                {{ \Carbon\Carbon::parse($aniversary->joining_date)->format('jS M')}}
+                                            </p>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <h4>No upcoming aniversaries</h4> 
+                                    @endif                                    
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </a>
+        </div>
+    
+        <div class="col-lg-6 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Announcements</div>
+                    @if (count($announcements) == 0 AND count($policies) == 0)
+                        <p class="text-muted text-24 mt-0 mb-2">No new announcements</p>
+                    @else
+                        <div>
+                            @if (count($announcements) > 0)
+                                <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
+                                @foreach($announcements as $announcement)
+                                    <div class="d-flex align-items-center mb-1">
+                                        <a href="{{ route('announcements.show', $announcement->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$announcement->title}}</p></a>
+                                        <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('announcements.seen', $announcement->id) }}">Mark as seen</a>
+                                    </div>
+                                        
+                                @endforeach
+                            @endif
+                            
+                        </div>
+                        <div>
+                            @if (count($policies) > 0)
+                                <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
+                                @foreach($policies as $policy)
+                                    <div class="d-flex align-items-center mb-1">
+                                        <a href="{{ route('policies.show', $policy->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$policy->title}}</p></a>
+                                        <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('policies.seen', $policy->id) }}">Mark as seen</a>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">Urgent Tasks</div>
+                    @if (count($announcements) == 0 AND count($policies) == 0)
+                        <p class="text-muted text-24 mt-0 mb-2">No new announcements</p>
+                    @else
+                        <div>
+                            @if (count($announcements) > 0)
+                                <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
+                                @foreach($announcements as $announcement)
+                                    <div class="d-flex align-items-center mb-1">
+                                        <a href="{{ route('announcements.show', $announcement->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$announcement->title}}</p></a>
+                                        <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('announcements.seen', $announcement->id) }}">Mark as seen</a>
+                                    </div>
+                                        
+                                @endforeach
+                            @endif
+                            
+                        </div>
+                        <div>
+                            @if (count($policies) > 0)
+                                <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
+                                @foreach($policies as $policy)
+                                    <div class="d-flex align-items-center mb-1">
+                                        <a href="{{ route('policies.show', $policy->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$policy->title}}</p></a>
+                                        <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('policies.seen', $policy->id) }}">Mark as seen</a>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">{{ __('translate.This_Week_Expense_Deposit') }}</div>
+                    <div id="echart_Bar_Expense"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">{{ __('translate.Employee_count_by_department') }}</div>
+                    <div id="echartBar"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    {{---------------------------------------------- All Charts ---------------------------------------------- --}}
+    <div class="row col-lg-4">
+        <div class="col-lg-12 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">{{ __('translate.Projects_by_Status') }}</div>
+                    <div id="echartProject"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">{{ __('translate.Tasks_by_Status') }}</div>
+                    <div id="echartTask"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-sm-12">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="card-title">{{ __('translate.Expense_vs_Deposit') }}</div>
+                    <div id="echartPie"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 
 {{-- <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -92,93 +262,6 @@
 </div> --}}
 
 <div class="row">
-    <div class="col-lg-8 col-md-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">Upcoming Events</div>
-                <div class="row">
-
-                    <div class="col-lg-6 col-12">
-                        <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
-                            <div class="card-body text-center">                                
-                                @if (count($birthday) > 0)
-                                    <div class="content" style="margin-left: 10px">
-                                        <h4>Birthday: </h4> 
-                                        @foreach($birthday as $upcoming)
-                                            <p class="text-muted text-16 mt-2 mb-0">{{$upcoming->firstname}}</p>
-                                            <p class="text-primary text-24 line-height-1 mb-0">
-                                                {{ \Carbon\Carbon::parse($upcoming->birth_date)->format('jS M')}}
-                                            </p>
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <h4>No upcoming brithdays</h4> 
-                                @endif                                    
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="card card-icon-bg card-icon-bg-light o-hidden mb-4"  >
-                            <div class="card-body text-center">
-                                
-                                @if (count($aniversaries) > 0)
-                                    <div class="content" style="margin-left: 10px; max-width:100%">
-                                        <h4>Work Aniversary: </h4> 
-                                        @foreach($aniversaries as $aniversary)
-                                        <p class="text-muted text-16 mt-2 mb-0">{{$aniversary->firstname}}</p>
-                                        <p class="text-primary text-24 line-height-1 mb-0">
-                                            {{ \Carbon\Carbon::parse($aniversary->joining_date)->format('jS M')}}
-                                        </p>
-                                        @endforeach
-                                    </div>
-                                @else
-                                    <h4>No upcoming aniversaries</h4> 
-                                @endif                                    
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4 col-sm-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">Announcements</div>
-                @if (count($announcements) == 0 AND count($policies) == 0)
-                    <p class="text-muted text-24 mt-0 mb-2">No new announcements</p>
-                @else
-                    <div>
-                        @if (count($announcements) > 0)
-                            <p class="text-muted text-24 mt-0 mb-2">Important news :</p>                        
-                            @foreach($announcements as $announcement)
-                                <div class="d-flex align-items-center mb-1">
-                                    <a href="{{ route('announcements.show', $announcement->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$announcement->title}}</p></a>
-                                    <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('announcements.seen', $announcement->id) }}">Mark as seen</a>
-                                </div>
-                                    
-                            @endforeach
-                        @endif
-                        
-                    </div>
-                    <div>
-                        @if (count($policies) > 0)
-                            <p class="text-muted text-24 mt-0 mb-2">New Policies : </p>                        
-                            @foreach($policies as $policy)
-                                <div class="d-flex align-items-center mb-1">
-                                    <a href="{{ route('policies.show', $policy->id) }}"><p class="m-0 me-1 text-primary text-16 line-height-1">{{$policy->title}}</p></a>
-                                    <a role="button" class="ml-1 btn btn-primary btn-sm" href="{{ route('policies.seen', $policy->id) }}">Mark as seen</a>
-                                </div>
-                            @endforeach
-                        @endif
-                    </div>
-                @endif
-            </div>
-        </div>
-    </div>
-
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-body">
@@ -188,32 +271,9 @@
     </div>
 </div>
 
-<div class="row mt-5">
-    <div class="col-lg-8 col-md-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">{{ __('translate.This_Week_Expense_Deposit') }}</div>
-                <div id="echart_Bar_Expense"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-4 col-sm-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">{{ __('translate.Projects_by_Status') }}</div>
-                <div id="echartProject"></div>
-            </div>
-        </div>
-    </div>
-
-
-
-</div>
-
 <div class="row">
 
-    <div class="col-lg-8 col-sm-12">
+    <div class="col-lg-12 col-sm-12">
         <div class="card o-hidden mb-4">
             <div class="card-header d-flex align-items-center border-0">
                 <h3 class="w-50 float-left card-title m-0">{{ __('translate.Latest_Employees') }}</h3>
@@ -251,40 +311,6 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-sm-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">{{ __('translate.Tasks_by_Status') }}</div>
-                <div id="echartTask"></div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-<div class="row">
-
-    <div class="col-lg-8 col-md-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">{{ __('translate.Employee_count_by_department') }}</div>
-                <div id="echartBar"></div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-lg-4 col-sm-12">
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-title">{{ __('translate.Expense_vs_Deposit') }}</div>
-                <div id="echartPie"></div>
-            </div>
-        </div>
-    </div>
-
-    
 </div>
 
 @endsection
