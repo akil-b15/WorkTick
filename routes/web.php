@@ -33,6 +33,11 @@ Route::get('clear', function(){
     Artisan::call("optimize:clear");
 });
 
+
+Route::get('migrate', function(){
+    Artisan::call("migrate");
+});
+
 $installed = Storage::disk('public')->exists('installed');
 
 if (1) {
