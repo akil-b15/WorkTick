@@ -8,6 +8,8 @@
  */
 
 :root {
+  --nca-bg: #0a7ba9;
+  --nca-bg-sidebar: #353e4b;
   --blue: #003473;
   --indigo: #3F51B5;
   --purple: #8b5cf6;
@@ -33424,6 +33426,402 @@ blockquote {
   text-decoration: none;
   background-color: #10163a;
 }
+
+/* NCA Theme Begin */
+
+.nca-theme {
+  background: var(--nca-bg);
+}
+
+.nca-theme .sidebar-left,
+.nca-theme .sidebar-left-secondary,
+.nca-theme .main-header {
+  background: var(--nca-bg-sidebar);
+  color: #fff !important;
+}
+
+.nca-theme .main-content-wrap {
+  background-color: var(--nca-bg);
+  color: #c2c6dc !important;
+}
+
+.nca-theme .card{
+  border-radius: 30px;
+  box-shadow: 5px 8px 20px 1px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.nca-theme h1,
+.nca-theme h2,
+.nca-theme h3,
+.nca-theme h4,
+.nca-theme h5,
+.nca-theme h6,
+.nca-theme .card-title,
+.nca-theme .text-title {
+  color: #c2c6dc;
+}
+
+.nca-theme .card-title {
+  color: #c2c6dc !important;
+}
+
+.nca-theme a {
+  color: #c2c6dc !important;
+}
+
+/* .nca-theme input {
+  background: #262c49 !important;
+  border-color: #10163a;
+} */
+
+.nca-theme .app-footer {
+  margin-top: 2rem;
+  background: #10163a;
+  padding: 1.25rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.nca-theme .app-footer .footer-bottom {
+  width: 100%;
+}
+
+.nca-theme .app-footer .footer-bottom .logo {
+  width: 3rem;
+  height: auto;
+  margin: 4px;
+}
+
+.nca-theme .navigation-left .nav-item {
+  color: #c2c6dc !important;
+  border-bottom: 1px solid #262c49 !important;
+}
+
+.nca-theme .navigation-left .nav-item .nav-item-hold {
+  color: #c2c6dc !important;
+}
+
+.nca-theme .navigation-left .nav-item .nav-item-hold a {
+  color: #c2c6dc !important;
+}
+
+.nca-theme .sidebar-left-secondary .childNav {
+  list-style: none;
+  padding: 0;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item {
+  display: block;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a {
+  color: #c2c6dc;
+  text-transform: capitalize;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 12px 24px;
+  transition: 0.15s all ease-in;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a:hover {
+  background: #262c49;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a.open {
+  color: #8b5cf6;
+  background: #262c49;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a.open a {
+  background: #262c49;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a.router-link-active {
+  color: #8b5cf6;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a.router-link-active .nav-icon {
+  color: #8b5cf6;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a .nav-icon {
+  font-size: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+  color: #c2c6dc;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a .item-name {
+  vertical-align: middle;
+  font-weight: 400;
+}
+
+.nca-theme .sidebar-left-secondary .childNav li.nav-item a .dd-arrow {
+  margin-left: auto;
+  font-size: 11px;
+  transition: all 0.3s ease-in;
+}
+
+.nca-theme .search-ui {
+  position: fixed;
+  background: #262c49;
+}
+
+.nca-theme .search-ui input.search-input {
+  background: #262c49;
+}
+
+.nca-theme .search-ui input.search-input::-moz-placeholder {
+  color: #c2c6dc;
+}
+
+.nca-theme .search-ui input.search-input:-ms-input-placeholder {
+  color: #c2c6dc;
+}
+
+.nca-theme .search-ui input.search-input::placeholder {
+  color: #c2c6dc;
+}
+
+.nca-theme .search-bar {
+  background: #10163a !important;
+  border: 1px solid #262c49 !important;
+}
+
+.nca-theme .search-bar input {
+  color: #c2c6dc !important;
+  background: #10163a !important;
+}
+
+.nca-theme .search-bar .search-icon {
+  font-size: 18px;
+  width: 24px;
+  display: inline-block;
+}
+
+.nca-theme .border-top {
+  border-top: 1px solid #10163a !important;
+}
+
+.nca-theme .tab-border {
+  border: 1px dashed #262c49 !important;
+  margin: 30px 0 !important;
+}
+
+.nca-theme table.vgt-table {
+  background: #10163a;
+}
+
+.nca-theme table.tableOne.vgt-table thead tr th {
+  background: #10163a;
+  border-color: #262c49;
+}
+
+.nca-theme .list-group-item {
+  background-color: #10163a;
+  border: 1px solid #262c49;
+}
+
+.nca-theme .page-link {
+  color: #c2c6dc;
+  background-color: #262c49;
+  border: 1px solid #10163a;
+}
+
+.nca-theme .dropdown-menu {
+  color: #c2c6dc;
+  background-color: #262c49;
+  border: 1px solid #262c49;
+}
+
+.nca-theme .table td {
+  border-top: 1px solid #262c49;
+}
+
+.nca-theme .table thead th {
+  border-bottom: 2px solid #262c49;
+}
+
+.nca-theme .table .thead-light th {
+  color: #c2c6dc;
+  background-color: #262c49;
+  border-color: #262c49;
+}
+
+.nca-theme .apexcharts-xaxis-label {
+  fill: #c2c6dc;
+}
+
+.nca-theme .apexcharts-yaxis-label {
+  fill: #c2c6dc;
+}
+
+.nca-theme .apexcharts-tooltip.light {
+  border: 1px solid #10163a;
+  background: #262c49;
+}
+
+.nca-theme .apexcharts-tooltip.light .apexcharts-tooltip-title {
+  background: #10163a;
+  border-bottom: 1px solid #10163a;
+}
+
+.nca-theme .apexcharts-legend-text {
+  color: #c2c6dc !important;
+}
+
+.nca-theme .input-group-text {
+  color: #c2c6dc;
+  background-color: #262c49;
+  border: 1px solid #262c49;
+}
+
+.nca-theme .custom-select {
+  color: #c2c6dc;
+  background-color: #262c49;
+  border: 1px solid #262c49;
+}
+
+.nca-theme .header-icon:hover {
+  background: #262c49 !important;
+}
+
+.nca-theme .calendar-parent {
+  background-color: #10163a;
+}
+
+.nca-theme .cv-day,
+.nca-theme .cv-event,
+.nca-theme .cv-header-day,
+.nca-theme .cv-header-days,
+.nca-theme .cv-week,
+.nca-theme .cv-weeks {
+  border-style: solid;
+  border-color: #262c49;
+}
+
+.nca-theme .theme-default .cv-day.outsideOfMonth,
+.nca-theme .theme-default .cv-day.past {
+  background-color: #10163a;
+}
+
+.nca-theme .theme-default .cv-day.today {
+  background-color: #262c49;
+}
+
+.nca-theme .theme-default .cv-header,
+.nca-theme .theme-default .cv-header-day {
+  background-color: #262c49;
+}
+
+.nca-theme .cv-header,
+.nca-theme .cv-header button {
+  border-style: solid;
+  border-color: #10163a;
+  background: #262c49;
+}
+
+.nca-theme .vgt-global-search.vgt-clearfix {
+  background: #10163a;
+}
+
+.nca-theme table.tableOne tbody tr th.line-numbers {
+  background: #10163a;
+}
+
+.nca-theme div.vgt-wrap__footer.vgt-clearfix {
+  background: #10163a;
+}
+
+.nca-theme table.vgt-table td {
+  border-bottom: 1px solid #262c49;
+  color: #c2c6dc;
+}
+
+.nca-theme table.tableOne tbody tr th.vgt-checkbox-col {
+  background: #10163a;
+}
+
+.nca-theme th.line-numbers {
+  border-bottom: 1px solid #10163a;
+}
+
+.nca-theme th.vgt-checkbox-col {
+  border-bottom: 1px solid #10163a;
+}
+
+.nca-theme .ul-widget__item {
+  border-bottom: 0.07rem dashed #262c49;
+}
+
+.nca-theme .page-item.disabled .page-link {
+  background-color: #10163a;
+  border-color: #10163a;
+}
+
+.nca-theme ul.gull-pagination li .page-link {
+  border-color: #10163a !important;
+}
+
+.nca-theme ul.gull-pagination li .page-link:hover {
+  background: #10163a;
+}
+
+.nca-theme .layout-sidebar-vertical .sidebar-panel {
+  box-shadow: 0 1px 15px #262c49, 0 1px 6px #262c49;
+  background: #10163a;
+}
+
+.nca-theme .layout-sidebar-vertical .main-content-wrap .main-header {
+  background: #10163a !important;
+}
+
+.nca-theme .layout-horizontal-bar .header-topnav {
+  background: #10163a;
+  box-shadow: 0 1px 15px transparent, 0 1px 6px transparent;
+}
+
+.nca-theme .layout-horizontal-bar .header-topnav .topnav a {
+  color: #c2c6dc !important;
+}
+
+.nca-theme .layout-horizontal-bar .header-topnav .topnav ul ul {
+  background: #10163a;
+  color: #c2c6dc;
+}
+
+.nca-theme .layout-horizontal-bar .header-topnav .topnav ul li ul li:hover {
+  background: #262c49;
+}
+
+.nca-theme .main-header .show .header-icon {
+  background: #262c49;
+}
+
+.nca-theme .main-header .notification-dropdown {
+  color: #c2c6dc;
+}
+
+.nca-theme .main-header .notification-dropdown .dropdown-item {
+  border-bottom: 1px solid #10163a;
+  color: #c2c6dc;
+}
+
+.nca-theme .main-header .notification-dropdown .notification-icon {
+  background: #10163a !important;
+}
+
+.nca-theme .dropdown-item:focus,
+.nca-theme .dropdown-item:hover {
+  color: #c2c6dc;
+  text-decoration: none;
+  background-color: #10163a;
+}
+
+/* NCA Theme End */
+
 
 .nav-item-module{
   padding: 26px 0px 42px 0px!important;

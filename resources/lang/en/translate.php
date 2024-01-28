@@ -574,4 +574,5 @@ return [
     'Feedback' => 'Feedback',
     'Recruitment' => 'Recruitment',
     'Performance' => 'Performance',
+    'Open_Position' => 'Open Position',
 ];

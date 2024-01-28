@@ -36,7 +36,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#employees" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -91,7 +91,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#employees" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -165,7 +165,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#leave" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -286,7 +286,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#training" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -370,7 +370,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#attendance" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -452,7 +452,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#colleagues" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -504,7 +504,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#attendance" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -563,7 +563,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#report" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -658,7 +658,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#settings" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -744,7 +744,7 @@
                                             <div>
                                                 <div id="headingTwo">
                                                     <h2 class="mb-0">
-                                                        <button style="border:none;background-color:white"
+                                                        <button style="border:none;background-color:inherit"
                                                             class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                             data-target="#hrm" aria-expanded="false" aria-controls="collapseTwo">
                                                             <a class="nav-item-hold row" href="#">
@@ -799,7 +799,7 @@
                                                                             <div id="headingOne">
                                                                                 <h5 class="mb-0">
                                                                                     <button class="btn"
-                                                                                        style="padding:0;border:none;background-color:white;color:#8b5cf6"
+                                                                                        style="padding:0;border:none;background-color:inherit;color:#8b5cf6"
                                                                                         data-toggle="collapse" data-target="#collapseOne"
                                                                                         aria-expanded="false" aria-controls="collapseOne">
                                                                                         <a>
@@ -857,7 +857,7 @@
                                                                             <div id="headingOne">
                                                                                 <h5 class="mb-0">
                                                                                     <button class="btn"
-                                                                                        style="padding:0;border:none;background-color:white;color:#8b5cf6"
+                                                                                        style="padding:0;border:none;background-color:inherit;color:#8b5cf6"
                                                                                         data-toggle="collapse" data-target="#travelOne"
                                                                                         aria-expanded="false" aria-controls="collapseOne">
                                                                                         <a>
@@ -922,7 +922,7 @@
                                             <div>
                                                 <div id="headingTwo">
                                                     <h2 class="mb-0">
-                                                        <button style="border:none;background-color:white"
+                                                        <button style="border:none;background-color:inherit"
                                                             class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                             data-target="#company" aria-expanded="false" aria-controls="collapseTwo">
                                                             <a class="nav-item-hold row" href="#">
@@ -1043,7 +1043,7 @@
                                             <div>
                                                 <div id="headingTwo">
                                                     <h2 class="mb-0">
-                                                        <button style="border:none;background-color:white"
+                                                        <button style="border:none;background-color:inherit"
                                                             class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                             data-target="#accounting" aria-expanded="false" aria-controls="collapseTwo">
                                                             <a class="nav-item-hold row" href="#">
@@ -1100,7 +1100,7 @@
                                                                         <div id="headingOne">
                                                                             <h5 class="mb-0">
                                                                                 <button class="btn"
-                                                                                    style="padding:0;border:none;background-color:white;color:#8b5cf6"
+                                                                                    style="padding:0;border:none;background-color:inherit;color:#8b5cf6"
                                                                                     data-toggle="collapse" data-target="#accountingOne"
                                                                                     aria-expanded="false" aria-controls="collapseOne">
                                                                                     <a style="display: flex;align-items:center">
@@ -1162,7 +1162,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#help" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -1216,7 +1216,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#feedback" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
@@ -1261,7 +1261,7 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#help" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">

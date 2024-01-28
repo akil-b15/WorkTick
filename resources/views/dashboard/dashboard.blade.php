@@ -55,7 +55,7 @@
                     <div class="card-body text-center">
                         <i class="i-Check"></i>
                         <div class="content">
-                            <p class="text-muted mt-2 mb-0">{{ __('translate.Tasks') }}</p>
+                            <p class="text-muted mt-2 mb-0">{{ __('translate.Open_Position') }}</p>
                             <p class="text-primary text-24 line-height-1 mb-2">{{ $count_task }}</p>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
         </div>
         
         <div class="col-lg-4 col-md-6 col-sm-6">
-            <a href="$">
+            <a href="#">
                 <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                     <div class="card-body text-center">
                         <i class="i-Check"></i>

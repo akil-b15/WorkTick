@@ -63,45 +63,45 @@
             
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     
-                        <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
-                            <div class="form-check text-right">
-                                <input class="form-check-input" type="checkbox" value="" @click="selected_row( {{ $employee->id}})" id="flexCheckChecked">                                
-                            </div>
-                            
-                            @if($employee->avatar !== 'no_avatar.png')
-                            <img class="card-img-top" src="{{asset('assets/images/employee/avatar/'. $employee->avatar)}}" alt="Card image cap">
-                            @else
-                            <img class="card-img-top" src="{{asset('assets/images/employee/avatar/noimage.jpg')}}" alt="Card image cap">
-                            @endif
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="form-check text-right">
+                            <input class="form-check-input" type="checkbox" value="" @click="selected_row( {{ $employee->id}})" id="flexCheckChecked">                                
+                        </div>
+                        
+                        @if($employee->avatar !== 'no_avatar.png')
+                        <img class="card-img-top" src="{{asset('assets/images/employee/avatar/'. $employee->avatar)}}" alt="Card image cap">
+                        @else
+                        <img class="card-img-top" src="{{asset('assets/images/employee/avatar/noimage.jpg')}}" alt="Card image cap">
+                        @endif
 
-                            <div class="card-body">
-                                <div class="">
-                                    <p class="text-primary text-24 mt-2 mb-0">{{$employee->firstname}} {{$employee->lastname}}</p>
-                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Job Title: </b>{{$employee->designation->designation}}</p>
-                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Department: </b> {{$employee->department->department}}</p>
-                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Joining Date: </b> {{$employee->joining_date}}</p>
-                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Phone: </b> {{$employee->phone}}</p>
-                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Email: </b> {{$employee->email}}</p>
-                                    <p class="text-muted text-16 line-height-1 mb-2"><b>Country: </b> {{$employee->country}}</p>
-                                </div>
-                            </div>
-                            <div class="text-right mb-2 mr-2">
-                                @can('employee_edit')
-                                    <a href="/employees/{{$employee->id}}/edit" class="ul-link-action text-success"
-                                        data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <i class="i-Edit" style="font-size: 2rem;"></i>
-                                    </a>
-                                @endcan
-                                {{-- <button class="btn btn-danger">Delete</button> --}}
-                                @can('employee_delete')
-                                    <a @click="Remove_Employee( {{ $employee->id}})"
-                                        class="ul-link-action text-danger mr-1" data-toggle="tooltip"
-                                        data-placement="top" title="Delete">
-                                        <i class="i-Close-Window" style="font-size: 2rem;"></i>
-                                    </a>
-                                @endcan
+                        <div class="card-body">
+                            <div class="">
+                                <a href="{{ route('employees.show', $employee->id) }}"><p class="text-primary text-24 mt-2 mb-0">{{$employee->firstname}} {{$employee->lastname}}</p></a>
+                                <p class="text-muted text-16 line-height-1 mb-2"><b>Job Title: </b>{{$employee->designation->designation}}</p>
+                                <p class="text-muted text-16 line-height-1 mb-2"><b>Department: </b> {{$employee->department->department}}</p>
+                                <p class="text-muted text-16 line-height-1 mb-2"><b>Joining Date: </b> {{$employee->joining_date}}</p>
+                                <p class="text-muted text-16 line-height-1 mb-2"><b>Phone: </b> {{$employee->phone}}</p>
+                                <p class="text-muted text-16 line-height-1 mb-2"><b>Email: </b> {{$employee->email}}</p>
+                                <p class="text-muted text-16 line-height-1 mb-2"><b>Country: </b> {{$employee->country}}</p>
                             </div>
                         </div>
+                        <div class="text-right mb-2 mr-2">
+                            @can('employee_edit')
+                                <a href="/employees/{{$employee->id}}/edit" class="ul-link-action text-success"
+                                    data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="i-Edit" style="font-size: 2rem;color:#8b5cf6;"></i>
+                                </a>
+                            @endcan
+                            {{-- <button class="btn btn-danger">Delete</button> --}}
+                            @can('employee_delete')
+                                <a @click="Remove_Employee( {{ $employee->id}})" role="button"
+                                    class="ul-link-action text-danger mr-1" data-toggle="tooltip"
+                                    data-placement="top" title="Delete">
+                                    <i class="i-Close-Window text-danger" style="font-size: 2rem;"></i>
+                                </a>
+                            @endcan
+                        </div>
+                    </div>
                     
                 </div>                                      
                 @endforeach
