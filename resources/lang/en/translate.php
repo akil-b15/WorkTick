@@ -577,4 +577,10 @@ return [
     'Open_Position' => 'Open Position',
     'Announcement_&_Event' => 'Announcement & Event',
     'Urgent_Task' => 'Urgent Task',
+    'InistituteName' => 'Inistitute Name',
+    'Enter_InistituteName' => 'Enter Inistitute Name',
+    'Qualification' => 'Qualification',
+    'Choose_Qualification' => 'Choose Qualification',
+    'Field_of_Study' => 'Field of Study',
+    'Choose_Field_of_Study' => 'Choose Field of Study',
 ];
