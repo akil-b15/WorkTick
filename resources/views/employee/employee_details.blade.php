@@ -62,6 +62,12 @@
                             <a class="nav-item nav-link" id="nav-tasks-tab" data-toggle="tab" href="#nav-tasks"
                                 role="tab" aria-controls="nav-tasks" aria-selected="false">{{ __('translate.Tasks') }}
                             </a>
+                            <a class="nav-item nav-link" id="equity-tasks-tab" data-toggle="tab" href="#equity-tasks"
+                                role="tab" aria-controls="equity-tasks" aria-selected="false">{{ __('translate.Equity_And_Diversity') }}
+                            </a>
+                            <a class="nav-item nav-link" id="nav-education-tab" data-toggle="tab" href="#nav-education"
+                                role="tab" aria-controls="nav-education" aria-selected="false">{{ __('translate.Education') }}
+                            </a>
                         </div>
                     </nav>
                     <div class="tab-content ul-tab__content p-3" id="nav-tabContent">
@@ -1337,6 +1343,325 @@
                             </div>
                         </div>
 
+                        {{-- Equity and Diversity  --}}
+
+                        <div class="tab-pane fade" id="equity-tasks" role="tabpanel" aria-labelledby="equity-tasks-tab">
+
+                            {{-- <div class="row"> --}}
+                                <!--begin::form-->
+                                @if($employee->country == 'South Sudan')
+                                <form @submit.prevent="Update_equity_ss()">
+                                    <div class="form-row ">
+                                        <div class="form-group col-md-6">
+                                            <label for="state"
+                                                class="ul-form__label">{{ __('translate.BirthState') }}</label>
+                                            <input type="text" class="form-control" id="state"
+                                                placeholder="{{ __('translate.Enter_BirthState') }}"
+                                                v-model="employee.state">
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label for="town" class="ul-form__label">{{ __('translate.Town') }}
+                                            </label>
+                                            <input type="text" class="form-control" id="town"
+                                                placeholder="{{ __('translate.Enter_Town') }}"
+                                                v-model="employee.town">
+                                        </div>
+
+                                        {{-- <div class="form-group col-md-4"></div> --}}
+
+                                        <div class="form-group col-md-4">
+                                            <label for="payam_one" class="ul-form__label">{{ __('translate.Payam') }} 1
+                                            </label>
+                                            <input type="text" class="form-control" id="payam_one"
+                                                placeholder="{{ __('translate.Enter_Payam') }} 1"
+                                                v-model="employee.payam_one">
+
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="payam_two" class="ul-form__label">{{ __('translate.Payam') }} 2
+                                            </label>
+                                            <input type="text" class="form-control" id="payam_two"
+                                                placeholder="{{ __('translate.Enter_Payam') }} 2"
+                                                v-model="employee.payam_two">
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="payam_three" class="ul-form__label">{{ __('translate.Payam') }} 3
+                                            </label>
+                                            <input type="text" class="form-control" id="payam_three"
+                                                placeholder="{{ __('translate.Enter_Payam') }} 3"
+                                                v-model="employee.payam_three">
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group col-md-4" id="disability" >
+                                            <label class="ul-form__label">{{ __('translate.Disability') }} <span
+                                                    class="field_required">*</span></label>
+                                            <v-select @input="If_Disability" placeholder="{{ __('translate.Any_Disability') }}"
+                                                v-model="employee.disability" :reduce="(option) => option.value" :options="
+                                                    [
+                                                        {label: 'Yes', value: 'yes'},
+                                                        {label: 'No', value: 'no'},
+                                                    ]">
+                                            </v-select>
+                        
+                                            <span class="error" v-if="errors && errors.disability">
+                                                @{{ errors.disability[0] }}
+                                            </span>
+                                        </div>
+                        
+                                        <template  v-if="employee.disability == 'yes'">
+                                            <div class="form-group col-md-4" id="disability_type">
+                                                <label class="ul-form__label">{{ __('translate.Disability_Type') }} <span
+                                                        class="field_required"></span></label>
+                                                <v-select @input="Disability_Type" placeholder="{{ __('translate.Disability_Type') }}"
+                                                    v-model="employee.disability_type" :reduce="(option) => option.value" :options="
+                                                        [
+                                                            {label: 'Auditory', value: 'auditory'},
+                                                            {label: 'Cognitive', value: 'cognitive'},
+                                                            {label: 'Visual disabilities', value: 'visual disabilities'},
+                                                            {label: 'Hearing impairments', value: 'hearing impairments'},
+                                                            {label: 'Speech', value: 'speech'},
+                                                            {label: 'Mobility impairments', value: 'mobility impairments'},
+                                                            {label: 'Physical', value: 'physical'},
+                                                            {label: 'Mental', value: 'mental'},
+                                                        ]">
+                                                </v-select>
+                        
+                                                <span class="error" v-if="errors && errors.disability_type">
+                                                    @{{ errors.disability_type[0] }}
+                                                </span>
+                                            </div>
+                                        </template>
+
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-primary"
+                                                :disabled="Submit_Processing_social">
+                                                {{ __('translate.Submit') }}
+                                            </button>
+                                            <div v-once class="typo__p" v-if="Submit_Processing_social">
+                                                <div class="spinner spinner-primary mt-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                @else
+                                <form @submit.prevent="Update_equity_non_ss()">
+                                    <div class="form-row ">
+                                        <div class="form-group col-lg-4 col-md-4">
+                                            <label for="birth_country"
+                                                class="ul-form__label">{{ __('translate.Country_Of_Birth') }}</label>
+                                            <input type="text" class="form-control" id="birth_country"
+                                                placeholder="{{ __('translate.Enter_Country_Of_Birth') }}"
+                                                v-model="employee.birth_country">
+                                        </div>
+
+                                        <div class="form-group col-lg-4 col-md-4">
+                                            <label for="arrival_year" class="ul-form__label">{{ __('translate.South_Sudan_Arrival_Year') }}
+                                            </label>
+                                            <input type="text" class="form-control" id="arrival_year"
+                                                placeholder="{{ __('translate.Enter_South_Sudan_Arrival_Year') }}"
+                                                v-model="employee.arrival_year">
+                                        </div>
+
+                                        <div class="form-group col-lg-4 col-md-4">
+                                            <label for="language" class="ul-form__label">{{ __('translate.First_Language') }} 
+                                            </label>
+                                            <input type="text" class="form-control" id="language"
+                                                placeholder="{{ __('translate.First_Language') }} "
+                                                v-model="employee.language">
+
+                                        </div>
+                                        
+                                        
+                                        <div class="form-group col-lg-4 col-md-4" id="disability" >
+                                            <label class="ul-form__label">{{ __('translate.Disability') }} <span
+                                                    class="field_required">*</span></label>
+                                            <v-select @input="If_Disability" placeholder="{{ __('translate.Any_Disability') }}"
+                                                v-model="employee.disability" :reduce="(option) => option.value" :options="
+                                                    [
+                                                        {label: 'Yes', value: 'yes'},
+                                                        {label: 'No', value: 'no'},
+                                                    ]">
+                                            </v-select>
+                        
+                                            <span class="error" v-if="errors && errors.disability">
+                                                @{{ errors.disability[0] }}
+                                            </span>
+                                        </div>
+                        
+                                        <template  v-if="employee.disability == 'yes'">
+                                            <div class="form-group col-md-4" id="disability_type">
+                                                <label class="ul-form__label">{{ __('translate.Disability_Type') }} <span
+                                                        class="field_required"></span></label>
+                                                <v-select @input="Disability_Type" placeholder="{{ __('translate.Disability_Type') }}"
+                                                    v-model="employee.disability_type" :reduce="(option) => option.value" :options="
+                                                        [
+                                                            {label: 'Auditory', value: 'auditory'},
+                                                            {label: 'Cognitive', value: 'cognitive'},
+                                                            {label: 'Visual disabilities', value: 'visual disabilities'},
+                                                            {label: 'Hearing impairments', value: 'hearing impairments'},
+                                                            {label: 'Speech', value: 'speech'},
+                                                            {label: 'Mobility impairments', value: 'mobility impairments'},
+                                                            {label: 'Physical', value: 'physical'},
+                                                            {label: 'Mental', value: 'mental'},
+                                                        ]">
+                                                </v-select>
+                        
+                                                <span class="error" v-if="errors && errors.disability_type">
+                                                    @{{ errors.disability_type[0] }}
+                                                </span>
+                                            </div>
+                                        </template>
+
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-primary"
+                                                :disabled="Submit_Processing_social">
+                                                {{ __('translate.Submit') }}
+                                            </button>
+                                            <div v-once class="typo__p" v-if="Submit_Processing_social">
+                                                <div class="spinner spinner-primary mt-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                @endif
+                                <!-- end::form -->
+                            {{-- </div> --}}
+                        </div>
+
+                        {{-- Education media --}}
+                        <div class="tab-pane fade" id="nav-education" role="tabpanel" aria-labelledby="nav-education-tab">
+
+                            {{-- <div class="row"> --}}
+                                <!--begin::form-->
+                                <form @submit.prevent="Update_Employee_education()">
+                                    <div class="form-row ">
+                                        <div class="form-group col-md-4">
+                                            <label for="institution"
+                                                class="ul-form__label">{{ __('translate.Institution') }}</label>
+                                            <input type="text" class="form-control" id="institution"
+                                                placeholder="{{ __('translate.Enter_Institution_Name') }}"
+                                                v-model="employee.institution">
+                                        </div>
+
+                                        <div class="form-group col-md-4" id="qualification_attained" >
+                                            <label class="ul-form__label">{{ __('translate.Qualification_Attained') }} <span
+                                                    class="field_required">*</span></label>
+                                            <v-select @input="Qualification_Attained" placeholder="{{ __('translate.Select_Qualification_Attained') }}"
+                                                v-model="employee.qualification_attained" :reduce="(option) => option.value" :options="
+                                                    [
+                                                        {label: 'Phd', value: 'Phd'},
+                                                        {label: 'Masters', value: 'Masters'},
+                                                        {label: 'Bachelors', value: 'Bachelors'},
+                                                        {label: 'Diploma', value: 'Diploma'},
+                                                    ]">
+                                            </v-select>
+                        
+                                            <span class="error" v-if="errors && errors.qualification_attained">
+                                                @{{ errors.qualification_attained[0] }}
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group col-md-4" id="field_of_study_one" >
+                                            <label class="ul-form__label">{{ __('translate.Field_Of_Study') }} 1<span
+                                                    class="field_required">*</span></label>
+                                            <v-select @input="Field_One" placeholder="{{ __('translate.Select_Field_Of_Study') }} 1"
+                                                v-model="employee.field_of_study_one" :reduce="(option) => option.value" :options="
+                                                    [
+                                                        {label: 'IT', value: 'IT'},
+                                                        {label: 'Law', value: 'Law'},
+                                                        {label: 'Accounting', value: 'Accounting'},
+                                                    ]">
+                                            </v-select>
+                        
+                                            <span class="error" v-if="errors && errors.field_of_study_one">
+                                                @{{ errors.field_of_study_one[0] }}
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group col-md-4" id="field_of_study_two" >
+                                            <label class="ul-form__label">{{ __('translate.Field_Of_Study') }} 2<span
+                                                    class="field_required">*</span></label>
+                                            <v-select @input="Field_Two" placeholder="{{ __('translate.Select_Field_Of_Study') }} 2"
+                                                v-model="employee.field_of_study_two" :reduce="(option) => option.value" :options="
+                                                    [
+                                                        {label: 'Admin', value: 'Admin'},
+                                                        {label: 'Engineer', value: 'Engineer'},
+                                                    ]">
+                                            </v-select>
+                        
+                                            <span class="error" v-if="errors && errors.field_of_study_two">
+                                                @{{ errors.field_of_study_two[0] }}
+                                            </span>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label class="ul-form__label"
+                                                for="picker3">{{ __('translate.Year_Completed') }}</label>
+
+                                            <vuejs-datepicker id="completion_year" name="completion_year"
+                                                placeholder="{{ __('translate.Enter_Year_When_Completed') }}"
+                                                v-model="employee.completion_year" input-class="form-control"
+                                                format="yyyy-MM-dd"
+                                                @closed="employee.completion_year=formatDate(employee.year_completed)">
+                                            </vuejs-datepicker>
+
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="qualification_obtained_in" class="ul-form__label">{{ __('translate.Country_Where_Obtained') }}
+                                            </label>
+                                            <input type="text" class="form-control" id="qualification_obtained_in"
+                                                placeholder="{{ __('translate.Enter_Country_Where_Obtained') }}"
+                                                v-model="employee.qualification_obtained_in">
+                                        </div>
+
+                                        <div class="form-group col-md-4" id="highest_qualification" >
+                                            <label class="ul-form__label">{{ __('translate.Highest_Qualification_Attained') }} <span
+                                                    class="field_required">*</span></label>
+                                            <v-select @input="Highest_Qualification_Attained" placeholder="{{ __('translate.Select_Highest_Qualification_Attained') }}"
+                                                v-model="employee.highest_qualification" :reduce="(option) => option.value" :options="
+                                                    [
+                                                        {label: 'Phd', value: 'Phd'},
+                                                        {label: 'Masters', value: 'Masters'},
+                                                        {label: 'Bachelors', value: 'Bachelors'},
+                                                        {label: 'Diploma', value: 'Diploma'},
+                                                    ]">
+                                            </v-select>
+                        
+                                            <span class="error" v-if="errors && errors.highest_qualification">
+                                                @{{ errors.highest_qualification[0] }}
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row mt-3">
+                                        <div class="col-lg-6">
+                                            <button type="submit" class="btn btn-primary"
+                                                :disabled="Submit_Processing_social">
+                                                {{ __('translate.Submit') }}
+                                            </button>
+                                            <div v-once class="typo__p" v-if="Submit_Processing_social">
+                                                <div class="spinner spinner-primary mt-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- end::form -->
+                            {{-- </div> --}}
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1436,6 +1761,39 @@
                 this.task.status = "";
             }
         },
+        If_Disability(value) {
+            if (value === null) {
+                this.user.disability = "";
+            }
+        },
+        Disability_Type(value) {
+            if (value === null) {
+                this.user.disability_type = "";
+            }
+        },
+
+        Qualification_Attained(value) {
+            if (value === null) {
+                this.user.qualification_attained = "";
+            }
+        },
+        Field_One(value) {
+            if (value === null) {
+                this.user.field_of_study_one = "";
+            }
+        },
+        Field_Two(value) {
+            if (value === null) {
+                this.user.field_of_study_two = "";
+            }
+        },
+        Highest_Qualification_Attained(value) {
+            if (value === null) {
+                this.user.highest_qualification = "";
+            }
+        },
+
+        
 
         Change_status_task(task) {
             this.task = task;
@@ -1995,7 +2353,95 @@
                     });
                 },
 
-
+                //------------------------------------------------------ Update Equity ------------------------------------------------------\\
+                // ----------------------------------------------------------------------------------------------------------------------------\\
+                //------------------------------------------------------  Equity South Sudan ------------------------------------------------------\\
+                Update_equity_ss() {
+                    var self = this;
+                    self.Submit_Processing_social = true;
+                    axios.post("/update_equity_ss/" + self.employee.id, {
+                        state: self.employee.state,
+                        town: self.employee.town,
+                        payam_one: self.employee.payam_one,
+                        payam_two: self.employee.payam_two,
+                        payam_three: self.employee.payam_three,
+                        // gender: self.user.gender,
+                        employee_id: self.employee.id,
+                        disability: self.employee.disability,
+                        disability_info: self.employee.disability_type,
+                    
+                    }).then(response => {
+                            self.Submit_Processing_social = false;
+                            window.location.href = '/employees/'+ self.employee.id; 
+                            toastr.success('{{ __('translate.Updated_in_successfully') }}');
+                            self.errors_social = {};
+                    })
+                    .catch(error => {
+                        self.Submit_Processing_social = false;
+                        if (error.response.status == 422) {
+                            self.errors_social = error.response.data.errors;
+                        }
+                        toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                    });
+                },
+                // ----------------------------------------------------------------------------------------------------------------------------\\
+                //------------------------------------------------------  Equity Non South Sudan ------------------------------------------------------\\
+                Update_equity_non_ss() {
+                    var self = this;
+                    self.Submit_Processing_social = true;
+                    axios.post("/update_equity_non_ss/" + self.employee.id, {
+                        birth_country: self.employee.birth_country,
+                        arrival_year: self.employee.arrival_year,
+                        language: self.employee.language,
+                        // gender: self.user.gender,
+                        // employee_id: self.employee.id,
+                        disability: self.employee.disability,
+                        disability_info: self.employee.disability_type,
+                    
+                    }).then(response => {
+                            self.Submit_Processing_social = false;
+                            window.location.href = '/employees/'+ self.employee.id; 
+                            toastr.success('{{ __('translate.Updated_in_successfully') }}');
+                            self.errors_social = {};
+                    })
+                    .catch(error => {
+                        self.Submit_Processing_social = false;
+                        if (error.response.status == 422) {
+                            self.errors_social = error.response.data.errors;
+                        }
+                        toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                    });
+                },
+                
+                // ----------------------------------------------------------------------------------------------------------------------------\\
+                //------------------------------------------------------Employee Education ------------------------------------------------------\\
+                Update_Employee_education() {
+                    var self = this;
+                    self.Submit_Processing_social = true;
+                    axios.post("/update_employee_education/" + self.employee.id, {
+                        institution: self.employee.institution,
+                        qualification_attained: self.employee.qualification_attained,
+                        field_of_study_one: self.employee.field_of_study_one,
+                        field_of_study_two: self.employee.field_of_study_two,
+                        employee_id: self.employee.employee_id,
+                        completion_year: self.employee.completion_year,
+                        qualification_obtained_in : self.employee.qualification_obtained_in,
+                        highest_qualification: self.employee.highest_qualification,
+                    
+                    }).then(response => {
+                            self.Submit_Processing_social = false;
+                            window.location.href = '/employees/'+ self.employee.id; 
+                            toastr.success('{{ __('translate.Updated_in_successfully') }}');
+                            self.errors_social = {};
+                    })
+                    .catch(error => {
+                        self.Submit_Processing_social = false;
+                        if (error.response.status == 422) {
+                            self.errors_social = error.response.data.errors;
+                        }
+                        toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                    });
+                },
 
     },
     //-----------------------------Autoload function-------------------

@@ -2,34 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Company;
-use App\Models\Designation;
-use App\Models\Employee;
-use App\Models\EmployeeExperience;
-use App\Models\EmployeeDocument;
-use App\Models\EmployeeAccount;
-use App\Models\Department;
-use App\Models\OfficeShift;
-use App\Models\Leave;
-use App\Models\LeaveType;
-use App\Models\Award;
-use App\Models\Travel;
-use App\Models\Complaint;
-use App\Models\Project;
-use App\Models\Task;
-use App\Models\Training;
-use Carbon\Carbon;
-use Illuminate\Auth\Access\Gate;
-use Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use DB;
 use PDO;
+use Auth;
+use Carbon\Carbon;
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Award;
+use App\Models\Leave;
+use App\Models\Travel;
+use App\Models\Company;
+use App\Models\Project;
+use App\Models\Employee;
+use App\Models\Training;
+use App\Models\Complaint;
+use App\Models\LeaveType;
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\OfficeShift;
+use Illuminate\Http\Request;
+use App\Models\EmpSouthSudan;
+use App\Models\EmployeeAccount;
+use Illuminate\Validation\Rule;
+use App\Models\EmployeeDocument;
+use App\Models\EmployeeEducation;
+use Illuminate\Auth\Access\Gate;
+use App\Models\EmployeeExperience;
+use App\Models\EmpNonSouthSudan;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeesController extends Controller
 {
@@ -249,6 +252,8 @@ class EmployeesController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+            //--------------------------- Equity ---------------------
+
             return view('employee.employee_details',
                 compact('employee','companies','departments','designations','roles','documents',
                             'office_shifts','experiences','accounts_bank','leaves','awards','travels','complaints',
@@ -388,6 +393,74 @@ class EmployeesController extends Controller
 
             return response()->json(['success' => true]);
         }
+        return abort('403', __('You are not authorized'));
+    }
+
+    public function update_equity_ss(Request $request, $id)
+    {
+        $user_auth = auth()->user();
+        if($user_auth->can('employee_edit')){
+       
+            EmpSouthSudan::where('employee_id', '=', $id)->update($request->all());
+
+            // EmpSouthSudan::updateOrCreate([
+            //     'employee_id'   => $request['employee_id'],
+            // ],[
+                
+            //     'employee_id'        => $request['employee_id'],
+            //     'state'              => $request['state'],
+            //     'town'               => $request['town'],
+            //     'payam_one'          => $request['payam_one'],
+            //     'payam_two'          => $request['payam_two'],
+            //     'payam_three'        => $request['payam_three'],
+            //     // 'gender'             => $request['gender'],
+            //     'disability'         => $request['disability'],
+            //     'disability_info'    => $request['disability_info'],
+            // ]);
+
+            return response()->json(['success' => true]);
+        }
+        return abort('403', __('You are not authorized'));
+    }
+
+    public function update_employee_education(Request $request, $id)
+    {
+        $user_auth = auth()->user();
+        if($user_auth->can('employee_edit')){
+       
+            EmployeeEducation::where('employee_id', '=', $id)->update($request->all());
+
+            // EmpSouthSudan::updateOrCreate([
+            //     'employee_id'   => $request['employee_id'],
+            // ],[
+                
+            //     'employee_id'        => $request['employee_id'],
+            //     'state'              => $request['state'],
+            //     'town'               => $request['town'],
+            //     'payam_one'          => $request['payam_one'],
+            //     'payam_two'          => $request['payam_two'],
+            //     'payam_three'        => $request['payam_three'],
+            //     // 'gender'             => $request['gender'],
+            //     'disability'         => $request['disability'],
+            //     'disability_info'    => $request['disability_info'],
+            // ]);
+
+            return response()->json(['success' => true]);
+        }
+        return abort('403', __('You are not authorized'));
+    }
+
+    public function update_equity_non_ss(Request $request, $id)
+    {
+        $user_auth = auth()->user();
+        if($user_auth->can('employee_edit')){
+       
+            EmpNonSouthSudan::where('employee_id', '=', $id)->update($request->all());
+
+            return response()->json(['success' => true]);
+        }
+
+        
         return abort('403', __('You are not authorized'));
     }
 
