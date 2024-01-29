@@ -82,6 +82,9 @@ if (1) {
             Route::get("Get_employees_by_department", "EmployeesController@Get_employees_by_department");
             Route::get("Get_office_shift_by_company", "EmployeesController@Get_office_shift_by_company");
             Route::put("update_social_profile/{id}", "EmployeesController@update_social_profile");
+            Route::post("update_equity_ss/{id}", "EmployeesController@update_equity_ss");
+            Route::post("update_equity_non_ss/{id}", "EmployeesController@update_equity_non_ss");
+            Route::post("update_employee_education/{id}", "EmployeesController@update_employee_education");
             Route::put("update_employee_document/{id}", "EmployeesController@update_employee_document");
             Route::post("employees/delete/by_selection", "EmployeesController@delete_by_selection");
 
@@ -404,6 +407,7 @@ if (1) {
                 Route::get('details', 'EmployeeSessionController@personal_details')->name('self.details');
                 Route::get('equity', 'EmployeeSessionController@equity')->name('self.equity');
                 Route::POST('addequity', 'EmployeeSessionController@add_equity');
+                // Route::POST('addequity/{id}', 'EmployeeSessionController@add_equity');
                 Route::POST('addequitynonss', 'EmployeeSessionController@add_equity_nonss');
             });
 
