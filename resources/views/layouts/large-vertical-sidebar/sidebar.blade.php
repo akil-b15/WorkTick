@@ -36,13 +36,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#employees" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.My_Profile') }}</span>
+                                                style="font-size:14px;">{{ __('translate.My_Profile') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -91,13 +91,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#employees" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Employees') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Employees') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -165,13 +165,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#leave" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Calendar" style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Leave_Request_And_Attendance') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Leave_Request_And_Attendance') }}</span>
                                             <i class=" col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -286,13 +286,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#training" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Windows-Microsoft" style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Training_and_development') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Training_and_development') }}</span>
                                             <i class=" col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -359,7 +359,123 @@
                     </a>
                     <div class="triangle"></div>
                 </li>
+            @endcan            
+
+            @can('event_view')
+                <li class="nav-item {{ request()->is('hr/event') ? 'active' : '' }}">
+                    <a class="nav-item-hold row" href="{{ route('event.index') }}">
+                        <i class="col-2 sidebar-icon i-Check" style="margin: 0 10px 0 16px;"></i>
+                        <span class="col-5 nav-text">{{ __('translate.Announcement_&_Event') }}</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+                {{-- <li class="nav-item sidebar-collapse">
+                    <a href="{{ route('event.index') }}"
+                        class="{{ Route::currentRouteName() == 'event.index' ? 'open' : '' }}">
+                        <i class="nav-icon sidebar-icon i-Clock-4"></i>
+                        <span class="item-name">{{ __('translate.Announcement_&_Event') }}</span>
+                    </a>
+                </li> --}}
             @endcan
+
+            
+
+            @if (auth()->user()->can('award_view') ||
+                auth()->user()->can('award_type'))
+
+                <li class="nav-item {{ request()->is('hr/award') ? 'active' : '' }}">
+                    <div class="accordion" id="award_type_nav_item">
+                        <div>
+                            <div id="award_heading">
+                                <h2 class="mb-0">
+                                    <button style="border:none;background-color:inherit"
+                                        class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                        data-target="#awards" aria-expanded="false" aria-controls="collapseTwo">
+                                        <a class="nav-item-hold row" href="#">
+                                            <i class="col-2 sidebar-icon i-Line-Chart" style="padding-left: 8px"></i>
+                                            <span class="col-5 nav-text"
+                                                style="font-size:14px;">{{ __('translate.Awards') }}</span>
+                                            <i class="col-2 dd-arrow i-Arrow-Down"
+                                                style="
+                                            font-size: 15px;"></i>
+                                        </a>
+                                        <div class="triangle"></div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="awards" class="collapse" aria-labelledby="award_heading"
+                                data-parent="#award_type_nav_item">
+                                <ul style="padding: 0">
+                                    @can('award_view')
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ Route::currentRouteName() == 'award.index' ? 'open' : '' }}"
+                                                href="{{ route('award.index') }}">
+                                                <i class="nav-icon sidebar-icon i-Wallet"></i>
+                                                <span class="item-name">{{ __('translate.Award_List') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+
+                                    @can('award_type')
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ Route::currentRouteName() == 'award_type.index' ? 'open' : '' }}"
+                                                href="{{ route('award_type.index') }}">
+                                                <i class="nav-icon sidebar-icon i-Wallet"></i>
+                                                <span class="item-name">{{ __('translate.Award_Type') }}</span>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="triangle"></div>
+                </li>
+
+
+                {{-- <li class="nav-item dropdown-sidemenu sidebar-collapse">
+                    <div id="awardaccordion">
+                        <div>
+                            <div id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn"
+                                        style="padding:0;border:none;background-color:inherit;color:#8b5cf6"
+                                        data-toggle="collapse" data-target="#collapseOne"
+                                        aria-expanded="false" aria-controls="collapseOne">
+                                        <a>
+                                            <i
+                                                class="nav-icon sidebar-icon i-Gift-Box"></i>
+                                            <span
+                                                class="item-name" style="font-size: 15px">{{ __('translate.Awards') }}</span>
+                                            <i class="dd-arrow i-Arrow-Down"
+                                                style="padding-left: 1.5rem;
+                                    font-size: 15px;"></i>
+                                        </a>
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse"
+                                aria-labelledby="headingOne"
+                                data-parent="#awardaccordion">
+                                <div >
+                                    <ul class="submenu" style="padding-left: 47px">
+                                        @can('award_view')
+                                            <li><a class="{{ Route::currentRouteName() == 'award.index' ? 'open' : '' }}"
+                                                    href="{{ route('award.index') }}">{{ __('translate.Award_List') }}</a>
+                                            </li>
+                                        @endcan
+                                        @can('award_type')
+                                            <li><a class="{{ Route::currentRouteName() == 'award_type.index' ? 'open' : '' }}"
+                                                    href="{{ route('award_type.index') }}">{{ __('translate.Award_Type') }}</a>
+                                            </li>
+                                        @endcan
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                </li> --}}
+            @endif
 
             
 
@@ -370,13 +486,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#attendance" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Clock" style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Attendance') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Attendance') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -452,13 +568,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#colleagues" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Employees') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Employees') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -504,13 +620,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#attendance" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Clock" style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Attendance') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Attendance') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -563,13 +679,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#report" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Line-Chart" style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Reports_and_analytics') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Reports_and_analytics') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -658,13 +774,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#settings" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Data-Settings" style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Settings') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Settings') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -744,7 +860,7 @@
                                             <div>
                                                 <div id="headingTwo">
                                                     <h2 class="mb-0">
-                                                        <button style="border:none;background-color:white"
+                                                        <button style="border:none;background-color:inherit"
                                                             class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                             data-target="#hrm" aria-expanded="false" aria-controls="collapseTwo">
                                                             <a class="nav-item-hold row" href="#">
@@ -771,16 +887,6 @@
                                                                 </li>
                                                             @endcan
 
-                                                            @can('event_view')
-                                                                <li class="nav-item sidebar-collapse">
-                                                                    <a href="{{ route('event.index') }}"
-                                                                        class="{{ Route::currentRouteName() == 'event.index' ? 'open' : '' }}">
-                                                                        <i class="nav-icon sidebar-icon i-Clock-4"></i>
-                                                                        <span class="item-name">{{ __('translate.Events') }}</span>
-                                                                    </a>
-                                                                </li>
-                                                            @endcan
-
                                                             @can('holiday_view')
                                                                 <li class="nav-item sidebar-collapse">
                                                                     <a class="{{ Route::currentRouteName() == 'holiday.index' ? 'open' : '' }}"
@@ -790,54 +896,6 @@
                                                                     </a>
                                                                 </li>
                                                             @endcan
-
-                                                            @if (auth()->user()->can('award_view') ||
-                                                                    auth()->user()->can('award_type'))
-                                                                <li class="nav-item dropdown-sidemenu sidebar-collapse">
-                                                                    <div id="awardaccordion">
-                                                                        <div>
-                                                                            <div id="headingOne">
-                                                                                <h5 class="mb-0">
-                                                                                    <button class="btn"
-                                                                                        style="padding:0;border:none;background-color:white;color:#8b5cf6"
-                                                                                        data-toggle="collapse" data-target="#collapseOne"
-                                                                                        aria-expanded="false" aria-controls="collapseOne">
-                                                                                        <a>
-                                                                                            <i
-                                                                                                class="nav-icon sidebar-icon i-Gift-Box"></i>
-                                                                                            <span
-                                                                                                class="item-name" style="font-size: 15px">{{ __('translate.Awards') }}</span>
-                                                                                            <i class="dd-arrow i-Arrow-Down"
-                                                                                                style="padding-left: 1.5rem;
-                                                                                    font-size: 15px;"></i>
-                                                                                        </a>
-                                                                                    </button>
-                                                                                </h5>
-                                                                            </div>
-
-                                                                            <div id="collapseOne" class="collapse"
-                                                                                aria-labelledby="headingOne"
-                                                                                data-parent="#awardaccordion">
-                                                                                <div >
-                                                                                    <ul class="submenu" style="padding-left: 47px">
-                                                                                        @can('award_view')
-                                                                                            <li><a class="{{ Route::currentRouteName() == 'award.index' ? 'open' : '' }}"
-                                                                                                    href="{{ route('award.index') }}">{{ __('translate.Award_List') }}</a>
-                                                                                            </li>
-                                                                                        @endcan
-                                                                                        @can('award_type')
-                                                                                            <li><a class="{{ Route::currentRouteName() == 'award_type.index' ? 'open' : '' }}"
-                                                                                                    href="{{ route('award_type.index') }}">{{ __('translate.Award_Type') }}</a>
-                                                                                            </li>
-                                                                                        @endcan
-                                                                                    </ul>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-
-                                                                </li>
-                                                            @endif
 
                                                             @can('complaint_view')
                                                                 <li class="nav-item sidebar-collapse">
@@ -857,7 +915,7 @@
                                                                             <div id="headingOne">
                                                                                 <h5 class="mb-0">
                                                                                     <button class="btn"
-                                                                                        style="padding:0;border:none;background-color:white;color:#8b5cf6"
+                                                                                        style="padding:0;border:none;background-color:inherit;color:#8b5cf6"
                                                                                         data-toggle="collapse" data-target="#travelOne"
                                                                                         aria-expanded="false" aria-controls="collapseOne">
                                                                                         <a>
@@ -922,13 +980,13 @@
                                             <div>
                                                 <div id="headingTwo">
                                                     <h2 class="mb-0">
-                                                        <button style="border:none;background-color:white"
+                                                        <button style="border:none;background-color:inherit"
                                                             class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                             data-target="#company" aria-expanded="false" aria-controls="collapseTwo">
                                                             <a class="nav-item-hold row" href="#">
                                                                 <i class="col-2 sidebar-icon i-Management" style="padding-left:8px"></i>
                                                                 <span class="nav-text col-5"
-                                                                    style="font-size:12px;">{{ __('translate.Company_Management') }}</span>
+                                                                    style="font-size:14px;">{{ __('translate.Company_Management') }}</span>
                                                                 <i class="col-2 dd-arrow i-Arrow-Down"
                                                                     style="font-size: 15px;"></i>
                                                             </a>
@@ -1043,13 +1101,13 @@
                                             <div>
                                                 <div id="headingTwo">
                                                     <h2 class="mb-0">
-                                                        <button style="border:none;background-color:white"
+                                                        <button style="border:none;background-color:inherit"
                                                             class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                                             data-target="#accounting" aria-expanded="false" aria-controls="collapseTwo">
                                                             <a class="nav-item-hold row" href="#">
                                                                 <i class="col-2 sidebar-icon i-Financial" style="padding-left: 8px"></i>
                                                                 <span class="col-5 nav-text"
-                                                                    style="font-size:12px;">{{ __('translate.Accounting') }}</span>
+                                                                    style="font-size:14px;">{{ __('translate.Accounting') }}</span>
                                                                 <i class="col-2 dd-arrow i-Arrow-Down"
                                                                     style="
                                                                 font-size: 15px;"></i>
@@ -1100,7 +1158,7 @@
                                                                         <div id="headingOne">
                                                                             <h5 class="mb-0">
                                                                                 <button class="btn"
-                                                                                    style="padding:0;border:none;background-color:white;color:#8b5cf6"
+                                                                                    style="padding:0;border:none;background-color:inherit;color:#8b5cf6"
                                                                                     data-toggle="collapse" data-target="#accountingOne"
                                                                                     aria-expanded="false" aria-controls="collapseOne">
                                                                                     <a style="display: flex;align-items:center">
@@ -1162,13 +1220,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#help" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Help_and_Support') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Help_and_Support') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -1216,13 +1274,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#feedback" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Check"  style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Feedback_And_Suggestions') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Feedback_And_Suggestions') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>
@@ -1261,13 +1319,13 @@
                         <div>
                             <div id="headingTwo">
                                 <h2 class="mb-0">
-                                    <button style="border:none;background-color:white"
+                                    <button style="border:none;background-color:inherit"
                                         class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
                                         data-target="#help" aria-expanded="false" aria-controls="collapseTwo">
                                         <a class="nav-item-hold row" href="#">
                                             <i class="col-2 sidebar-icon i-Engineering"  style="padding-left: 8px"></i>
                                             <span class="col-5 nav-text"
-                                                style="font-size:12px;">{{ __('translate.Help_and_Support') }}</span>
+                                                style="font-size:14px;">{{ __('translate.Help_and_Support') }}</span>
                                             <i class="col-2 dd-arrow i-Arrow-Down"
                                                 style="
                                             font-size: 15px;"></i>

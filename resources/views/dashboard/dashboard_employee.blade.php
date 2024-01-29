@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                {{-- <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
                         <div class="card-body text-center">
                             <i class="i-Gift-Box"></i>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
@@ -88,6 +88,18 @@
                             <div class="content">
                                 <p class="text-muted mt-2 mb-0">{{ __('translate.Announcements') }}</p>
                                 <p class="text-primary text-24 line-height-1 mb-2">{{$count_announcement}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="card card-icon-bg card-icon-bg-primary o-hidden mb-4">
+                        <div class="card-body text-center">
+                            <i class="i-Letter-Open"></i>
+                            <div class="content">
+                                <p class="text-muted mt-2 mb-0">{{ __('translate.Urgent_Task') }}</p>
+                                <p class="text-primary text-24 line-height-1 mb-2">{{$urgent_tasks}}</p>
                             </div>
                         </div>
                     </div>

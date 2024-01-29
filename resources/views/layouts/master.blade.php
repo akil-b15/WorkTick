@@ -40,7 +40,7 @@
 
 
 
-<body class="text-left">
+<body class="text-left nca-theme">
     @php
     $layout = session('layout');
     @endphp

@@ -587,4 +587,7 @@ return [
     'Select_Field_Of_Study' => 'Select Field Of Study',
     'Year_Completed' => 'Year Completed',
     'Enter_Year_When_Completed' => 'Enter Year When Completed',
+    'Open_Position' => 'Open Position',
+    'Announcement_&_Event' => 'Announcement & Event',
+    'Urgent_Task' => 'Urgent Task',
 ];

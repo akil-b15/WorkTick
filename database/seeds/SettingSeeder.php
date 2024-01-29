@@ -21,7 +21,7 @@ class SettingSeeder extends Seeder
                 'CompanyName' => 'WorkTick',
                 'CompanyPhone' => '6315996770',
                 'CompanyAdress' => '3618 Abia Martin Drive',
-                'footer' => 'WorkTick - Ultimate HRM & Project Management',
+                'footer' => 'NCA People',
                 'developed_by' => 'Ui-Lib',
                 'logo' => 'logo-default.png',
                 'default_language' => 'en',
