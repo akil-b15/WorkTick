@@ -402,10 +402,10 @@
                     data: @json($total_employee),
                     label: {
                         show: false,
-                        color: '#639'
+                        color: 'rgba(10, 123, 169, 1)'
                     },
                     type: 'bar',
-                    color: '#7569b3',
+                    color: 'rgba(10, 123, 169, 1)',
                     barGap: 0,
                     smooth: true,
                     itemStyle: {
@@ -431,7 +431,7 @@
     if (echartElemPie) {
         let echartPie = echarts.init(echartElemPie);
         echartPie.setOption({
-            color: ["#7982B9", "#7569b3"],
+            color: ["rgba(10, 123, 169, 1)", "rgba(10, 123, 169, 0.5)"],
             tooltip: {
                 show: true,
                 backgroundColor: 'rgba(0, 0, 0, .8)'
@@ -542,10 +542,10 @@
                     data: @json($expenses_data),
                     label: {
                         show: false,
-                        color: "#8B5CF6"
+                        color: "rgba(10, 123, 169, 1)"
                     },
                     type: 'bar',
-                    color: "#A78BFA",
+                    color: "rgba(10, 123, 169, 1)",
                     barGap: 0,
                     smooth: true,
                     itemStyle: {
@@ -563,10 +563,10 @@
                     data: @json($deposits_data),
                     label: {
                         show: false,
-                        color: "#0168c1"
+                        color: "rgba(10, 123, 169, 0.5)"
                     },
                     type: 'bar',
-                    color: "#DDD6FE",
+                    color: "rgba(10, 123, 169, 0.5)",
                     barGap: 0,
                     smooth: true,
                     itemStyle: {
@@ -595,7 +595,7 @@
     if (echartElemProject) {
         let echartProject = echarts.init(echartElemProject);
         echartProject.setOption({
-            color: ["#6D28D9", "#8B5CF6", "#A78BFA", "#C4B5FD", "#7C3AED"],
+            color: ["rgba(10, 123, 169, 1)", "rgba(10, 123, 169, 0.8)", "rgba(10, 123, 169, 0.6)", "rgba(10, 123, 169, 0.4)", "rgba(10, 123, 169, 0.2)"],
             // color: ["#003f5c", "#58508d", "#bc5090", "#ff6361", "#ffa600"],
 
             tooltip: {
@@ -640,7 +640,7 @@
         let echartTask = echarts.init(echartElemTask);
         echartTask.setOption({
             // color: ["#6D28D9", "#8B5CF6", "#A78BFA", "#C4B5FD", "#7C3AED"],
-            color: ["#003f5c", "#58508d", "#bc5090", "#ff6361", "#ffa600"],
+            color: ["rgba(10, 123, 169, 1)", "rgba(10, 123, 169, 0.8)", "rgba(10, 123, 169, 0.6)", "rgba(10, 123, 169, 0.4)", "rgba(10, 123, 169, 0.2)"],
 
             tooltip: {
                 show: true,

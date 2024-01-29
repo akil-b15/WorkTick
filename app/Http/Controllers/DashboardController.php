@@ -277,11 +277,20 @@ class DashboardController extends Controller
         $latest_tasks = Task::where('deleted_at', '=', null)
         ->with('project:id,title','assignedEmployees') 
         ->join('employee_task', 'tasks.id', '=', 'employee_task.task_id')
+        ->whereHas('assignedEmployees', function($q) use ($user_auth){
+            $q->where('employee_id', $user_auth->id);
+        })
         ->where('employee_id', $user_auth->id)
         ->take(5)
         ->orderBy('id', 'desc')
         ->get();
 
+        $urgent_tasks = Task::where('deleted_at', '=', null)        
+        ->where('priority', 'urgent')
+        ->whereHas('assignedEmployees', function($q) use ($user_auth){
+            $q->where('employee_id', $user_auth->id);
+        })
+        ->count();
 
         $total_leave_taken =  $employee->total_leave - $employee->remaining_leave;
         $total_leave_remaining = $employee->remaining_leave;
@@ -300,6 +309,7 @@ class DashboardController extends Controller
             'punch_out' => $punch_out,
             'latest_projects' => $latest_projects,
             'latest_tasks' => $latest_tasks,
+            'urgent_tasks' => $urgent_tasks,
         ]));
 
     }

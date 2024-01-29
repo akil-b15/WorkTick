@@ -86,6 +86,10 @@
                             </div>
                         </div>
                         <div class="text-right mb-2 mr-2">
+                            <a href="{{ route('employees.show', $employee->id) }}" class="ul-link-eye text-success mr-1"
+                                data-toggle="tooltip" data-placement="top" title="Show">
+                                <i class="i-Eye" style="font-size: 2rem;color:#8b5cf6;"></i>
+                            </a>
                             @can('employee_edit')
                                 <a href="/employees/{{$employee->id}}/edit" class="ul-link-action text-success"
                                     data-toggle="tooltip" data-placement="top" title="Edit">

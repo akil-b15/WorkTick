@@ -575,4 +575,6 @@ return [
     'Recruitment' => 'Recruitment',
     'Performance' => 'Performance',
     'Open_Position' => 'Open Position',
+    'Announcement_&_Event' => 'Announcement & Event',
+    'Urgent_Task' => 'Urgent Task',
 ];

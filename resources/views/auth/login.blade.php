@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel=icon href={{ asset('assets/images/logo.png') }}>
 
-    <title>WorkTick - Ultimate HRM & Project Management</title>
+    <title>NCA People</title>
     <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,400i,600,700,800,900" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/styles/css/themes/lite-purple.min.css')}}">
 </head>
