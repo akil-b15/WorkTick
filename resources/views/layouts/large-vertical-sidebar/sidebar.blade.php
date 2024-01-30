@@ -878,7 +878,7 @@
                                                         <ul style="padding:0">
 
                                                             @can('office_shift_view')
-                                                                <li class="nav-item sidebar-collapse">
+                                                                <li class="childNav nav-item sidebar-collapse">
                                                                     <a href="{{ route('office_shift.index') }}"
                                                                         class="{{ Route::currentRouteName() == 'office_shift.index' ? 'open' : '' }}">
                                                                         <i class="nav-icon sidebar-icon i-Clock"></i>

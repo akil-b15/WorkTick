@@ -20009,6 +20009,9 @@ a.typo_link.text-gray-900:after {
   transition: all 0.4s ease-in-out;
 }
 
+.layout-sidebar-large .sidebar-left-secondary li.nav-item > li.nav-item a {
+  padding: 12px 12px 12px 50px;
+}
 .layout-sidebar-large .sidebar-left-secondary li.nav-item > div > .childNav li.nav-item a {
   padding: 12px 12px 12px 50px;
 }
@@ -33447,10 +33450,10 @@ blockquote {
   color: #c2c6dc !important;
 }
 
-.nca-theme .card{
+/* .nca-theme .card{
   border-radius: 30px;
   box-shadow: 5px 8px 20px 1px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.08);
-}
+} */
 
 .nca-theme h1,
 .nca-theme h2,

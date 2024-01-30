@@ -295,6 +295,9 @@ class DashboardController extends Controller
         $total_leave_taken =  $employee->total_leave - $employee->remaining_leave;
         $total_leave_remaining = $employee->remaining_leave;
 
+        $attendances = Attendance::where('deleted_at', '=', null)
+                ->where('employee_id', '=', $user_auth->id)->orderBy('id', 'desc')->get();
+
         return view('dashboard.dashboard_employee', ([
             'total_leave_taken'=> $total_leave_taken,
             'total_leave_remaining'=> $total_leave_remaining,
@@ -310,6 +313,7 @@ class DashboardController extends Controller
             'latest_projects' => $latest_projects,
             'latest_tasks' => $latest_tasks,
             'urgent_tasks' => $urgent_tasks,
+            'attendances' => $attendances,
         ]));
 
     }

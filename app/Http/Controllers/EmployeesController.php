@@ -125,6 +125,13 @@ class EmployeesController extends Controller
                 'email'     => 'required|string|email|max:255|unique:users',
                 'password'  => 'required|string|min:6|confirmed',
                 'password_confirmation' => 'required',
+                'institution' => 'required',
+                'qualification_attained' => 'required',
+                'field_of_study_one' => 'required',
+                'field_of_study_two' => 'required',
+                'completion_year' => 'date',
+                'qualification_obtained_in' => 'required',
+                'highest_qualification' => 'required',
             ], [
                 'email.unique' => 'This Email already taken.',
             ]);
@@ -161,7 +168,19 @@ class EmployeesController extends Controller
                 $data['id'] = $user->id;
                 $data['user_id'] = Auth::user()->id;
         
-                Employee::create($data);
+                $employee = Employee::create($data);
+
+                EmployeeEducation::create([
+                    'employee_id' => $employee->id,
+                    'institution' => $request->institution,
+                    'qualification_attained' => $request->qualification_attained,
+                    'field_of_study_one' => $request->field_of_study_one,
+                    'field_of_study_two' => $request->field_of_study_two,
+                    'completion_year' => $request->completion_year,
+                    'qualification_obtained_in' => $request->qualification_obtained_in,
+                    'highest_qualification' => $request->highest_qualification,
+                ]);
+
 
             }, 10);
 
@@ -182,6 +201,10 @@ class EmployeesController extends Controller
         if($user_auth->can('employee_details')){
 
             $employee = Employee::where('deleted_at', '=', null)->findOrFail($id);
+            $employee_education = EmployeeEducation::where('employee_id', $employee->id)->where('deleted_at', '=', null)->first();
+            if($employee_education == null){
+                $employee_education = new EmployeeEducation;
+            }
             $experiences = EmployeeExperience::where('employee_id' , $id)->where('deleted_at', '=', null)->orderBy('id', 'desc')->get();
             $documents = EmployeeDocument::where('employee_id' , $id)->where('deleted_at', '=', null)->orderBy('id', 'desc')->get();
             $accounts_bank = EmployeeAccount::where('employee_id' , $id)->where('deleted_at', '=', null)->orderBy('id', 'desc')->get();
@@ -257,7 +280,7 @@ class EmployeesController extends Controller
             return view('employee.employee_details',
                 compact('employee','companies','departments','designations','roles','documents',
                             'office_shifts','experiences','accounts_bank','leaves','awards','travels','complaints',
-                            'tasks','projects','trainings')
+                            'tasks','projects','trainings','employee_education')
                         );
         }
         return abort('403', __('You are not authorized'));
@@ -428,22 +451,17 @@ class EmployeesController extends Controller
         $user_auth = auth()->user();
         if($user_auth->can('employee_edit')){
        
-            EmployeeEducation::where('employee_id', '=', $id)->update($request->all());
-
-            // EmpSouthSudan::updateOrCreate([
-            //     'employee_id'   => $request['employee_id'],
-            // ],[
-                
-            //     'employee_id'        => $request['employee_id'],
-            //     'state'              => $request['state'],
-            //     'town'               => $request['town'],
-            //     'payam_one'          => $request['payam_one'],
-            //     'payam_two'          => $request['payam_two'],
-            //     'payam_three'        => $request['payam_three'],
-            //     // 'gender'             => $request['gender'],
-            //     'disability'         => $request['disability'],
-            //     'disability_info'    => $request['disability_info'],
-            // ]);
+            EmployeeEducation::updateOrCreate([
+                'employee_id'   => $id,
+            ],[
+                'institution' => $request->institution,
+                'qualification_attained' => $request->qualification_attained,
+                'field_of_study_one' => $request->field_of_study_one,
+                'field_of_study_two' => $request->field_of_study_two,
+                'completion_year' => $request->completion_year,
+                'qualification_obtained_in' => $request->qualification_obtained_in,
+                'highest_qualification' => $request->highest_qualification,
+            ]);
 
             return response()->json(['success' => true]);
         }

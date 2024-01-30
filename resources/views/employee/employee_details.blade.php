@@ -28,6 +28,12 @@
                             <a class="nav-item nav-link active show" id="nav-basic-tab" data-toggle="tab"
                                 href="#nav-basic" role="tab" aria-controls="nav-home"
                                 aria-selected="true">{{ __('translate.Basic_Information') }}</a>
+                            <a class="nav-item nav-link" id="equity-tasks-tab" data-toggle="tab" href="#equity-tasks"
+                                role="tab" aria-controls="equity-tasks" aria-selected="false">{{ __('translate.Equity_And_Diversity') }}
+                            </a>
+                            <a class="nav-item nav-link" id="nav-education-tab" data-toggle="tab" href="#nav-education"
+                                role="tab" aria-controls="nav-education" aria-selected="false">{{ __('translate.Education') }}
+                            </a>
 
                             <a class="nav-item nav-link" id="nav-document-tab" data-toggle="tab" href="#nav-document"
                                 role="tab" aria-controls="nav-document"
@@ -61,12 +67,6 @@
                                 aria-selected="false">{{ __('translate.Projects') }} </a>
                             <a class="nav-item nav-link" id="nav-tasks-tab" data-toggle="tab" href="#nav-tasks"
                                 role="tab" aria-controls="nav-tasks" aria-selected="false">{{ __('translate.Tasks') }}
-                            </a>
-                            <a class="nav-item nav-link" id="equity-tasks-tab" data-toggle="tab" href="#equity-tasks"
-                                role="tab" aria-controls="equity-tasks" aria-selected="false">{{ __('translate.Equity_And_Diversity') }}
-                            </a>
-                            <a class="nav-item nav-link" id="nav-education-tab" data-toggle="tab" href="#nav-education"
-                                role="tab" aria-controls="nav-education" aria-selected="false">{{ __('translate.Education') }}
                             </a>
                         </div>
                     </nav>
@@ -1550,14 +1550,14 @@
                                                 class="ul-form__label">{{ __('translate.Institution') }}</label>
                                             <input type="text" class="form-control" id="institution"
                                                 placeholder="{{ __('translate.Enter_Institution_Name') }}"
-                                                v-model="employee.institution">
+                                                v-model="employee_education.institution">
                                         </div>
 
                                         <div class="form-group col-md-4" id="qualification_attained" >
                                             <label class="ul-form__label">{{ __('translate.Qualification_Attained') }} <span
                                                     class="field_required">*</span></label>
                                             <v-select @input="Qualification_Attained" placeholder="{{ __('translate.Select_Qualification_Attained') }}"
-                                                v-model="employee.qualification_attained" :reduce="(option) => option.value" :options="
+                                                v-model="employee_education.qualification_attained" :reduce="(option) => option.value" :options="
                                                     [
                                                         {label: 'Phd', value: 'Phd'},
                                                         {label: 'Masters', value: 'Masters'},
@@ -1575,7 +1575,7 @@
                                             <label class="ul-form__label">{{ __('translate.Field_Of_Study') }} 1<span
                                                     class="field_required">*</span></label>
                                             <v-select @input="Field_One" placeholder="{{ __('translate.Select_Field_Of_Study') }} 1"
-                                                v-model="employee.field_of_study_one" :reduce="(option) => option.value" :options="
+                                                v-model="employee_education.field_of_study_one" :reduce="(option) => option.value" :options="
                                                     [
                                                         {label: 'IT', value: 'IT'},
                                                         {label: 'Law', value: 'Law'},
@@ -1592,7 +1592,7 @@
                                             <label class="ul-form__label">{{ __('translate.Field_Of_Study') }} 2<span
                                                     class="field_required">*</span></label>
                                             <v-select @input="Field_Two" placeholder="{{ __('translate.Select_Field_Of_Study') }} 2"
-                                                v-model="employee.field_of_study_two" :reduce="(option) => option.value" :options="
+                                                v-model="employee_education.field_of_study_two" :reduce="(option) => option.value" :options="
                                                     [
                                                         {label: 'Admin', value: 'Admin'},
                                                         {label: 'Engineer', value: 'Engineer'},
@@ -1610,9 +1610,9 @@
 
                                             <vuejs-datepicker id="completion_year" name="completion_year"
                                                 placeholder="{{ __('translate.Enter_Year_When_Completed') }}"
-                                                v-model="employee.completion_year" input-class="form-control"
-                                                format="yyyy-MM-dd"
-                                                @closed="employee.completion_year=formatDate(employee.year_completed)">
+                                                v-model="employee_education.completion_year" input-class="form-control"
+                                                format="yyyy"
+                                                @closed="employee_education.completion_year=formatDate(employee_education.year_completed)">
                                             </vuejs-datepicker>
 
                                         </div>
@@ -1622,14 +1622,14 @@
                                             </label>
                                             <input type="text" class="form-control" id="qualification_obtained_in"
                                                 placeholder="{{ __('translate.Enter_Country_Where_Obtained') }}"
-                                                v-model="employee.qualification_obtained_in">
+                                                v-model="employee_education.qualification_obtained_in">
                                         </div>
 
                                         <div class="form-group col-md-4" id="highest_qualification" >
                                             <label class="ul-form__label">{{ __('translate.Highest_Qualification_Attained') }} <span
                                                     class="field_required">*</span></label>
                                             <v-select @input="Highest_Qualification_Attained" placeholder="{{ __('translate.Select_Highest_Qualification_Attained') }}"
-                                                v-model="employee.highest_qualification" :reduce="(option) => option.value" :options="
+                                                v-model="employee_education.highest_qualification" :reduce="(option) => option.value" :options="
                                                     [
                                                         {label: 'Phd', value: 'Phd'},
                                                         {label: 'Masters', value: 'Masters'},
@@ -1723,6 +1723,7 @@
         tasks :@json($tasks),
         accounts_bank :@json($accounts_bank),
         employee: @json($employee),
+        employee_education: @json($employee_education),
 
         experience: {
                 title: "",
@@ -2419,14 +2420,14 @@
                     var self = this;
                     self.Submit_Processing_social = true;
                     axios.post("/update_employee_education/" + self.employee.id, {
-                        institution: self.employee.institution,
-                        qualification_attained: self.employee.qualification_attained,
-                        field_of_study_one: self.employee.field_of_study_one,
-                        field_of_study_two: self.employee.field_of_study_two,
-                        employee_id: self.employee.employee_id,
-                        completion_year: self.employee.completion_year,
-                        qualification_obtained_in : self.employee.qualification_obtained_in,
-                        highest_qualification: self.employee.highest_qualification,
+                        institution: self.employee_education.institution,
+                        qualification_attained: self.employee_education.qualification_attained,
+                        field_of_study_one: self.employee_education.field_of_study_one,
+                        field_of_study_two: self.employee_education.field_of_study_two,
+                        employee_id: self.employee_education.employee_education_id,
+                        completion_year: self.employee_education.completion_year,
+                        qualification_obtained_in : self.employee_education.qualification_obtained_in,
+                        highest_qualification: self.employee_education.highest_qualification,
                     
                     }).then(response => {
                             self.Submit_Processing_social = false;

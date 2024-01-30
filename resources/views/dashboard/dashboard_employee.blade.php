@@ -122,96 +122,58 @@
 
     <div class="row">
 
-        <div class="col-lg-6 col-sm-12">
-            <div class="card o-hidden mb-4">
-                <div class="card-header d-flex align-items-center border-0">
-                    <h3 class="float-left card-title m-0">{{ __('translate.Latest_Assigned_Projects') }}</h3>
-                </div>
-
-                <div class="">
+        <div class="col-12 col-sm-12">
+            <div class="card text-left">
+                <div class="card-body">
                     <div class="table-responsive">
-                        <table id="user_table" class="table text-center">
+                        <table id="attendance_list_table" class="display table">
                             <thead>
                                 <tr>
-                                    <th scope="col">{{ __('translate.Project') }}</th>
-                                    <th scope="col">{{ __('translate.Client') }}</th>
-                                    <th scope="col">{{ __('translate.Status') }}</th>
-                                    <th scope="col">{{ __('translate.Progress') }}</th>
+                                    <th>#</th>
+                                    <th>{{ __('translate.Employee') }}</th>
+                                    <th>{{ __('translate.Company') }}</th>
+                                    <th>{{ __('translate.Date') }}</th>
+                                    <th>{{ __('translate.Time_In') }}</th>
+                                    <th>{{ __('translate.Time_Out') }}</th>
+                                    <th>{{ __('translate.Work_Duration') }}</th>
+                                    <th>{{ __('translate.Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($latest_projects as $latest_project)
+                                @foreach($attendances as $attendance)
                                 <tr>
-                                    <td>{{$latest_project->title}}</td>
-                                    <td>{{$latest_project->client->username}}</td>
+                                    <td @click="selected_row( {{ $attendance->id}})"></td>
+                                    <td>{{$attendance->employee->username}}</td>
+                                    <td>{{$attendance->company->name}}</td>
+                                    <td>{{$attendance->date}}</td>
+                                    <td>{{$attendance->clock_in}}</td>
+                                    <td>{{$attendance->clock_out}}</td>
+                                    <td>{{$attendance->total_work}}</td>
+    
                                     <td>
-                                        @if($latest_project->status == 'completed')
-                                        <span class="badge badge-success m-2">{{ __('translate.Completed') }}</span>
-                                        @elseif($latest_project->status == 'not_started')
-                                        <span class="badge badge-warning m-2">{{ __('translate.Not_Started') }}</span>
-                                        @elseif($latest_project->status == 'progress')
-                                        <span class="badge badge-primary m-2">{{ __('translate.In_Progress') }}</span>
-                                        @elseif($latest_project->status == 'cancelled')
-                                        <span class="badge badge-danger m-2">{{ __('translate.Cancelled') }}</span>
-                                        @elseif($latest_project->status == 'hold')
-                                        <span class="badge badge-secondary m-2">{{ __('translate.On_Hold') }}</span>
-                                        @endif
+                                        @can('attendance_edit')
+                                        <a @click="Edit_Attendance( {{ $attendance}})" class="ul-link-action text-success"
+                                            data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="i-Edit"></i>
+                                        </a>
+                                        @endcan
+                                        @can('attendance_delete')
+                                        <a @click="Remove_Attendance( {{ $attendance->id}})"
+                                            class="ul-link-action text-danger mr-1" data-toggle="tooltip"
+                                            data-placement="top" title="Delete">
+                                            <i class="i-Close-Window"></i>
+                                        </a>
+                                        @endcan
                                     </td>
-                                    <td>{{$latest_project->project_progress}} %</td>
                                 </tr>
                                 @endforeach
                             </tbody>
+    
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-6 col-sm-12">
-            <div class="card o-hidden mb-4">
-                <div class="card-header d-flex align-items-center border-0">
-                    <h3 class="float-left card-title m-0">{{ __('translate.Latest_Tasks') }}</h3>
-                </div>
-
-                <div class="">
-                    <div class="table-responsive">
-                        <table id="user_table" class="table  text-center">
-                            <thead>
-                                <tr>
-                                    <th scope="col">{{ __('translate.Task') }}</th>
-                                    <th scope="col">{{ __('translate.Project') }}</th>
-                                    <th scope="col">{{ __('translate.Status') }}</th>
-                                    <th scope="col">{{ __('translate.Progress') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($latest_tasks as $latest_task)
-                                <tr>
-                                    <td>{{$latest_task->title}}</td>
-                                    <td>{{$latest_task->project->title}}</td>
-                                    <td>
-                                        @if($latest_task->status == 'completed')
-                                        <span class="badge badge-success m-2">{{ __('translate.Completed') }}</span>
-                                        @elseif($latest_task->status == 'not_started')
-                                        <span class="badge badge-warning m-2">{{ __('translate.Not_Started') }}</span>
-                                        @elseif($latest_task->status == 'progress')
-                                        <span class="badge badge-primary m-2">{{ __('translate.In_Progress') }}</span>
-                                        @elseif($latest_task->status == 'cancelled')
-                                        <span class="badge badge-danger m-2">{{ __('translate.Cancelled') }}</span>
-                                        @elseif($latest_task->status == 'hold')
-                                        <span class="badge badge-secondary m-2">{{ __('translate.On_Hold') }}</span>
-                                        @endif
-                                    </td>
-                                    <td>{{$latest_task->task_progress}} %</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
 </div>
