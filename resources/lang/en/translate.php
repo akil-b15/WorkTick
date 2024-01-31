@@ -596,4 +596,5 @@ return [
     'Choose_Qualification' => 'Choose Qualification',
     'Field_of_Study' => 'Field of Study',
     'Choose_Field_of_Study' => 'Choose Field of Study',
+    'Training_View' => 'Training View',
 ];

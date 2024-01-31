@@ -226,6 +226,7 @@ if (1) {
             //------------------------------- training ----------------------\\
             //----------------------------------------------------------------\\
             Route::resource('trainings', 'TrainingController');
+            Route::put("trainings/{training_id}/progress", "TrainingController@update_progress");
             Route::post("trainings/delete/by_selection", "TrainingController@delete_by_selection");
 
             Route::resource('trainers', 'TrainersController');

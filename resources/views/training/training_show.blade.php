@@ -3,13 +3,14 @@
 @section('page-css')
 
 <link rel="stylesheet" href="{{asset('assets/styles/vendor/vue-slider-component.css')}}">
+
 @endsection
 
 <div class="breadcrumb">
-    <h1>{{ __('translate.Edit_Training') }}</h1>
+    <h1>{{ __('translate.Training_View') }}</h1>
     <ul>
         <li><a href="/trainings">{{ __('translate.Trainings') }}</a></li>
-        <li>{{ __('translate.Edit_Training') }}</li>
+        <li>{{ __('translate.Training') }}</li>
     </ul>
 </div>
 
@@ -29,100 +30,56 @@
                         <div class="col-md-6">
                             <label class="ul-form__label">{{ __('translate.Trainer') }} <span
                                     class="field_required">*</span></label>
-                            <v-select @input="Selected_Trainer" placeholder="{{ __('translate.Choose_Trainer') }}"
-                                v-model="training.trainer_id" :reduce="label => label.value"
-                                :options="trainers.map(trainers => ({label: trainers.name, value: trainers.id}))">
-                            </v-select>
-                            <span class="error" v-if="errors && errors.trainer_id">
-                                @{{ errors.trainer_id[0] }}
-                            </span>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->trainer->name }}</p>
                         </div>
 
                         <div class="col-md-6">
                             <label class="ul-form__label">{{ __('translate.Training_Skill') }} <span
                                     class="field_required">*</span></label>
-                            <v-select @input="Selected_Trainer_Skill"
-                                placeholder="{{ __('translate.Choose_Training_Skill') }}"
-                                v-model="training.training_skill_id" :reduce="label => label.value"
-                                :options="training_skills.map(training_skills => ({label: training_skills.training_skill, value: training_skills.id}))">
-                            </v-select>
-                            <span class="error" v-if="errors && errors.training_skill_id">
-                                @{{ errors.training_skill_id[0] }}
-                            </span>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->TrainingSkill->training_skill }}</p>
                         </div>
 
                         <div class="col-md-6">
                             <label class="ul-form__label">{{ __('translate.Company') }} <span
                                     class="field_required">*</span></label>
-                            <v-select @input="Selected_Company" placeholder="{{ __('translate.Choose_Company') }}"
-                                v-model="training.company_id" :reduce="label => label.value"
-                                :options="companies.map(companies => ({label: companies.name, value: companies.id}))">
-                            </v-select>
-
-                            <span class="error" v-if="errors && errors.company_id">
-                                @{{ errors.company_id[0] }}
-                            </span>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->company->name }}</p>
                         </div>
 
                         <div class="col-md-6">
                             <label class="ul-form__label">{{ __('translate.Employees') }} <span
-                                    class="field_required">*</span></label>
-                            <v-select multiple @input="Selected_Employee"
-                                placeholder="{{ __('translate.Choose_Employees') }}" v-model="assigned_employees"
-                                :reduce="label => label.value"
-                                :options="employees.map(employees => ({label: employees.username, value: employees.id}))">
-                            </v-select>
-                            <span class="error" v-if="errors && errors.assigned_to">
-                                @{{ errors.assigned_to[0] }}
-                            </span>
+                                    class="field_required">*</span></label>                                    
+                            <div class="d-flex">
+                                @foreach ($training->assignedEmployees as $employee)
+                                <span class="badge badge-primary text-16 line-height-1 m-2">{{ $employee->username }}</span>
+                                @endforeach
+                            </div>
                         </div>
 
 
                         <div class="col-md-6">
                             <label for="start_date" class="ul-form__label">{{ __('translate.Start_Date') }} <span
                                     class="field_required">*</span></label>
-
-                            <vuejs-datepicker id="start_date" name="start_date"
-                                placeholder="{{ __('translate.Enter_Start_date') }}" v-model="training.start_date"
-                                input-class="form-control" format="yyyy-MM-dd"
-                                @closed="training.start_date=formatDate(training.start_date)">
-                            </vuejs-datepicker>
-
-                            <span class="error" v-if="errors && errors.start_date">
-                                @{{ errors.start_date[0] }}
-                            </span>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->start_date }}</p>
                         </div>
 
                         <div class="col-md-6">
                             <label for="end_date" class="ul-form__label">{{ __('translate.Finish_Date') }} <span
                                     class="field_required">*</span></label>
-
-                            <vuejs-datepicker id="end_date" name="end_date"
-                                placeholder="{{ __('translate.Enter_Finish_date') }}" v-model="training.end_date"
-                                input-class="form-control" format="yyyy-MM-dd"
-                                @closed="training.end_date=formatDate(training.end_date)">
-                            </vuejs-datepicker>
-
-                            <span class="error" v-if="errors && errors.end_date">
-                                @{{ errors.end_date[0] }}
-                            </span>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->end_date }}</p>
                         </div>
 
 
                         <div class="col-md-6">
                             <label for="training_cost" class="ul-form__label">{{ __('translate.Training_Cost') }}
                             </label>
-                            <input type="text" v-model="training.training_cost" class="form-control"
-                                name="training_cost" id="title" placeholder="{{ __('translate.Enter_Training_Cost') }}">
-                            <span class="error" v-if="errors && errors.training_cost">
-                                @{{ errors.training_cost[0] }}
-                            </span>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->training_cost }}</p>
                         </div>
 
                         <div class="col-md-6">
                             <label class="ul-form__label">{{ __('translate.Status') }} <span
                                     class="field_required">*</span></label>
-                            <v-select @input="Selected_Status" placeholder="{{ __('translate.Choose_status') }}"
+                            <div><span class="badge badge-{{ $employee->status ? 'primary' : 'danger' }} text-16 line-height-1 m-2">{{ $employee->status ? 'Active' : 'Inactive' }}</span></div>
+                            {{-- <v-select @input="Selected_Status" placeholder="{{ __('translate.Choose_status') }}"
                                 v-model="training.status" :reduce="(option) => option.value" :options="
                                             [
                                                 {label: 'Active', value: 1},
@@ -132,18 +89,17 @@
 
                             <span class="error" v-if="errors && errors.status">
                                 @{{ errors.status[0] }}
-                            </span>
+                            </span> --}}
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="description" class="ul-form__label">{{ __('translate.Description') }}</label>
+                            <p class="text-muted text-16 line-height-1 mb-2">{{ $training->description }}</p>
                         </div>
 
                         <div class="col-md-4">
                             <label class="ul-form__label">{{ __('translate.Progress') }}</label>
                             <vue-slider v-model="training.progress" />
-                        </div>
-
-                        <div class="col-md-12">
-                            <label for="description" class="ul-form__label">{{ __('translate.Description') }}</label>
-                            <textarea type="text" v-model="training.description" class="form-control" name="description"
-                                id="description" placeholder="{{ __('translate.Enter_description') }}"></textarea>
                         </div>
 
                     </div>
@@ -250,20 +206,11 @@
             Update_Training() {
                 var self = this;
                 self.SubmitProcessing = true;
-                axios.put("/trainings/" + self.training.id, {
-                    training_cost: self.training.training_cost,
-                    description: self.training.description,
-                    trainer_id: self.training.trainer_id,
-                    company_id: self.training.company_id,
-                    assigned_to: self.assigned_employees,
-                    training_skill_id: self.training.training_skill_id,
-                    status: self.training.status,
-                    start_date: self.training.start_date,
-                    end_date: self.training.end_date,
+                axios.put("/trainings/" + self.training.id + '/progress', {
                     progress: self.training.progress,
                 }).then(response => {
                         self.SubmitProcessing = false;
-                        window.location.href = '/trainings'; 
+                        window.location.href = '/trainings/' + self.training.id; 
                         toastr.success('{{ __('translate.Updated_in_successfully') }}');
                         self.errors = {};
                     })

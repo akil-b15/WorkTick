@@ -43,6 +43,7 @@
                                 <th>{{ __('translate.Start_Date') }}</th>
                                 <th>{{ __('translate.Finish_Date') }}</th>
                                 <th>{{ __('translate.Training_Cost') }}</th>
+                                <th>{{ __('translate.Progress') }}</th>
                                 <th>{{ __('translate.Status') }}</th>
                                 <th>{{ __('translate.Action') }}</th>
                             </tr>
@@ -58,6 +59,7 @@
                                 <td>{{$training->start_date}}</td>
                                 <td>{{$training->end_date}}</td>
                                 <td>{{$training->training_cost}}</td>
+                                <td>{{$training->progress}}%</td>
                                 <td>
                                     @if($training->status)
                                     <span class="badge badge-success m-2">{{ __('translate.Active') }}</span>
@@ -66,6 +68,13 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @can('training_view')
+                                    <a href="/trainings/{{$training->id}}" class="ul-link-action text-success"
+                                        data-toggle="tooltip" data-placement="top" title="Show">
+                                        <i class="i-Eye"></i>
+                                    </a>
+                                    @endcan
+
                                     @can('training_edit')
                                     <a href="/trainings/{{$training->id}}/edit" class="ul-link-action text-success"
                                         data-toggle="tooltip" data-placement="top" title="Edit">

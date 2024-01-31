@@ -101,7 +101,31 @@ class TrainingController extends Controller
      */
     public function show($id)
     {
-        //
+        $user_auth = auth()->user();
+		if ($user_auth->can('training_view')){
+            $training = Training::with('trainer', 'TrainingSkill', 'company', 'assignedEmployees')->where('deleted_at', '=', null)->findOrFail($id);
+            $assigned_employees = EmployeeTraining::where('training_id', $id)->pluck('employee_id')->toArray();
+            $companies = Company::where('deleted_at', '=', null)->orderBy('id', 'desc')->get(['id','name']);
+            $employees = Employee::where('company_id' , $training->company_id)->where('deleted_at', '=', null)->orderBy('id', 'desc')->get(['id','username']);
+            $trainers = Trainer::where('deleted_at', '=', null)->orderBy('id', 'desc')->get(['id','name']);
+            $training_skills = TrainingSkill::where('deleted_at', '=', null)->orderBy('id', 'desc')->get(['id','training_skill']);
+
+            return view('training.training_show', compact('training','trainers','training_skills','companies','employees','assigned_employees'));
+
+        }
+        return abort('403', __('You are not authorized'));
+    }
+
+    public function update_progress(Request $request, $id){
+        $user_auth = auth()->user();
+		if ($user_auth->can('training_edit')){
+            Training::whereId($id)->update([
+                'progress' => $request->progress
+            ]);
+
+            return response()->json(['success' => true]);
+        }
+        return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -159,6 +183,7 @@ class TrainingController extends Controller
                 'training_cost'      => $request['training_cost'],
                 'status'             => $request['status'],
                 'description'        => $request['description'],
+                'progress'           => $request['progress'],
             ]);
 
             $training = Training::where('deleted_at', '=', null)->findOrFail($id);
