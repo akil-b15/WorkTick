@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class PermissionRoleSeeder extends Seeder
 {
@@ -13,7 +14,9 @@ class PermissionRoleSeeder extends Seeder
     public function run()
     {
         // Insert some stuff
-	DB::table('role_has_permissions')->insert(
+	   Schema::disableForeignKeyConstraints();
+	   DB::table('role_has_permissions')->truncate();
+	   DB::table('role_has_permissions')->insert(
 		array(
 			[
 				'permission_id' => 1,
@@ -457,6 +460,50 @@ class PermissionRoleSeeder extends Seeder
 			],
 			[
 				'permission_id' => 111,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 112,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 113,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 114,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 115,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 116,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 117,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 118,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 119,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 120,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 121,
+				'role_id'       => 1,
+			],
+			[
+				'permission_id' => 122,
 				'role_id'       => 1,
 			],
 			//employee access

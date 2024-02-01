@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            CurrencySeeder::class,
-            SettingSeeder::class,
+            // CurrencySeeder::class,
+            // SettingSeeder::class,
             PermissionsSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
+            // RoleSeeder::class,
+            // UserSeeder::class,
             PermissionRoleSeeder::class,
         ]);
         

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class PermissionsSeeder extends Seeder
 {
@@ -13,6 +14,8 @@ class PermissionsSeeder extends Seeder
     public function run()
     {
        // Insert some stuff
+	   Schema::disableForeignKeyConstraints();
+	   DB::table('permissions')->truncate();
 	DB::table('permissions')->insert(
 		array([
 			'id'    => 1,
@@ -568,7 +571,63 @@ class PermissionsSeeder extends Seeder
 			'id'    => 111,
 			'name'  => 'kanban_task',
 			'guard_name'  => 'web',
-		])
+		],
+		[
+			'id'    => 112,
+			'name'  => 'recruitment_add',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 113,
+			'name'  => 'recruitment_delete',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 114,
+			'name'  => 'recruitment_view',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 115,
+			'name'  => 'job_application_add',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 116,
+			'name'  => 'job_application_delete',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 117,
+			'name'  => 'job_application_view',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 118,
+			'name'  => 'job_application_edit',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 119,
+			'name'  => 'job_on_boarding_view',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 120,
+			'name'  => 'job_on_boarding_add',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 121,
+			'name'  => 'job_on_boarding_edit',
+			'guard_name'  => 'web',
+		],
+		[
+			'id'    => 122,
+			'name'  => 'job_on_boarding_delete',
+			'guard_name'  => 'web',
+		]
+)
 	);
     }
 }
