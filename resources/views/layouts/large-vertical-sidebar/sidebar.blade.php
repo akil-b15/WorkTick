@@ -256,7 +256,7 @@
  
             @can('task_view')
                 <li class="nav-item">
-                    <a class="nav-item-hold row" href="">
+                    <a class="nav-item-hold row" href="{{ route('performance.index') }}">
                         <i class="col-2 sidebar-icon i-Line-Chart" style="margin: 0 10px 0 16px;"></i>
                         <span class="col-5 nav-text">{{ __('translate.Performance') }}</span>
                     </a>
