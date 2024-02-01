@@ -221,6 +221,11 @@ if (1) {
             Route::post("leave/delete/by_selection", "LeaveController@delete_by_selection");
             Route::post("leave_type/delete/by_selection", "LeaveTypeController@delete_by_selection");
 
+            //------------------------------- Performance ----------------------\\
+            //----------------------------------------------------------------\\
+            Route::resource('performance', 'PerformanceController');
+            Route::post("performance/delete/by_selection", "PerformanceController@delete_by_selection");
+
 
 
             //------------------------------- training ----------------------\\
