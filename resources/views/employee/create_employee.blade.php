@@ -320,6 +320,7 @@
         errors:[],
         companies: @json($companies),
         roles: @json($roles), 
+        job_application: @json($job_application ?? []), 
         departments: [],
         designations :[],
         office_shifts :[],
@@ -333,13 +334,13 @@
             qualification_obtained_in: "",
             highest_qualification: "",
 
-            firstname: "",
-            lastname:"",
-            country:"",
-            email:"",
-            gender:"",
-            phone:"",
-            birth_date:"",
+            firstname: "{{ $job_application ? $job_application->first_name : '' }}",
+            lastname:"{{ $job_application ? $job_application->last_name : '' }}",
+            country:"{{ $job_application ? $job_application->country : '' }}",
+            email:"{{ $job_application ? $job_application->email : '' }}",
+            gender:"{{ $job_application ? $job_application->gender : '' }}",
+            phone:"{{ $job_application ? $job_application->phone : '' }}",
+            birth_date:"{{ $job_application ? $job_application->birth_date : '' }}",
             department_id:"",
             designation_id:"",
             office_shift_id:"",
@@ -466,6 +467,7 @@
             var self = this;
             self.SubmitProcessing = true;
             axios.post("/employees", {
+                job_application_id: self.job_application.id,
                 firstname: self.employee.firstname,
                 lastname: self.employee.lastname,
                 country: self.employee.country,

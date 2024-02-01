@@ -29,6 +29,7 @@ use App\Models\EmployeeEducation;
 use Illuminate\Auth\Access\Gate;
 use App\Models\EmployeeExperience;
 use App\Models\EmpNonSouthSudan;
+use App\Models\JobApplication;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -164,6 +165,10 @@ class EmployeesController extends Controller
 
                 $user = User::create($user_data);
                 $user->syncRoles($request['role_users_id']);
+
+                if($request->job_application_id){
+                    JobApplication::where('id', $request->job_application_id)->update(['stage' => 5]);
+                }
 
                 $data['id'] = $user->id;
                 $data['user_id'] = Auth::user()->id;
