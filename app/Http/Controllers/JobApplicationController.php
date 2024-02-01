@@ -68,6 +68,7 @@ class JobApplicationController extends Controller
                 'birth_date'      => 'required',
                 'phone'        => 'required',
                 'country'        => 'required',
+                'skill'        => 'required',
             ]);
 
             $job_application  = JobApplication::create([
@@ -80,6 +81,7 @@ class JobApplicationController extends Controller
                 'email'       => $request['email'],
                 'country'        => $request['country'],
                 'stage'      => $request['stage'],
+                'skill'      => $request['skill'],
             ]);
 
              return response()->json(['success' => true]);
@@ -142,6 +144,7 @@ class JobApplicationController extends Controller
                 'email'       => $request['email'],
                 'country'        => $request['country'],
                 'stage'      => $request['stage'],
+                'skill'      => $request['skill'],
             ]);
 
             return response()->json(['success' => true]);

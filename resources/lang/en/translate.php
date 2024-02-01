@@ -629,4 +629,5 @@ return [
     'Job_name' => 'Job name',
     'On_Boarded' => 'On Boarded',
     'Job_Application_List' => 'Job Application List',
+    'Create_Job_application' => 'Create Job application',
 ];

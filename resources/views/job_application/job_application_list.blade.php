@@ -80,6 +80,7 @@
                                 <th>{{ __('translate.Email') }}</th>
                                 <th>{{ __('translate.Phone') }}</th>
                                 <th>{{ __('translate.Gender') }}</th>
+                                <th>{{ __('translate.Skill') }}</th>
                                 <th>{{ __('translate.Birth_date') }}</th>
                                 {{-- <th>{{ __('translate.Address') }}</th>
                                 <th>{{ __('translate.Image') }}</th>
@@ -98,13 +99,13 @@
                                 <td><a href="/job_applications/{{$job_application->id}}">{{$job_application->first_name}} {{$job_application->last_name}}</a></td>
                                 <td>
                                     @if($job_application->stage == 1)
-                                        <span class="badge badge-warning m-2">{{ __('translate.Applied') }}</span>
+                                        <span class="badge badge-secondary m-2">{{ __('translate.Applied') }}</span>
                                     @elseif($job_application->stage == 2)
-                                        <span class="badge badge-primary m-2">{{ __('translate.Phone_Screen') }}</span>                                    
+                                        <span class="badge badge-warning m-2">{{ __('translate.Phone_Screen') }}</span>                                    
                                     @elseif($job_application->stage == 3)
-                                        <span class="badge badge-info m-2">{{ __('translate.Interview') }}</span>
+                                        <span class="badge badge-primary m-2">{{ __('translate.Interview') }}</span>
                                     @elseif($job_application->stage == 4)
-                                        <span class="badge badge-success m-2">{{ __('translate.Hired') }}</span>
+                                        <span class="badge badge-info m-2">{{ __('translate.Hired') }}</span>
                                     @elseif($job_application->stage == 5)
                                         <span class="badge badge-success m-2">{{ __('translate.On_Boarded') }}</span>
                                     @endif
@@ -112,7 +113,8 @@
                                 <td>{{$job_application->email}}</td>
                                 <td>{{$job_application->phone}}</td>
                                 <td>{{$job_application->gender}}</td>
-                                <td>{{$job_application->dob}}</td>
+                                <td>{{$job_application->skill}}</td>
+                                <td>{{$job_application->birth_date}}</td>
                                 {{-- <td>{{$job_application->end_date}}</td>
                                 <td>
                                     @if($job_application->status == 'active')

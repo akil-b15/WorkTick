@@ -133,6 +133,16 @@
                             </span>
                         </div>
 
+                        <div class="col-md-4">
+                            <label for="skill" class="ul-form__label">{{ __('translate.Skill') }}</label>
+                            <textarea type="text" v-model="job_application.skill" class="form-control" name="skill"
+                                id="skill" placeholder="{{ __('translate.Enter_skill') }}"></textarea>
+
+                            <span class="error" v-if="errors && errors.skill">
+                                @{{ errors.skill[0] }}
+                            </span>
+                        </div>
+
                     </div>
 
 
@@ -221,6 +231,7 @@
                 birth_date: self.job_application.birth_date,
                 phone: self.job_application.phone,
                 country: self.job_application.country,
+                skill: self.job_application.skill,
                 job_id: self.job_application.job_id,
             }).then(response => {
                     self.SubmitProcessing = false;
