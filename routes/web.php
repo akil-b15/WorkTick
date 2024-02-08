@@ -187,6 +187,7 @@ if (1) {
             Route::resource('projects', 'ProjectController');
             Route::resource('recruitments', 'RecruitmentController');
             Route::resource('job_applications', 'JobApplicationController');
+            Route::resource('payslips', 'PaySlipController');
             Route::get('job_on_boarding/{application_id}', 'JobOnBoardingController@on_board');
 
             Route::post("projects/delete/by_selection", "ProjectController@delete_by_selection");

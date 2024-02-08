@@ -244,10 +244,10 @@
                 skill: self.job_application.skill,
                 job_id: self.job_application.job_id,
             }).then(response => {
-                    self.SubmitProcessing = false;
-                    window.location.href = '/job_applications'; 
-                    toastr.success('{{ __('translate.Created_in_successfully') }}');
-                    self.errors = {};
+                self.SubmitProcessing = false;
+                window.location.href = '/job_applications'; 
+                toastr.success('{{ __('translate.Created_in_successfully') }}');
+                self.errors = {};
             })
             .catch(error => {
                 self.SubmitProcessing = false;

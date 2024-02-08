@@ -355,15 +355,53 @@
                 </li>
             @endif
 
-            @if (auth()->user()->role_users_id == 1)
-            <li class="nav-item">
-                <a class="nav-item-hold row" href="#">
-                    <i class="col-2 sidebar-icon i-Library" style="margin: 0 10px 0 16px;"></i>
-                    <span class="col-5 nav-text">Payroll & Benefits</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
-            @endif
+
+            {{-- @can('recruitment_view') --}}
+                {{-- <li class="nav-item {{ request()->is('recruitments') || request()->is('recruitments/*') ? 'active' : '' }}">
+                    <a class="nav-item-hold row" href="{{ route('recruitments.index') }}">
+                        <i class="col-2 sidebar-icon i-Dropbox" style="margin: 0 10px 0 16px;"></i>
+                        <span class="col-5 nav-text">{{ __('translate.Recruitment') }}</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li> --}}
+
+                <li class="nav-item {{ request()->is('payslips') || request()->is('payslips/*') ? 'active' : '' }}">
+                    <div class="accordion" id="accordionExample">
+                        <div>
+                            <div id="headingTwo">
+                                <h2 class="mb-0">
+                                    <button style="border:none;background-color:inherit"
+                                        class=" btn-block text-left collapsed" type="button" data-toggle="collapse"
+                                        data-target="#payslips" aria-expanded="false" aria-controls="collapseTwo">
+                                        <a class="nav-item-hold row" href="#">
+                                            <i class="col-2 sidebar-icon i-Calendar" style="padding-left: 8px"></i>
+                                            <span class="col-5 nav-text"
+                                                style="font-size:14px;">Payroll & Benefits</span>
+                                            <i class=" col-2 dd-arrow i-Arrow-Down"
+                                                style="
+                                            font-size: 15px;"></i>
+                                        </a>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="payslips" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <ul style="padding: 0">
+                                    {{-- @can('recruitment_view') --}}
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ request()->is('payslips') || request()->is('payslips/*') ? 'open' : '' }}"
+                                                href="{{ route('payslips.index') }}">
+                                                <i class="nav-icon sidebar-icon i-Wallet"></i>
+                                                <span class="item-name">Payslip</span>
+                                            </a>
+                                        </li>
+                                    {{-- @endcan --}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {{-- @endcan --}}
 
             @if (auth()->user()->role_users_id == 2)
             <li class="nav-item">
