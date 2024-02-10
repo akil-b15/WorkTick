@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Allowance;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,40 @@ class AllowanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_auth = auth()->user();
+        // if($user_auth->can('employee_edit')){
+
+            // Allowance::where('id', '=', $id)->update($request->all());
+
+            // Allowance::updateOrCreate([
+            //     'employee_id'   => $request->employee_id,
+            // ],[
+            //     'employee_id' => $request->employee_id,
+            //     'allowance_option' => $request->allowance_option,
+            //     'title' => $request->title,
+            //     'type' => $request->type,
+            //     'amount' => $request->amount,
+            // ]);
+
+            $request->validate([
+                'allowance_option'              => 'required',
+                'title'                         => 'required',
+                'type'                          => 'required',
+                'amount'                        => 'required',
+            ]);
+
+            Allowance::create([
+                'employee_id' => $request->employee_id,
+                'allowance_option' => $request->allowance_option,
+                'title' => $request->title,
+                'type' => $request->type,
+                'amount' => $request->amount,
+            ]);
+            
+       
+            return response()->json(['success' => true]);
+        // }
+        // return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -67,9 +101,22 @@ class AllowanceController extends Controller
      * @param  \App\Models\Allowance  $allowance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Allowance $allowance)
+    public function update(Request $request, $id)
     {
-        //
+        $user_auth = auth()->user();
+        // if($user_auth->can('employee_edit')){
+            $request->validate([
+                'allowance_option'              => 'required',
+                'title'                         => 'required',
+                'type'                          => 'required',
+                'amount'                        => 'required',
+            ]);
+
+            Allowance::where('id', '=', $id)->update($request->all());
+
+            return response()->json(['success' => true]);
+        // }
+        // return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -78,8 +125,14 @@ class AllowanceController extends Controller
      * @param  \App\Models\Allowance  $allowance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Allowance $allowance)
+    public function destroy($id)
     {
-        //
+        $user_auth = auth()->user();
+
+        Allowance::where('id', '=', $id)->update([
+            'deleted_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }

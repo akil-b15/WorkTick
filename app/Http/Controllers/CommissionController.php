@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Commission;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,26 @@ class CommissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_auth = auth()->user();
+        // if($user_auth->can('employee_edit')){
+
+            $request->validate([
+                'title'                         => 'required',
+                'type'                          => 'required',
+                'amount'                        => 'required',
+            ]);
+
+            Commission::create([
+                'employee_id' => $request->employee_id,
+                'title' => $request->title,
+                'type' => $request->type,
+                'amount' => $request->amount,
+            ]);
+            
+       
+            return response()->json(['success' => true]);
+        // }
+        // return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -67,9 +87,21 @@ class CommissionController extends Controller
      * @param  \App\Models\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Commission $commission)
+    public function update(Request $request, $id)
     {
-        //
+        $user_auth = auth()->user();
+        // if($user_auth->can('employee_edit')){
+            $request->validate([
+                'title'                         => 'required',
+                'type'                          => 'required',
+                'amount'                        => 'required',
+            ]);
+
+            Commission::where('id', '=', $id)->update($request->all());
+
+            return response()->json(['success' => true]);
+        // }
+        // return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -78,8 +110,14 @@ class CommissionController extends Controller
      * @param  \App\Models\Commission  $commission
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Commission $commission)
+    public function destroy($id)
     {
-        //
+        $user_auth = auth()->user();
+
+        Commission::where('id', '=', $id)->update([
+            'deleted_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }
