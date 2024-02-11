@@ -59,63 +59,116 @@
         <div class="card text-left">
             <div class="card-header text-right bg-transparent">
                 {{-- @can('payslip_add') --}}
-                <form @submit.prevent="Create_Payslip()">
-                    <div class="row justify-content-end">
-                        <div class="col-lg-6 col-md-10 col-12">
-                            <div class="row align-items-end justify-content-center">
-                                <div class="col-md-4 col-12">
-                                    <label class="ul-form__label">Select Month<span
-                                            class="field_required">*</span></label>
-                                    <v-select @input="Selected_Month" placeholder="Select month"
-                                        v-model="salary_generate.month" :reduce="(option) => option.value" :options="
-                                            [
-                                                {value: '01', label: 'JAN'},
-                                                {value: '02', label: 'FEB'},
-                                                {value: '03', label: 'MAR'},
-                                                {value: '04', label: 'APR'},
-                                                {value: '05', label: 'MAY'},
-                                                {value: '06', label: 'JUN'},
-                                                {value: '07', label: 'JUL'},
-                                                {value: '08', label: 'AUG'},
-                                                {value: '09', label: 'SEP'},
-                                                {value: '10', label: 'OCT'},
-                                                {value: '11', label: 'NOV'},
-                                                {value: '12', label: 'DEC'}
-                                            ]">
-                                    </v-select>
-
-                                    <span class="error" v-if="errors && errors.month">
-                                        @{{ errors.month[0] }}
-                                    </span>
-                                </div>
-                                <div class="col-md-4 col-12">
-                                    <label class="ul-form__label">Select Year<span
-                                            class="field_required">*</span></label>
-                                    <v-select @input="Selected_Year" placeholder="Select year"
-                                        v-model="salary_generate.year" :reduce="(option) => option.value" :options="
-                                            [
-                                                @foreach ($year as $label => $value)
-                                                    {{ '{value: '.$value.', label: '.$label.'},' }}
-                                                @endforeach
-                                            ]">
-                                    </v-select>
-
-                                    <span class="error" v-if="errors && errors.year">
-                                        @{{ errors.year[0] }}
-                                    </span>
-                                </div>
-                                <div class="col-md-3 col-12">
-                                    <button type="submit" class="btn btn-primary" :disabled="SubmitProcessing">
-                                        Generate
-                                    </button>
-                                    <div v-once class="typo__p" v-if="SubmitProcessing">
-                                        <div class="spinner spinner-primary mt-3"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <form @submit.prevent="Show_Salary()">
+                                <div class="row align-items-end">
+                                    <div class="col-md-4 col-12">
+                                        <label class="ul-form__label">Select Month<span
+                                                class="field_required">*</span></label>
+                                        <v-select @input="Selected_Month" placeholder="Select month"
+                                            v-model="show_salary.month" :reduce="(option) => option.value" :options="
+                                                [
+                                                    {value: '01', label: 'JAN'},
+                                                    {value: '02', label: 'FEB'},
+                                                    {value: '03', label: 'MAR'},
+                                                    {value: '04', label: 'APR'},
+                                                    {value: '05', label: 'MAY'},
+                                                    {value: '06', label: 'JUN'},
+                                                    {value: '07', label: 'JUL'},
+                                                    {value: '08', label: 'AUG'},
+                                                    {value: '09', label: 'SEP'},
+                                                    {value: '10', label: 'OCT'},
+                                                    {value: '11', label: 'NOV'},
+                                                    {value: '12', label: 'DEC'}
+                                                ]">
+                                        </v-select>
+                                        <span class="error" v-if="errors && errors.month">
+                                            @{{ errors.month[0] }}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <label class="ul-form__label">Select Year<span
+                                                class="field_required">*</span></label>
+                                        <v-select @input="Selected_Year" placeholder="Select year"
+                                            v-model="show_salary.year" :reduce="(option) => option.value" :options="
+                                                [
+                                                    @foreach ($year as $label => $value)
+                                                        {{ '{value: '.$value.', label: '.$label.'},' }}
+                                                    @endforeach
+                                                ]">
+                                        </v-select>
+                                        <span class="error" v-if="errors && errors.year">
+                                            @{{ errors.year[0] }}
+                                        </span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary" :disabled="SubmitProcessing">
+                                            Show
+                                        </button>
+                                        <div v-once class="typo__p" v-if="SubmitProcessing">
+                                            <div class="spinner spinner-primary mt-3"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 col-md-122">
+                            <form @submit.prevent="Create_Payslip()">
+                                <div class="row align-items-end justify-content-center">
+                                    <div class="col-md-4 col-12">
+                                        <label class="ul-form__label">Select Month<span
+                                                class="field_required">*</span></label>
+                                        <v-select @input="Selected_Month" placeholder="Select month"
+                                            v-model="salary_generate.month" :reduce="(option) => option.value" :options="
+                                                [
+                                                    {value: '01', label: 'JAN'},
+                                                    {value: '02', label: 'FEB'},
+                                                    {value: '03', label: 'MAR'},
+                                                    {value: '04', label: 'APR'},
+                                                    {value: '05', label: 'MAY'},
+                                                    {value: '06', label: 'JUN'},
+                                                    {value: '07', label: 'JUL'},
+                                                    {value: '08', label: 'AUG'},
+                                                    {value: '09', label: 'SEP'},
+                                                    {value: '10', label: 'OCT'},
+                                                    {value: '11', label: 'NOV'},
+                                                    {value: '12', label: 'DEC'}
+                                                ]">
+                                        </v-select>
+
+                                        <span class="error" v-if="errors && errors.month">
+                                            @{{ errors.month[0] }}
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <label class="ul-form__label">Select Year<span
+                                                class="field_required">*</span></label>
+                                        <v-select @input="Selected_Year" placeholder="Select year"
+                                            v-model="salary_generate.year" :reduce="(option) => option.value" :options="
+                                                [
+                                                    @foreach ($year as $label => $value)
+                                                        {{ '{value: '.$value.', label: '.$label.'},' }}
+                                                    @endforeach
+                                                ]">
+                                        </v-select>
+
+                                        <span class="error" v-if="errors && errors.year">
+                                            @{{ errors.year[0] }}
+                                        </span>
+                                    </div>
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-primary" :disabled="SubmitProcessing">
+                                            Generate
+                                        </button>
+                                        <div v-once class="typo__p" v-if="SubmitProcessing">
+                                            <div class="spinner spinner-primary mt-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </form>
                 
                 {{-- @endcan --}}
                 {{-- @can('payslip_delete') --}}
@@ -142,14 +195,14 @@
                             <tr>
                                 <td></td>
                                 <td @click="selected_row( {{ $payslip['id']}})"></td>
-                                <td>{{$payslip['name']}}</td>
+                                <td>{{$payslip['firstname']}} {{$payslip['lastname']}}</td>
                                 <td>{{number_format($payslip['salary'], 2)}}</td>
                                 <td>{{number_format($payslip['net_salary'], 2)}}</td>
                                 <td>
                                     @if($payslip['status'] == 1)
-                                        <span class="badge badge-primary m-2">Paid</span>
-                                    @elseif($payslip['status'] == 2)
-                                        <span class="badge badge-danger m-2">unpaid</span>
+                                        <span style="font-size: 0.8rem" class="badge badge-primary p-2 m-2">Paid</span>
+                                    @elseif($payslip['status'] == 0)
+                                        <spa style="font-size: 0.8rem" class="badge badge-danger p-2 m-2">unpaid</spa>
                                     @endif
                                 </td>
                                 <td>
@@ -214,6 +267,10 @@
                 'month': "",
                 'year': "",
             },
+            show_salary: {
+                'month': "{{ now()->format('m') }}",
+                'year': "{{ now()->format('Y') }}",
+            },
         },
        
         methods: {
@@ -241,7 +298,7 @@
                     year: self.salary_generate.year,
                 })
                 .then(() => {
-                    window.location.href = '/payslips'; 
+                    // window.location.href = '/payslips'; 
                     toastr.success('{{ __('translate.Created_in_successfully') }}');
                     self.errors = {};
                 })
@@ -252,6 +309,11 @@
                     }
                     toastr.error('{{ __('translate.There_was_something_wronge') }}');
                 });
+            },
+
+            Show_Salary(id) {
+                var self = this;
+                window.location.href = `/payslips?year=${self.show_salary.year}&month=${self.show_salary.month}`;
             },
 
                  //--------------------------------- delete_selected ---------------------------\\

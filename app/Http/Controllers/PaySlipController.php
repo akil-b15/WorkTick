@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PaySlipController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $month = [
             '01' => 'JAN',
@@ -49,7 +49,12 @@ class PaySlipController extends Controller
         //     '2032' => '2032',
         // ];
 
-        $payslips = $this->search_json(now()->format('Y-m'));
+        $payslip_year = now()->format('Y-m');
+        if($request->year !== null and $request->month !== null){
+            $payslip_year = "{$request->year}-{$request->month}";
+        }
+
+        $payslips = $this->search_json($payslip_year);
 
         return view('payslip.index', compact('payslips', 'month', 'year'));
     }
@@ -65,15 +70,13 @@ class PaySlipController extends Controller
             $paylip_employee = PaySlip::select(
                 [
                     'employees.id',
-                    'employees.employee_id',
-                    'employees.name',
+                    'employees.firstname',
+                    'employees.lastname',
                     'employees.salary',
-                    'payslip_types.name as payroll_type',
                     'pay_slips.basic_salary',
                     'pay_slips.net_payble',
                     'pay_slips.id as pay_slip_id',
                     'pay_slips.status',
-                    'employees.user_id',
                 ]
             )->leftjoin(
                 'employees',
@@ -85,10 +88,11 @@ class PaySlipController extends Controller
 
             foreach ($paylip_employee as $employee) {
                 // if (Auth::user()->type == 'employee') {
-                    if (Auth::user()->id == $employee->user_id) {
+                    // if (Auth::user()->id == $employee->user_id) {
                         $tmp   = [];
                         $tmp['id'] = $employee->id;
-                        $tmp['name'] = $employee->name;
+                        $tmp['firstname'] = $employee->firstname;
+                        $tmp['lastname'] = $employee->lastname;
                         // $tmp[] = $employee->payroll_type;
                         // $tmp[] = $employee->pay_slip_id;
                         $tmp['salary'] = !empty($employee->basic_salary) ? $employee->salary : '-';
@@ -98,7 +102,7 @@ class PaySlipController extends Controller
                         // $tmp['url']  = route('employee.show', Crypt::encrypt($employee->id));
                         $tmp['url']  = "";
                         $data[] = $tmp;
-                    }
+                    // }
                 // } else {
 
                 //     $tmp   = [];
@@ -165,9 +169,9 @@ class PaySlipController extends Controller
                     $payslipEmployee->save();
                 }
             }
-            return redirect()->route('payslip.index')->with('success', __('Payslip successfully created.'));
+            return redirect()->route('payslips.index')->with('success', __('Payslip successfully created.'));
         } else {
-            return redirect()->route('payslip.index')->with('error', __('Payslip Already created.'));
+            return redirect()->route('payslips.index')->with('error', __('Payslip Already created.'));
         }
     }
 }

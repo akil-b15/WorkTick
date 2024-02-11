@@ -145,7 +145,7 @@
                     <div class="triangle"></div>
                 </li> --}}
 
-                <li class="nav-item {{ request()->is('recruitments') || request()->is('recruitments/*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('recruitments') || request()->is('recruitments/*') || request()->is('job_applications/*') || request()->is('job_applications') ? 'active' : '' }}">
                     <div class="accordion" id="accordionExample">
                         <div>
                             <div id="headingTwo">
@@ -255,7 +255,7 @@
             @endcan
  
             @can('task_view')
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('performance') ? 'active' : '' }}">
                     <a class="nav-item-hold row" href="{{ route('performance.index') }}">
                         <i class="col-2 sidebar-icon i-Line-Chart" style="margin: 0 10px 0 16px;"></i>
                         <span class="col-5 nav-text">{{ __('translate.Performance') }}</span>
@@ -268,7 +268,7 @@
                     auth()->user()->can('leave_type') ||
                         auth()->user()->can('attendance_view') ||
                             auth()->user()->can('attendance_view'))
-                <li class="nav-item {{ request()->is('leave') || request()->is('leave_type') ? 'active' : '' }} {{ request()->is('daily_attendance') || request()->is('attendances/*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('attendances') || request()->is('leave') || request()->is('leave_type') ? 'active' : '' }} {{ request()->is('daily_attendance') || request()->is('attendances/*') ? 'active' : '' }}">
                     <div class="accordion" id="accordionExample">
                         <div>
                             <div id="headingTwo">
@@ -529,7 +529,7 @@
             @if (auth()->user()->can('award_view') ||
                 auth()->user()->can('award_type'))
 
-                <li class="nav-item {{ request()->is('hr/award') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('hr/award') || request()->is('hr/award_type') ? 'active' : '' }}">
                     <div class="accordion" id="award_type_nav_item">
                         <div>
                             <div id="award_heading">
@@ -1361,7 +1361,7 @@
 
             @if (auth()->user()->can('employee_view') ||
                     auth()->user()->can('employee_add'))
-                <li class="nav-item {{ request()->is('employees') || request()->is('employees/*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('contact/*') || request()->is('faqs/*') ? 'active' : '' }}">
                     <div class="accordion" id="accordionExample">
                         <div>
                             <div id="headingTwo">
