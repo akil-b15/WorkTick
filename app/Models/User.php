@@ -48,4 +48,8 @@ class User extends Authenticatable
 	{
         return $this->hasone('Spatie\Permission\Models\Role','id',"role_users_id");
 	}
+
+    public function priceFormat($price){
+        return number_format($price, 2);
+    }
 }

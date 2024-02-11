@@ -206,6 +206,26 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a @click="Show_payslip( {{ $payslip['id']}})"
+                                        role="button"
+                                        class="ul-link-action text-primary mr-1" data-toggle="tooltip"
+                                        data-placement="top" title="Show">
+                                        <i class="i-Eye"></i>
+                                    </a>
+                                    @if($payslip['status'] == 0)
+                                        <a @click="Mark_paid( {{ $payslip['payslip_id']}})"
+                                            class="ul-link-action text-info mr-1" data-toggle="tooltip"
+                                            data-placement="top" title="Mark Paid">
+                                            <i class="i-Yes"></i>
+                                        </a>
+                                    @endif
+
+                                    <a @click="Remove_payslip( {{ $payslip['payslip_id']}})"
+                                        class="ul-link-action text-danger mr-1" data-toggle="tooltip"
+                                        data-placement="top" title="Delete">
+                                        <i class="i-Close-Window"></i>
+                                    </a>
+
                                     {{-- @can('job_on_boarding_add')
                                         @if ($payslip->stage == 4)
                                         <a href="/job_on_boarding/{{$payslip->id}}" class="ul-link-action text-info"
@@ -247,6 +267,23 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="salary_Modal" tabindex="-1" role="dialog" aria-labelledby="salary_Modal" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payslip</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="payslip-body">
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection
@@ -255,6 +292,31 @@
 
 <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
 <script src="{{asset('assets/js/datatables.script.js')}}"></script>
+
+<script type="text/javascript" src="{{ asset('assets/js/html2pdf.bundle.min.js') }}"></script>
+<script>
+    function saveAsPDF(name) {
+        var element = document.getElementById('printableArea');
+        var opt = {
+            margin: 0.3,
+            filename: name,
+            image: {
+                type: 'jpeg',
+                quality: 1
+            },
+            html2canvas: {
+                scale: 4,
+                dpi: 72,
+                letterRendering: true
+            },
+            jsPDF: {
+                unit: 'in',
+                format: 'A4'
+            }
+        };
+        html2pdf().set(opt).from(element).save();
+    }
+</script>
 
 <script>
     Vue.component('v-select', VueSelect.VueSelect)
@@ -268,8 +330,8 @@
                 'year': "",
             },
             show_salary: {
-                'month': "{{ now()->format('m') }}",
-                'year': "{{ now()->format('Y') }}",
+                'month': "{{ request()->month ? request()->month : now()->format('m') }}",
+                'year': "{{ request()->year ? request()->year : now()->format('Y') }}",
             },
         },
        
@@ -287,10 +349,30 @@
                 }
             },
 
+            Show_payslip(id){
+                var self = this;
+                let month = `${self.show_salary.year}-${self.show_salary.month}`;
+                axios
+                .get(`/payslips/show/${id}/${month}`)
+                .then((res) => {
+                    console.log(res)
+                    let body = document.querySelector('#payslip-body');
+                    body.innerHTML = res.data;
+                    $('#salary_Modal').modal('show');
+                })
+                .catch(error => {
+                    self.SubmitProcessing = false;
+                    if (error.response.status == 422) {
+                        self.errors = error.response.data.errors;
+                    }
+                    toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                });
+            },
+
             //--------------------------------- Remove payslip ---------------------------\\
             Create_Payslip(id) {
                 var self = this;
-                self.SubmitProcessing = true;
+                // self.SubmitProcessing = true;
 
                 axios
                 .post("/payslips", {
@@ -298,7 +380,7 @@
                     year: self.salary_generate.year,
                 })
                 .then(() => {
-                    // window.location.href = '/payslips'; 
+                    window.location.reload(); 
                     toastr.success('{{ __('translate.Created_in_successfully') }}');
                     self.errors = {};
                 })
@@ -308,6 +390,72 @@
                         self.errors = error.response.data.errors;
                     }
                     toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                });
+            },
+
+            Mark_paid(id) {
+                var self = this;
+                // self.SubmitProcessing = true;
+                swal({
+                    title: '{{ __('translate.Are_you_sure') }}',
+                    text: '{{ __('translate.You_wont_be_able_to_revert_this') }}',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0CC27E',
+                    cancelButtonColor: '#FF586B',
+                    confirmButtonText: 'Yes mark as paid!',
+                    cancelButtonText: '{{ __('translate.No_cancel') }}',
+                    confirmButtonClass: 'btn btn-primary mr-5',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false
+                }).then(function () {
+                    axios
+                    .post(`/payslips/paid/${id}`)
+                    .then(() => {
+                        window.location.reload(); 
+                        toastr.success('{{ __('translate.Paid_successfully') }}');
+                        self.errors = {};
+                    })
+                    .catch(error => {
+                        self.SubmitProcessing = false;
+                        if (error.response.status == 422) {
+                            self.errors = error.response.data.errors;
+                        }
+                        toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                    });
+                });
+            },
+
+            Remove_payslip(id) {
+                var self = this;
+                // self.SubmitProcessing = true;
+                swal({
+                    title: '{{ __('translate.Are_you_sure') }}',
+                    text: '{{ __('translate.You_wont_be_able_to_revert_this') }}',
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0CC27E',
+                    cancelButtonColor: '#FF586B',
+                    confirmButtonText: '{{ __('translate.Yes_delete_it') }}',
+                    cancelButtonText: '{{ __('translate.No_cancel') }}',
+                    confirmButtonClass: 'btn btn-primary mr-5',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: false
+                }).then(function () {
+                    axios
+                    .delete(`/payslips/${id}`)
+                    .then(() => {
+                        window.location.reload(); 
+                        toastr.success('{{ __('translate.Deleted_successfully') }}');
+                        self.errors = {};
+                    })
+                    .catch(error => {
+                        self.SubmitProcessing = false;
+                        if (error.response.status == 422) {
+                            self.errors = error.response.data.errors;
+                        }
+                        toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                    });
                 });
             },
 
@@ -332,19 +480,19 @@
                     cancelButtonClass: 'btn btn-danger',
                     buttonsStyling: false
                 }).then(function () {
-                        axios
-                        .post("/payslips/delete/by_selection", {
-                            selectedIds: self.selectedIds
-                        })
-                            .then(() => {
-                                window.location.href = '/payslips'; 
-                                toastr.success('{{ __('translate.Deleted_in_successfully') }}');
+                    axios
+                    .post("/payslips/delete/by_selection", {
+                        selectedIds: self.selectedIds
+                    })
+                        .then(() => {
+                            window.location.reload(); 
+                            toastr.success('{{ __('translate.Deleted_in_successfully') }}');
 
-                            })
-                            .catch(() => {
-                                toastr.error('{{ __('translate.There_was_something_wronge') }}');
-                            });
-                    });
+                        })
+                        .catch(() => {
+                            toastr.error('{{ __('translate.There_was_something_wronge') }}');
+                        });
+                });
             },
 
 

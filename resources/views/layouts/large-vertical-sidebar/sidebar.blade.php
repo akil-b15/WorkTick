@@ -365,7 +365,7 @@
                     <div class="triangle"></div>
                 </li> --}}
 
-                <li class="nav-item {{ request()->is('payslips') || request()->is('payslips/*') ? 'active' : '' }}">
+                <li class="nav-item {{ request()->is('payslips') || request()->is('payslips/*') || request()->is('set_salary') || request()->is('set_salary/*')  ? 'active' : '' }}">
                     <div class="accordion" id="accordionExample">
                         <div>
                             <div id="headingTwo">

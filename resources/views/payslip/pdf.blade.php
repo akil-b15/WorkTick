@@ -1,25 +1,14 @@
-@php
-    // $logo = asset(Storage::url('uploads/logo/'));
-    $logo = \App\Models\Utility::get_file('uploads/logo/');
-    $company_logo = Utility::get_company_logo();
-    
-@endphp
-<div class="modal-body">
+{{-- <div class="modal-body"> --}}
     <div class="text-md-end mb-2">
         <a href="#" class="btn btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
-            title="{{ __('Download') }}" onclick="saveAsPDF()"><span class="fa fa-download"></span></a>
-
-        @if (\Auth::user()->type == 'company' || \Auth::user()->type == 'hr')
-            <a title="Mail Send" href="{{ route('payslip.send', [$employee->id, $payslip->salary_month]) }}" 
-                class="btn btn-sm btn-warning"><span class="fa fa-paper-plane"></span></a>
-        @endif
+            title="{{ __('Download') }}" onclick="saveAsPDF('{{ $employee->firstname }} {{ $employee->lastname }}')"><span class="i-Download"></span> Downlaod</a>
     </div>
-    <div class="invoice" id="printableArea">
-        <div class="row">
-            <div class="col-form-label">
+    <div class="invoice p-2" id="printableArea">
+        {{-- <div class="row"> --}}
+            {{-- <div class="col-form-label"> --}}
                 <div class="invoice-number">
-                    <img src="{{ $logo . '/' . (isset($company_logo) && !empty($company_logo) ? $company_logo : 'logo-dark.png') }}"
-                        width="170px;">
+                    <img src="{{ asset('assets/images/logo.png') }}"
+                        width="40px;">
                 </div>
 
                 <div class="invoice-print">
@@ -33,20 +22,20 @@
                             <div class="row text-sm">
                                 <div class="col-md-6">
                                     <address>
-                                        <strong>{{ __('Name') }} :</strong> {{ $employee->name }}<br>
-                                        <strong>{{ __('Position') }} :</strong> {{ $employee->designation->name }}<br>
+                                        <strong>{{ __('Name') }} :</strong> {{ $employee->firstname }} {{ $employee->lastname }}<br>
+                                        <strong>{{ __('Position') }} :</strong> {{ $employee->designation->designation }}<br>
                                         <strong>{{ __('Salary Date') }} :</strong>
-                                        {{ \Auth::user()->dateFormat($payslip->created_at) }}<br>
+                                        {{ $payslip->created_at->format('Y-m-d h:i a') }}<br>
                                     </address>
                                 </div>
                                 <div class="col-md-6 text-end">
-                                    <address>
+                                    {{-- <address>
                                         <strong>{{ \Utility::getValByName('company_name') }} </strong><br>
                                         {{ \Utility::getValByName('company_address') }} ,
                                         {{ \Utility::getValByName('company_city') }},<br>
                                         {{ \Utility::getValByName('company_state') }}-{{ \Utility::getValByName('company_zipcode') }}<br>
                                         <strong>{{ __('Salary Slip') }} :</strong> {{ $payslip->salary_month }}<br>
-                                    </address>
+                                    </address> --}}
                                 </div>
                             </div>
                         </div>
@@ -143,7 +132,7 @@
                                                 foreach ($arrayJson as $key => $overtime) {
                                                     foreach ($arrayJson as $key => $overtimes) {
                                                         $overtitle = $overtimes->title;
-                                                        $OverTime = $overtimes->number_of_days * $overtimes->hours * $overtimes->rate;
+                                                        $OverTime = $overtimes->hour * $overtimes->rate;
                                                     }
                                                 }
                                             @endphp
@@ -153,7 +142,7 @@
                                                     <td>{{ $overtime->title }}</td>
                                                     <td>-</td>
                                                     <td class="text-right">
-                                                        {{ \Auth::user()->priceFormat($overtime->number_of_days * $overtime->hours * $overtime->rate) }}
+                                                        {{ \Auth::user()->priceFormat($overtime->hour * $overtime->rate) }}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -254,33 +243,10 @@
                     </div>
                     <p class="mt-2 "> {{ __('Paid By') }}</p>
                 </div>
-            </div>
-        </div>
+            {{-- </div> --}}
+        {{-- </div> --}}
 
     </div>
-</div>
+{{-- </div> --}}
 
-<script type="text/javascript" src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
-<script>
-    function saveAsPDF() {
-        var element = document.getElementById('printableArea');
-        var opt = {
-            margin: 0.3,
-            filename: '{{ $employee->name }}',
-            image: {
-                type: 'jpeg',
-                quality: 1
-            },
-            html2canvas: {
-                scale: 4,
-                dpi: 72,
-                letterRendering: true
-            },
-            jsPDF: {
-                unit: 'in',
-                format: 'A4'
-            }
-        };
-        html2pdf().set(opt).from(element).save();
-    }
-</script>
+

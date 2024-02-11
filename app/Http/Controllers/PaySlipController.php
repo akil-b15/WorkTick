@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PaySlip;
+use App\Helpers\Utility;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +85,7 @@ class PaySlipController extends Controller
                     $join->on('employees.id', '=', 'pay_slips.employee_id');
                     $join->on('pay_slips.salary_month', '=', DB::raw("'" . $formate_month_year . "'"));
                 }
-            )->get();
+            )->where('pay_slips.salary_month', $formate_month_year)->get();
 
             foreach ($paylip_employee as $employee) {
                 // if (Auth::user()->type == 'employee') {
@@ -94,7 +95,7 @@ class PaySlipController extends Controller
                         $tmp['firstname'] = $employee->firstname;
                         $tmp['lastname'] = $employee->lastname;
                         // $tmp[] = $employee->payroll_type;
-                        // $tmp[] = $employee->pay_slip_id;
+                        $tmp['payslip_id'] = $employee->pay_slip_id;
                         $tmp['salary'] = !empty($employee->basic_salary) ? $employee->salary : '-';
                         $tmp['net_salary'] = !empty($employee->net_payble) ? $employee->net_payble : '-';
                         $tmp['status'] = $employee->status;
@@ -142,12 +143,12 @@ class PaySlipController extends Controller
         $payslip_employee   = Employee::where('joining_date', '<=', date($year . '-' . $month . '-t'))->count();
 
         if ($payslip_employee > count($validatePaysilp)) {
-            $employees = Employee::where('joining_date', '<=', date($year . '-' . $month . '-t'))->whereNotIn('employee_id', $validatePaysilp)->get();
-            $employeesSalary = Employee::where('salary', '<=', 0)->first();
+            $employees = Employee::where('joining_date', '<=', date($year . '-' . $month . '-t'))->whereNotIn('id', $validatePaysilp)->where('salary', '>', 0)->get();
+            // $employeesSalary = Employee::where('salary', '<=', 0)->first();
 
-            if (!empty($employeesSalary)) {
-                return response()->json(['success' => false]);
-            }
+            // if (!empty($employeesSalary)) {
+            //     return response()->json(['success' => false]);
+            // }
 
             foreach ($employees as $employee) {
 
@@ -173,5 +174,32 @@ class PaySlipController extends Controller
         } else {
             return redirect()->route('payslips.index')->with('error', __('Payslip Already created.'));
         }
+    }
+
+    public function markPaid(PaySlip $payslip){
+        $payslip->status = 1;
+        $payslip->save();
+
+        return redirect()->route('payslips.index')->with('success', __('Payslip paid.'));
+    }
+
+    public function pdf($id, $month)
+    {
+        $payslip  = PaySlip::where('employee_id', $id)->where('salary_month', $month)->first();
+
+        $employee = Employee::find($payslip->employee_id);
+
+        $payslipDetail = Utility::employeePayslipDetail($id, $month);
+
+        return view('payslip.pdf', compact('payslip', 'employee', 'payslipDetail'));
+    }
+
+    public function destroy($id)
+    {
+        $payslip = PaySlip::find($id);
+
+        $payslip->delete();
+
+        return true;
     }
 }

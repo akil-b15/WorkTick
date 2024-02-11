@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\PoliciesController;
 use App\Http\Controllers\AnnouncementsController;
-
+use App\Http\Controllers\PaySlipController;
 
 /*
 |--------------------------------------------------------------------------
@@ -188,6 +188,8 @@ if (1) {
             Route::resource('recruitments', 'RecruitmentController');
             Route::resource('job_applications', 'JobApplicationController');
             Route::resource('payslips', 'PaySlipController');
+            Route::post('payslips/paid/{payslip}', [PaySlipController::class, 'markPaid'])->name('payslip.mark.paid');
+            Route::get('payslips/show/{id}/{month}', [PaySlipController::class, 'pdf']);
             Route::get('job_on_boarding/{application_id}', 'JobOnBoardingController@on_board');
 
             Route::post("projects/delete/by_selection", "ProjectController@delete_by_selection");
