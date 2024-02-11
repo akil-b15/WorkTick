@@ -384,10 +384,31 @@
                                     </button>
                                 </h2>
                             </div>
+                            <div id="salary" class="collapse" aria-labelledby="headingTwo"
+                                data-parent="#accordionExample">
+                                <ul style="padding: 0">
+                                    {{-- @can('recruitment_view') --}}
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ request()->is('salary') || request()->is('salary/*') ? 'open' : '' }}"
+                                                href="{{ route('salary.index') }}">
+                                                <i class="nav-icon sidebar-icon i-Wallet"></i>
+                                                <span class="item-name">Payslip</span>
+                                            </a>
+                                        </li>
+                                    {{-- @endcan --}}
+                                </ul>
+                            </div>
                             <div id="payslips" class="collapse" aria-labelledby="headingTwo"
                                 data-parent="#accordionExample">
                                 <ul style="padding: 0">
                                     {{-- @can('recruitment_view') --}}
+                                        <li class="nav-item sidebar-collapse">
+                                            <a class="{{ request()->is('salary') || request()->is('salary/*') ? 'open' : '' }}"
+                                                href="{{ route('salary.index') }}">
+                                                <i class="nav-icon sidebar-icon i-Wallet"></i>
+                                                <span class="item-name">Set Salary</span>
+                                            </a>
+                                        </li>
                                         <li class="nav-item sidebar-collapse">
                                             <a class="{{ request()->is('payslips') || request()->is('payslips/*') ? 'open' : '' }}"
                                                 href="{{ route('payslips.index') }}">

@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class OverTime extends Model
 {
     use HasFactory;
+
+    protected $dates = ['deleted_at'];
+
+    protected $fillable = [
+        'employee_id',
+        'title',
+        'hour',
+        'rate',
+    ];
 }

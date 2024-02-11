@@ -393,6 +393,32 @@ if (1) {
 
             });
 
+
+            //-------------------------------Set Salary --------------------------\\
+            //---------------------------------------------------------------------\\
+            Route::get('set_salary', 'SalaryController@index')->name('salary.index');
+            Route::get('set_salary/{id}', 'SalaryController@show')->name('salary.show');
+            Route::post('salary/create/{id}', 'SalaryController@store');
+            Route::put('salary/update/{id}', 'SalaryController@update');
+            // Route::delete("salary/delete/{id}", "SalaryController@destroy");
+
+
+            Route::resource('allowance', 'AllowanceController');
+            Route::resource('commission', 'CommissionController');
+            Route::resource('loan', 'LoanController');
+            Route::resource('deduction', 'SaturationDeductionController');
+            Route::resource('otherpayment', 'OtherPaymentController');
+            Route::resource('overtime', 'OverTimeController');
+
+
+
+            //------------------------------- Create Salary ----------------------\\
+            //---------------------------------------------------------------------\\
+            // Route::resource('salary', 'SalaryController');
+            // Route::post("performance/delete/by_selection", "PerformanceController@delete_by_selection");
+
+
+
             //------------------------------- FAQS --------------------------\\
             //----------------------------------------------------------------\\
 

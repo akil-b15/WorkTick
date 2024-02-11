@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Loan;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,30 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_auth = auth()->user();
+        // if($user_auth->can('employee_edit')){
+
+            $request->validate([
+                'loan_option'                   => 'required',
+                'title'                         => 'required',
+                'type'                          => 'required',
+                'amount'                        => 'required',
+                'reason'                        => 'required',
+            ]);
+
+            Loan::create([
+                'employee_id' => $request->employee_id,
+                'loan_option' => $request->loan_option,
+                'title' => $request->title,
+                'type' => $request->type,
+                'amount' => $request->amount,
+                'reason' => $request->reason,
+            ]);
+            
+       
+            return response()->json(['success' => true]);
+        // }
+        // return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -67,9 +91,24 @@ class LoanController extends Controller
      * @param  \App\Models\Loan  $loan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Loan $loan)
+    public function update(Request $request, $id)
     {
-        //
+        $user_auth = auth()->user();
+        // if($user_auth->can('employee_edit')){
+
+            $request->validate([
+                'loan_option'                   => 'required',
+                'title'                         => 'required',
+                'type'                          => 'required',
+                'amount'                        => 'required',
+                'reason'                        => 'required',
+            ]);
+
+            Loan::where('id', '=', $id)->update($request->all());
+
+            return response()->json(['success' => true]);
+        // }
+        // return abort('403', __('You are not authorized'));
     }
 
     /**
@@ -78,8 +117,14 @@ class LoanController extends Controller
      * @param  \App\Models\Loan  $loan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Loan $loan)
+    public function destroy($id)
     {
-        //
+        $user_auth = auth()->user();
+
+        Loan::where('id', '=', $id)->update([
+            'deleted_at' => Carbon::now(),
+        ]);
+
+        return response()->json(['success' => true]);
     }
 }
